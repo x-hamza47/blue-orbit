@@ -1,0 +1,22 @@
+@extends('home-layout.layout')
+@section('content')
+    @include('temp.hero')
+    @include('temp.stats')
+    @include('temp.services')
+    @include('temp.industries')
+    @include('temp.process')
+    @include('temp.servicedetail')
+    @include('temp.casestudy')
+    @include('temp.comparison')
+    @include('temp.testimonials')
+    @include('temp.faqs')
+    @include('temp.roicalculator')
+    @include('temp.cta')
+    {{-- @include('temp.whyblueorbit') --}}
+    @push('styles')
+        @stack('servicestyles')
+    @endpush
+    @push('scripts')
+        @stack('servicescripts')
+    @endpush
+@endsection

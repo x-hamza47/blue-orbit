@@ -1,0 +1,30 @@
+.swiper-pagination-bullet {
+    background: rgb(145, 144, 144) !important;
+    opacity: 0.2;
+    width: 30px !important;
+    border-radius: 4px !important;
+    transition: all 0.3s;
+}
+
+.swiper-pagination-bullet-active {
+    background: #4373f6 !important;
+    opacity: 1;
+    width: 60px !important;
+}
+
+.swiper-slide {
+    height: auto;
+}
+
+.textSwiper .swiper-slide {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+.textSwiper .swiper-slide-active {
+    opacity: 1 !important;
+    visibility: visible;
+}

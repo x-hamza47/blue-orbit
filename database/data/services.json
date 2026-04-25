@@ -1,0 +1,152 @@
+[
+    {
+        "title": "Digital Marketing",
+        "icon": "megaphone",
+        "desc": "We create performance-driven digital marketing strategies to grow your brand visibility, engagement, and conversions across all platforms.",
+        "color": "#3B82F6",
+        "children": [
+            { "title": "Digital Marketing Strategy Development" },
+            { "title": "Franchise Digital Marketing" },
+            { "title": "Enterprise Digital Marketing" }
+        ]
+    },
+    {
+        "title": "Search Engine Optimization (SEO)",
+        "icon": "search",
+        "desc": "We optimize your website to improve search engine rankings, increase organic traffic, and enhance online visibility.",
+        "color": "#22C55E",
+        "children": [
+            { "title": "Local SEO" },
+            { "title": "Technical SEO" },
+            { "title": "AI SEO Services" },
+            { "title": "Franchise SEO" },
+            { "title": "Enterprise SEO" },
+            { "title": "SEO Audits" }
+        ]
+    },
+    {
+        "title": "CRO Services",
+        "icon": "trending-up",
+        "desc": "We improve your website performance by analyzing user behavior and optimizing conversion rates.",
+        "color": "#A855F7",
+        "children": [
+            { "title": "CRO Audits" },
+            { "title": "User Experience Testing" },
+            { "title": "User Behavior Analytics" }
+        ]
+    },
+    {
+        "title": "Pay Per Click (PPC) Marketing",
+        "icon": "mouse-pointer-click",
+        "desc": "We manage high-performance paid ad campaigns to generate qualified leads and maximize ROI.",
+        "color": "#EF4444",
+        "children": [
+            { "title": "Search Engine Marketing (SEM)" },
+            { "title": "Google Ads Management" },
+            { "title": "YouTube Ads Management" },
+            { "title": "Programmatic Advertising" },
+            { "title": "Lead Generation Services" },
+            { "title": "Franchise PPC" }
+        ]
+    },
+    {
+        "title": "Social Media Marketing",
+        "icon": "share-2",
+        "desc": "We build strong brand presence through strategic content creation and social media engagement.",
+        "color": "#F97316",
+        "children": [
+            { "title": "Social Media Management" },
+            { "title": "Social Media Brand Management" },
+            { "title": "Franchise Social Media" },
+            { "title": "Enterprise Social Media" }
+        ]
+    },
+    {
+        "title": "Social Media Advertising",
+        "icon": "thumbs-up",
+        "desc": "We run targeted social media ad campaigns to boost reach, engagement, and conversions.",
+        "color": "#EC4899",
+        "children": [
+            { "title": "Facebook Advertising" },
+            { "title": "LinkedIn Advertising" },
+            { "title": "Twitter Advertising" },
+            { "title": "Instagram Advertising" }
+        ]
+    },
+    {
+        "title": "Link Building",
+        "icon": "link-2",
+        "desc": "We build high-quality backlinks to improve domain authority and search rankings.",
+        "color": "#10B981",
+        "children": [
+            { "title": "Digital PR Outreach" },
+            { "title": "HARO Link Building" }
+        ]
+    },
+    {
+        "title": "Web Design & Development",
+        "icon": "code-2",
+        "desc": "We develop mobile responsive, swift & results-driven websites, leading to rapid growth.",
+        "color": "#6366F1",
+        "children": [
+            { "title": "Branding Services" },
+            { "title": "Custom Website Design" },
+            { "title": "WordPress Website Design" },
+            { "title": "Website Hosting" },
+            { "title": "ADA Compliance Services" }
+        ]
+    },
+    {
+        "title": "Media Production",
+        "icon": "video",
+        "desc": "We create high-quality visual content including videos, photography, and creative media assets.",
+        "color": "#14B8A6",
+        "children": [
+            { "title": "Video Production" },
+            { "title": "Video Testimonial Services" },
+            { "title": "Product Photography Services" },
+            { "title": "Drone Video and Photography Services" }
+        ]
+    },
+    {
+        "title": "Content Marketing",
+        "icon": "file-text",
+        "desc": "We create impactful content that drives traffic, builds trust, and improves SEO performance.",
+        "color": "#EAB308",
+        "children": [
+            { "title": "SEO Content Writing" },
+            { "title": "Copywriting Services" },
+            { "title": "Translation Services" },
+            { "title": "Email Marketing Services" },
+            { "title": "Outbound Marketing" }
+        ]
+    },
+    {
+        "title": "eCommerce Marketing",
+        "icon": "shopping-cart",
+        "desc": "We help eCommerce brands grow through SEO, PPC, and conversion-focused strategies.",
+        "color": "#F43F5E",
+        "children": [
+            { "title": "eCommerce SEO" },
+            { "title": "eCommerce PPC" },
+            { "title": "eCommerce Optimization" },
+            { "title": "Shopify SEO" },
+            { "title": "Shopify Web Design" },
+            { "title": "eCommerce Web Design" }
+        ]
+    },
+    {
+        "title": "Online Marketplace Marketing",
+        "icon": "store",
+        "desc": "We optimize and manage marketplace presence on platforms like Amazon to maximize sales.",
+        "color": "#0EA5E9",
+        "children": [
+            { "title": "Amazon Marketing Services" },
+            { "title": "Amazon SEO" },
+            { "title": "Amazon Advertising / PPC" },
+            { "title": "Amazon Storefront & Branding" },
+            { "title": "Amazon Seller Consulting" },
+            { "title": "Amazon Posts Management" }
+        ]
+    }
+]
