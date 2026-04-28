@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide h-auto">
+                    <div class="swiper-slide">
                         <div
                             class="bg-white md:p-8 sm:p-7 p-6 rounded-3xl sm:rounded-4xl border border-gray-100 shadow-sm flex h-full flex-col justify-between hover:shadow-xl transition-all duration-500">
                             <div>
@@ -123,7 +123,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide h-auto">
+                    <div class="swiper-slide">
                         <div
                             class="bg-white md:p-8 sm:p-7 p-6 rounded-3xl sm:rounded-4xl border border-gray-100 shadow-sm flex h-full flex-col justify-between hover:shadow-xl transition-all duration-500">
                             <div>
@@ -172,10 +172,10 @@
     </div>
 </section>
 
-@push('scripts')
+{{-- @push('scripts')
     <script>
         const clientSwiper = new Swiper(".clientTestimonialSwiper", {
-            slidesPerView: 1,
+            slidesPerView: 3,
             spaceBetween: 30,
             loop: true,
             autoplay: {
@@ -195,8 +195,8 @@
             },
         });
     </script>
-@endpush
+@endpush --}}
 
-@push('styles')
+{{-- @push('styles')
     @vite('resources/css/testimonialSwiper.css')
-@endpush
+@endpush --}}

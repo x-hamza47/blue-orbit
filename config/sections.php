@@ -1,0 +1,116 @@
+<?php
+
+
+return [
+    'hero' => [
+        'label' => 'Hero Section',
+        'allowed_for' => ['parent', 'sub'],
+        'rules' => [
+            'heading' => 'required|string|max:500',
+            'subheading' => 'nullable|string|max:500',
+            'input_placeholder' => 'nullable|string|max:255',
+            'button_text' => 'required|string|max:100',
+            'button_link' => 'nullable|string|max:255',
+            'review_text' => 'required|string',
+            'reviewer_name' => 'required|string|max:100',
+            'image' => 'nullable|string'
+        ],
+    ],
+    'benefits' => [
+        'label' => 'Benefits Section',
+        'allowed_for' => ['parent', 'sub'],
+    ],
+
+    'casestudy' => [
+        'label' => 'Case Study Section',
+        'allowed_for' => ['parent'],
+    ],
+
+    'challenges' => [
+        'label' => 'Challenges Section',
+        'allowed_for' => ['parent', 'sub'],
+    ],
+
+    'comparison' => [
+        'label' => 'Comparison Section',
+        'allowed_for' => ['parent'],
+    ],
+
+    'contact' => [
+        'label' => 'Contact Section',
+        'allowed_for' => ['parent', 'sub'],
+    ],
+
+    'cta' => [
+        'label' => 'Call To Action',
+        'allowed_for' => ['parent', 'sub'],
+        'rules' => [
+            'heading' => 'required|string|max:500',
+            'subheading' => 'nullable|string|max:500',
+            'button_text' => 'required|string|max:100',
+            'button_link' => 'nullable|string|max:255',
+        ],
+    ],
+
+    'faqs' => [
+        'label' => 'FAQs Section',
+        'allowed_for' => ['parent', 'sub'],
+        'rules' => [
+            'heading' => 'required|string|max:255',
+            'subheading' => 'nullable|string|max:500',
+            'support_title' => 'nullable|string|max:255',
+            'support_text' => 'nullable|string|max:500',
+            'support_email' => 'nullable|email|max:255',
+            'faqs' => 'required|array|min:1',
+            'faqs.*.question' => 'required|string|max:255',
+            'faqs.*.answer' => 'required|string',
+
+        ],
+    ],
+
+    'industries' => [
+        'label' => 'Industries Section',
+        'allowed_for' => ['parent'],
+    ],
+
+    'process' => [
+        'label' => 'Process Section',
+        'allowed_for' => ['parent', 'sub'],
+    ],
+
+    'relatedservices' => [
+        'label' => 'Related Services',
+        'allowed_for' => ['parent'],
+    ],
+
+    'results' => [
+        'label' => 'Results Section',
+        'allowed_for' => ['parent', 'sub'],
+    ],
+
+    'roicalculator' => [
+        'label' => 'ROI Calculator',
+        'allowed_for' => ['parent'],
+    ],
+
+    'stats' => [
+        'label' => 'Statistics Section',
+        'allowed_for' => ['parent', 'sub'],
+    ],
+
+    'testimonials' => [
+        'label' => 'Testimonials',
+        'allowed_for' => ['parent', 'sub'],
+    ],
+
+    'usecases' => [
+        'label' => 'Use Cases',
+        'allowed_for' => ['parent', 'sub'],
+    ],
+
+    'whyblueorbit' => [
+        'label' => 'Why Choose Us',
+        'allowed_for' => ['parent', 'sub'],
+    ],
+
+];

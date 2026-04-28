@@ -31,7 +31,7 @@ class Service extends Model
 
     public function sections()
     {
-        return $this->hasMany(ServiceSection::class);
+        return $this->hasMany(ServiceSection::class)->orderBy('order');
     }
 
     public function children()

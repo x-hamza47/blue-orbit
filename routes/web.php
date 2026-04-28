@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServiceSectionController;
 use App\Http\Controllers\ViewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,7 +46,7 @@ Route::prefix('dashboard')->group(function () {
         Route::post('/', 'store')->name('service.store');
         Route::put('/{id}', 'update')->name('service.update');
         Route::delete('/{id}', 'destroy')->name('service.destroy');
-        
+
         // ? Sub Service CRUD
         Route::get('/{id}/sub-services', 'subIndex')->name('service.sub.index');
         Route::post('/{id}/sub-services', 'subStore')->name('service.sub.store');
@@ -53,6 +54,15 @@ Route::prefix('dashboard')->group(function () {
         Route::delete('/sub-services/{id}', 'subDestroy')->name('service.sub.destroy');
         Route::post('/{id}/sub-services/reorder', 'reorder')->name('service.sub.reorder');
     });
+    Route::get('/sections/form/{type}', [ServiceSectionController::class, 'getForm'])->name('service.sections.form');
+    Route::get('/services/{service}/sections', [ServiceSectionController::class, 'index'])
+        ->name('service.sections.index');
+    Route::delete('/services/{service}/sections/{id}', [ServiceSectionController::class, 'destroy'])
+        ->name('service.sections.destroy');
+    Route::post('/services/{service}/sections', [ServiceSectionController::class, 'store'])
+        ->name('service.sections.store');   
+
+    Route::post('/services/{service}/sections/reorder', [ServiceSectionController::class, 'reorder'])->name('service.sections.reorder');
 });
 
 
@@ -78,4 +88,5 @@ Route::get('/getSlug', function (Request $request) {
         'slug' => $slug,
     ]);
 })->name('getSlug');
-Route::get('/{slug}', [ServiceController::class, 'service'])->name('service');
+Route::get('/{parentSlug}/{childSlug?}', [ServiceController::class, 'service'])
+    ->name('service');

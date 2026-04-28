@@ -12,7 +12,6 @@
     @include('temp.faqs')
     @include('temp.roicalculator')
     @include('temp.cta')
-    {{-- @include('temp.whyblueorbit') --}}
     @push('styles')
         @stack('servicestyles')
     @endpush

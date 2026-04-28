@@ -4,18 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+// use Illuminate\Support\Facades\File;
 
 class ServiceController extends Controller
 {
-    public function service($slug)
+    // public static function getFiles()
+    // {
+    //     return collect(File::files(resource_path('views/service-section')))
+    //         ->map(fn($file) => pathinfo($file->getFilename(), PATHINFO_FILENAME));
+    // }
+    public function service($parentSlug, $childSlug = null)
     {
-        $service = Service::where('slug', $slug)->first();
+        // dd(ServiceController::getFiles());
+        if (!$childSlug) {
 
-        if (!$service) {
-            return redirect()->back()->with('error', 'Service not found');
+            $service = Service::where('slug', $parentSlug)
+                ->whereNull('parent_id')
+                ->firstOrFail();
+
+            $service->load('sections');
+
+            return view('service', compact('service'));
         }
 
-        return view('service', compact('service'));
+        $parent = Service::where('slug', $parentSlug)
+            ->whereNull('parent_id')
+            ->firstOrFail();
+
+        $service = Service::where('slug', $childSlug)
+            ->where('parent_id', $parent->id)
+            ->firstOrFail();
+
+        $service->load('sections');
+
+        return view('service', compact('service', 'parent'));
     }
 
 
@@ -126,6 +149,7 @@ class ServiceController extends Controller
         $service->update([
             'show_on_home' => $request->show_on_home
         ]);
+        Cache::forget('nav_services');
 
         return response()->json(['success' => true]);
     }
@@ -135,28 +159,20 @@ class ServiceController extends Controller
 
     public function subIndex(Request $request, $id)
     {
-        
-        $service = Service::select('id', 'title', 'icon', 'color')
-            ->with(['children' => function ($q) use ($request) {
-
-                $q->select('id', 'parent_id', 'title', 'slug', 'icon', 'color', 'show_on_home', 'home_order');
-
-                if ($request->filter === 'home') {
-                    $q->where('show_on_home', 1);
-                }
-
-                $q->orderBy('home_order');
-            }])
-            ->withCount([
-                'children',
-                'sections',
-                'children as active_children_count' => function ($q) {
-                    $q->where('is_active', 1);
-                }
-            ])
+        $service = Service::parents()
+            ->select('id', 'title', 'icon', 'color')
             ->findOrFail($id);
 
-        return view('dashboard.services.sub-services.list', compact('service'));
+        $subServices = Service::subservices()
+            ->where('parent_id', $id)
+            ->select('id', 'parent_id', 'title', 'slug', 'icon', 'color', 'show_on_home', 'home_order')
+            ->when($request->filter === 'home', function ($q) {
+                $q->where('show_on_home', 1);
+            })
+            ->orderBy('home_order')
+            ->get();
+
+        return view('dashboard.services.sub-services.list', compact('service', 'subServices'));
     }
 
     public function subStore(Request $request, $id)

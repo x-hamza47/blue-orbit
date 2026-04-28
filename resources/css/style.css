@@ -1,4 +1,6 @@
 @reference "tailwindcss";
+/* @import "./app.css"; */
+
 @font-face {
     font-family: "DMSans";
     src: url("/public/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf");
@@ -91,10 +93,16 @@ header .navbar {
 }
 
 header .navbar .menu-dropdown {
-    @apply  bg-white rounded-lg absolute top-full left-0 transition-all duration-300 overflow-hidden pointer-events-none max-w-[1000px] w-[1000px]  xl:shadow-xl sm:p-6 pl-3;
+    @apply  bg-white rounded-lg absolute top-full left-0 transition-all duration-300 overflow-hidden pointer-events-none w-max  xl:shadow-xl sm:p-6 pl-3;
     opacity: 0;
-    transform: translateY(24px);
+    max-width: calc(100vw - 200px);
+    transform: translateY(24px) translateX(-150px);
     /* max-height: auto; */
+}
+
+.swal2-high-z {
+    top: 15% !important;
+    z-index: 999999 !important;
 }
 header .navbar .nav-icon {
     display: none;
@@ -102,8 +110,8 @@ header .navbar .nav-icon {
 
 header .navbar .menu-dropdown.active {
     opacity: 1;
-    transform: translateY(10px);
-    max-height: 500px;
+    transform: translateY(10px) translateX(-150px);
+    /* max-height: 500px; */
     pointer-events: auto;
 }
 .growth {

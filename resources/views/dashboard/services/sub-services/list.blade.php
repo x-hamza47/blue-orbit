@@ -104,6 +104,7 @@
                         <i data-lucide="arrow-left" class="w-4 h-4"></i>
                         Back
                     </a>
+
                 </div>
 
             </div>
@@ -194,6 +195,11 @@
                                             class="w-10 h-10 rounded-xl bg-gray-50 text-red-500 hover:bg-red-500 hover:text-white transition flex items-center justify-center">
                                             <i data-lucide="trash-2" class="w-4 h-4"></i>
                                         </button>
+                                        <a href="{{ route('service.sections.index', $child->id) }}"
+                                            class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition flex items-center justify-center"
+                                            title="Manage Sections">
+                                            <i data-lucide="layout" class="w-4 h-4"></i>
+                                        </a>
 
                                         <span
                                             class="w-5 h-10 rounded-xl bg-gray-200 text-gray-500 hover:bg-gray-800 hover:text-white transition flex items-center justify-center cursor-move drag-handle">
@@ -237,6 +243,41 @@
                 timeout = setTimeout(() => func.apply(this, args), delay);
             };
         }
+
+        const updateStatus = function() {
+            const serviceId = this.dataset.id;
+            const status = this.checked ? 1 : 0;
+
+            fetch(`/dashboard/services/toggle/${serviceId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        show_on_home: status
+                    })
+                })
+                .then(res => res.json())
+                .then(() => {
+                    const label = this.closest('label');
+                    const textSpan = label.querySelector('span:last-child');
+                    if (textSpan) {
+                        textSpan.textContent = status ? 'On Home' : 'Hidden';
+                    }
+                });
+        };
+
+        document.querySelectorAll('.toggle-status').forEach(toggle => {
+            const debounced = debounce(updateStatus, 1500);
+
+            toggle.addEventListener('change', function() {
+                debounced.call(this);
+            });
+        });
+
 
         // Initialize SortableJS
         const el = document.getElementById('sortable-sub-services');
@@ -324,7 +365,7 @@
 
                         document.querySelectorAll('[id^="error-"]').forEach(el => {
                             el.innerText = '';
-                            el.classList.add('hidden');
+                            el.classList.add('hidden'); 
                         });
 
                         const payload = {

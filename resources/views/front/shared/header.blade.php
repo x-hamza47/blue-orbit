@@ -83,7 +83,7 @@
                 <!-- Dropdown -->
                 <div class="menu-dropdown">
 
-                    <div class="menu-grid flex [&>div]:min-w-2xs flex-col flex-wrap gap-x-4 gap-y-6">
+                    <div class="menu-grid flex [&>div]:min-w-3xs h-auto flex-wrap gap-x-4 gap-y-2">
 
                         @foreach ($navServices as $service)
                             <!-- Digital Marketing -->
@@ -94,7 +94,7 @@
                                         <i data-lucide="{{ $service->icon }}" class="w-4 h-4"></i>
                                     </span>
                                     <a class="flex items-center text-base gap-2 font-semibold sub-menu-title"
-                                        href="{{ route('digitalmarketing') }}">
+                                        href="{{ route('service', ['parentSlug' => $service->slug]) }}">
                                        {{ $service->title }}
                                     </a>
                                     <span class="sub-chevron">
@@ -106,7 +106,7 @@
                                     <ul class="space-y-1 list-disc list-inside">
                                         @foreach ($service->children as $child)
                                         <li>
-                                            <a class="dropdown-link" href="{{ route('digitalmarketing') }}">
+                                            <a class="dropdown-link" href="{{ route('service', ['parentSlug' => $service->slug, 'childSlug' => $child->slug]) }}">
                                             {{ $child->title }}</a></li>
                                             @endforeach
                 
@@ -198,7 +198,7 @@
                         </div> --}}
 
                         <!-- Web Development -->
-                        /
+                        
 
                         <!-- Content Marketing -->
                         {{-- <div class="sub-menu">

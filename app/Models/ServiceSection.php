@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServiceSection extends Model
 {
+    protected $fillable = [
+        'service_id',
+        'type',
+        'data',
+        'order',
+    ];
     protected $casts = [
         'data' => 'array',
     ];
