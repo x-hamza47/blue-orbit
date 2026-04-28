@@ -1,4 +1,5 @@
- <aside id="sidebar" class="sidebar-transition w-72 h-dvh sticky top-0 left-0 bg-[#010521] text-white flex flex-col z-50">
+ <aside id="sidebar"
+     class="sidebar-transition w-72 h-dvh sticky top-0 left-0 bg-[#010521] text-white flex flex-col z-50">
      <div class="p-6 flex items-center justify-between">
          <div class="flex items-center gap-2 overflow-hidden">
              <span class="font-black text-xl tracking-tighter sidebar-text">BLUEORBIT</span>
@@ -22,22 +23,17 @@
          <a href="{{ route('contact.index') }}"
              class="flex items-center gap-4 px-3 py-3 rounded-xl transition-all group 
             {{ request()->routeIs('contact.index') ? 'bg-[#4373F6] text-white' : 'text-gray-400 hover:bg-white/5 hover:text-white' }}">
-             <i data-lucide="trending-up" class="w-5 h-5"></i>
+             <i data-lucide="mail" class="w-5 h-5"></i>
              <span class="font-bold text-sm sidebar-text">Contact</span>
          </a>
 
          <a href="{{ route('service.index') }}"
              class="flex items-center gap-4 px-3 py-3 rounded-xl transition-all group 
-            {{ request()->routeIs('service.*') ? 'bg-[#4373F6] text-white' : 'text-gray-400 hover:bg-white/5 hover:text-white' }}">
+               {{ request()->routeIs('service.*') ? 'bg-[#4373F6] text-white' : 'text-gray-400 hover:bg-white/5 hover:text-white' }}">
              <i data-lucide="layers" class="w-5 h-5"></i>
              <span class="font-bold text-sm sidebar-text">Services</span>
          </a>
 
-         <a href="#"
-             class="flex items-center gap-4 px-3 py-3 text-gray-400 hover:bg-white/5 hover:text-white rounded-xl transition-all group">
-             <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
-             <span class="font-bold text-sm sidebar-text">ROAS Reports</span>
-         </a>
 
          <div class="pt-6">
              <p class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 px-2 mb-4 sidebar-text">

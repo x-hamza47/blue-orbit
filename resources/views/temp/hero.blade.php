@@ -8,8 +8,8 @@
                         {{ $data['subheading'] ?? 'Digital Marketing services built to drive' }}
                         <span class="text-(--color-primary)"> {{ $data['heading'] ?? 'Grow' }}</span>
                         <br />
-                        <span class="text-(--color-secondary)">and </span>
-                        <span class="text-(--color-primary)">Results</span> 
+                        {{-- <span class="text-(--color-secondary)">and </span>
+                        <span class="text-(--color-primary)">Results</span>  --}}
                     </h1>
                 </div>
 

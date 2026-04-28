@@ -1,8 +1,5 @@
 @extends('front.main')
-@push('styles')
-    @stack('styles')
-   
-@endpush
+
 @section('content')
     @foreach ($service->sections as $section)
         @include('temp.' . $section->type, ['data' => $section->data])

@@ -1,8 +1,7 @@
 @extends('dashboard.layout.main')
-
 @section('content')
-    <div class="flex-1 overflow-y-auto p-8 custom-scrollbar bg-[#F8FAFF]">
-
+<div class="flex-1 overflow-y-auto p-8 custom-scrollbar bg-[#F8FAFF]">
+    
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div class="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-md transition-all">
                 <div class="flex justify-between items-start mb-4">
@@ -122,7 +121,7 @@
                     </thead>
 
                     <tbody class="divide-y divide-gray-50" id="sortable-sub-services">
-                        @forelse ($service->children as $child)
+                        @forelse ($subServices as $child)
                             <tr class="hover:bg-gray-50/50 transition-colors group" data-id="{{ $child->id }}">
 
                                 {{-- Order --}}

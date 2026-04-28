@@ -23,16 +23,16 @@
                         {{ $data['subheading'] ?? '' }}
                     </p>
                 </div>
-
-                <div class="lg:col-span-4 flex lg:justify-end">
-                    <a href="{{ $data['button_link'] ?? '#' }}"
-                        class="group relative inline-flex items-center justify-center sm:px-8 px-6 md:px-10 py-4 md:py-6 bg-(--color-primary) text-white rounded-xl sm:rounded-2xl font-semibold sm:font-black uppercase tracking-widest text-sm transition-all duration-500 hover:bg-white hover:text-(--color-secondary) hover:scale-105 active:scale-95 shadow-xl shadow-(--color-primary)/20">
-                        <span>{{ $data['button_text'] ?? '' }}</span>
-                        <i data-lucide="arrow-up-right"
-                            class="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
-                    </a>
-                </div>
-
+                @if (!empty($data['button_link'] ?? null) && !empty($data['button_text'] ?? null))
+                    <div class="lg:col-span-4 flex lg:justify-end">
+                        <a href="{{ $data['button_link'] ?? '#' }}"
+                            class="group relative inline-flex items-center justify-center sm:px-8 px-6 md:px-10 py-4 md:py-6 bg-(--color-primary) text-white rounded-xl sm:rounded-2xl font-semibold sm:font-black uppercase tracking-widest text-sm transition-all duration-500 hover:bg-white hover:text-(--color-secondary) hover:scale-105 active:scale-95 shadow-xl shadow-(--color-primary)/20">
+                            <span>{{ $data['button_text'] ?? '' }}</span>
+                            <i data-lucide="arrow-up-right"
+                                class="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

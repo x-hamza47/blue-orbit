@@ -14,7 +14,7 @@ class ServiceController extends Controller
     //     return collect(File::files(resource_path('views/service-section')))
     //         ->map(fn($file) => pathinfo($file->getFilename(), PATHINFO_FILENAME));
     // }
-    public function service($parentSlug, $childSlug = null)
+    public function service(string $parentSlug, ?string $childSlug = null): \Illuminate\View\View
     {
         // dd(ServiceController::getFiles());
         if (!$childSlug) {
@@ -38,7 +38,7 @@ class ServiceController extends Controller
 
         $service->load('sections');
 
-        return view('service', compact('service', 'parent'));
+        return view('front.services.main', compact('service', 'parent'));
     }
 
 
@@ -59,7 +59,7 @@ class ServiceController extends Controller
         $homeServices    = Service::showOnHome()->count();
         $activeServices  = Service::active()->count();
         $parentServices  = Service::parents()->count();
-        $childServices   = Service::subServices()->count();
+        // $childServices   = Service::subServices()->count();
 
         return view('dashboard.services.list', compact(
             'services',
@@ -170,6 +170,7 @@ class ServiceController extends Controller
                 $q->where('show_on_home', 1);
             })
             ->orderBy('home_order')
+            ->withCount('sections')
             ->get();
 
         return view('dashboard.services.sub-services.list', compact('service', 'subServices'));
@@ -186,7 +187,7 @@ class ServiceController extends Controller
         ]);
 
         $subService = Service::create([
-            'parent_id'    => $id, 
+            'parent_id'    => $id,
             'title'        => $validated['title'],
             'slug'         => $validated['slug'],
             'icon'         => $validated['icon'] ?? null,
@@ -220,7 +221,7 @@ class ServiceController extends Controller
 
     public function subUpdate(Request $request, $parentId, $id)
     {
-     
+
         $service = Service::where('id', $id)
             ->where('parent_id', $parentId)
             ->firstOrFail();
@@ -241,6 +242,4 @@ class ServiceController extends Controller
             'data' => $service
         ]);
     }
-
-    
 }

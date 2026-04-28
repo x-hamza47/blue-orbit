@@ -78,9 +78,13 @@
                                             alt="John Dritsas" />
                                     </div>
                                     <div>
-                                        <h4 class="sm:font-black font-semibold text-(--color-secondary) text-base sm:text-lg leading-tight">Fatima R.
+                                        <h4
+                                            class="sm:font-black font-semibold text-(--color-secondary) text-base sm:text-lg leading-tight">
+                                            Fatima R.
                                         </h4>
-                                        <p class="text-xs sm:text-sm text-gray-400 font-semibold sm:font-bold uppercase tracking-wider">Beauty
+                                        <p
+                                            class="text-xs sm:text-sm text-gray-400 font-semibold sm:font-bold uppercase tracking-wider">
+                                            Beauty
                                             Clinic, Sharjah
                                         </p>
                                     </div>
@@ -113,9 +117,13 @@
                                             alt="Ofer Alphabet" />
                                     </div>
                                     <div>
-                                        <h4 class="sm:font-black font-semibold text-(--color-secondary) text-base sm:text-lg leading-tight">Omar S.
+                                        <h4
+                                            class="sm:font-black font-semibold text-(--color-secondary) text-base sm:text-lg leading-tight">
+                                            Omar S.
                                         </h4>
-                                        <p class="text-xs sm:text-sm text-gray-400 font-semibold sm:font-bold uppercase tracking-wider">E-commerce
+                                        <p
+                                            class="text-xs sm:text-sm text-gray-400 font-semibold sm:font-bold uppercase tracking-wider">
+                                            E-commerce
                                             Brand, Dubai
                                         </p>
                                     </div>
@@ -148,9 +156,13 @@
                                             alt="Ofer Alphabet" />
                                     </div>
                                     <div>
-                                        <h4 class="sm:font-black font-semibold text-(--color-secondary) text-base sm:text-lg leading-tight">Ahmed K.
+                                        <h4
+                                            class="sm:font-black font-semibold text-(--color-secondary) text-base sm:text-lg leading-tight">
+                                            Ahmed K.
                                         </h4>
-                                        <p class="text-xs sm:text-sm text-gray-400 font-semibold sm:font-bold uppercase tracking-wider">Corporate
+                                        <p
+                                            class="text-xs sm:text-sm text-gray-400 font-semibold sm:font-bold uppercase tracking-wider">
+                                            Corporate
                                             Services,
                                             Dubai
                                         </p>
@@ -161,7 +173,7 @@
                     </div>
 
                 </div>
-                 <div class="swiper-pagination"></div>
+                <div class="swiper-pagination"></div>
             </div>
 
 
@@ -172,31 +184,17 @@
     </div>
 </section>
 
-{{-- @push('scripts')
+@push('scripts')
     <script>
-        const clientSwiper = new Swiper(".clientTestimonialSwiper", {
-            slidesPerView: 3,
-            spaceBetween: 30,
-            loop: true,
-            autoplay: {
-                delay: 5000,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            breakpoints: {
-                768: {
-                    slidesPerView: 2,
-                },
-                1280: {
-                    slidesPerView: 3,
-                },
-            },
+        document.addEventListener('DOMContentLoaded', function() {
+            initSwiper({
+                selector: ".clientTestimonialSwiper",
+                lg: 3,
+            });
         });
     </script>
-@endpush --}}
+@endpush
 
-{{-- @push('styles')
+@push('styles')
     @vite('resources/css/testimonialSwiper.css')
-@endpush --}}
+@endpush

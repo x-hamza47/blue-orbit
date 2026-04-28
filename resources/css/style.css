@@ -21,13 +21,16 @@ body {
     scrollbar-width: none; 
     -ms-overflow-style: none; 
     scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
 }
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     display: none; 
 }
-
+section {
+    scroll-snap-align: center;
+}
 /* Update your CSS block */
 html.has-scroll-smooth {
     overflow: hidden;

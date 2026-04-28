@@ -128,6 +128,6 @@
     </div>
 </section>
 
-@push('servicescripts')
+@push('service.section.scripts')
     @vite('resources/js/faqs.js')
 @endpush

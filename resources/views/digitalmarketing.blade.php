@@ -1,4 +1,4 @@
-@extends('home-layout.layout')
+@extends('front.main')
 @section('content')
     @include('temp.hero')
     @include('temp.stats')
@@ -12,10 +12,10 @@
     @include('temp.faqs')
     @include('temp.roicalculator')
     @include('temp.cta')
-    @push('styles')
+    {{-- @push('styles')
         @stack('servicestyles')
-    @endpush
-    @push('scripts')
+    @endpush --}}
+    {{-- @push('scripts')
         @stack('servicescripts')
-    @endpush
+    @endpush --}}
 @endsection

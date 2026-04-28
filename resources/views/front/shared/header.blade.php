@@ -64,7 +64,7 @@
                 <i data-lucide="home" class="w-5 h-5 nav-icon"></i>
                 <span>Home</span>
             </a>
-            <a href="" class="nav-link flex items-center gap-2 ">
+            <a href="#about" class="nav-link flex items-center gap-2 ">
                 <i data-lucide="user" class="w-5 h-5 nav-icon"></i>
                 <span>About</span>
             </a>
@@ -115,138 +115,29 @@
                                 @endif
                             </div>
                         @endforeach
-                        <!-- SEO -->
-                        {{-- <div class="sub-menu">
-                            <div class="flex items-center gap-x-1 mb-3">
-                                <span
-                                    class="w-7 h-7 flex items-center justify-center rounded-md bg-green-100 text-green-600">
-                                    <i data-lucide="search" class="w-4 h-4"></i>
-                                </span>
-                                <a class="flex items-center gap-2 font-semibold  sub-menu-title" href="">
-                                    SEO Services
-                                </a>
-                                <span class="sub-chevron">
-                                    <i data-lucide="chevron-down" class="w-4 h-4 xl:hidden"></i>
-                                </span>
-                            </div>
-                            <div class="sub-menu-dropdown">
-                                <ul class="space-y-1 list-disc list-inside">
-                                    <li><a class="dropdown-link" href="{{ route('digitalmarketing') }}">Search Engine
-                                            Optimization</a></li>
-                                    <li><a class="dropdown-link" href="{{ route('digitalmarketing') }}">Local SEO</a>
-                                    </li>
-                                    <li><a class="dropdown-link" href="{{ route('digitalmarketing') }}">Technical
-                                            SEO</a></li>
-                                    <li><a class="dropdown-link" href="{{ route('digitalmarketing') }}">AI SEO
-                                            Services</a></li>
-                                    <li><a class="dropdown-link" href="{{ route('digitalmarketing') }}">SEO
-                                            Audits</a></li>
-                                </ul>
-                            </div>
-                        </div> --}}
-
-                        <!-- PPC -->
-                        {{-- <div class="sub-menu">
-                            <div class="flex items-center gap-x-1 mb-3">
-                                <span
-                                    class="w-7 h-7 flex items-center justify-center rounded-md bg-purple-100 text-purple-600">
-                                    <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i>
-                                </span>
-                                <a class="flex items-center gap-2 font-semibold sub-menu-title" href="">
-                                    PPC Marketing
-                                </a>
-                                <span class="sub-chevron">
-                                    <i data-lucide="chevron-down" class="w-4 h-4 xl:hidden"></i>
-                                </span>
-                            </div>
-                            <div class="sub-menu-dropdown">
-                                <ul class="space-y-1 list-disc list-inside">
-                                    <li><a class="dropdown-link" href="{{ route('digitalmarketing') }}">Google Ads
-                                            Management</a></li>
-                                    <li><a class="dropdown-link" href="{{ route('digitalmarketing') }}">YouTube
-                                            Ads</a></li>
-                                    <li><a class="dropdown-link" href="{{ route('digitalmarketing') }}">Programmatic
-                                            Ads</a></li>
-                                    <li><a class="dropdown-link" href="{{ route('digitalmarketing') }}">Lead
-                                            Generation</a></li>
-                                </ul>
-                            </div>
-                        </div> --}}
-
-                        <!-- Social Media -->
-                        {{-- <div class="sub-menu">
-                            <div class="flex items-center gap-x-1 mb-3">
-                                <span
-                                    class="w-7 h-7 flex items-center justify-center rounded-md bg-orange-100 text-orange-600">
-                                    <i data-lucide="share-2" class="w-4 h-4"></i>
-                                </span>
-                                <a class="flex items-center gap-2 font-semibold sub-menu-title" href="">
-                                    Social Media
-                                </a>
-                                <span class="sub-chevron">
-                                    <i data-lucide="chevron-down" class="w-4 h-4 xl:hidden"></i>
-                                </span>
-                            </div>
-                            <div class="sub-menu-dropdown">
-                                <ul class="space-y-1 list-disc list-inside">
-                                    <li><a class="dropdown-link" href="#">Social Media Marketing</a></li>
-                                    <li><a class="dropdown-link" href="#">Brand Management</a></li>
-                                    <li><a class="dropdown-link" href="#">Facebook Ads</a></li>
-                                    <li><a class="dropdown-link" href="#">Instagram Ads</a></li>
-                                </ul>
-                            </div>
-                        </div> --}}
-
-                        <!-- Web Development -->
-                        
-
-                        <!-- Content Marketing -->
-                        {{-- <div class="sub-menu">
-                            <div class="flex items-center gap-x-1 mb-3">
-                                <span
-                                    class="w-7 h-7 flex items-center justify-center rounded-md bg-indigo-100 text-indigo-600">
-                                    <i data-lucide="pen-tool" class="w-4 h-4"></i>
-                                </span>
-                                <a class="flex items-center gap-2 font-semibold sub-menu-title" href="">
-                                    Content Marketing
-                                </a>
-                                <span class="sub-chevron">
-                                    <i data-lucide="chevron-down" class="w-4 h-4 xl:hidden"></i>
-                                </span>
-                            </div>
-                            <div class="sub-menu-dropdown">
-                                <ul class="space-y-1 list-disc list-inside">
-                                    <li><a class="dropdown-link" href="#">SEO Content Writing</a></li>
-                                    <li><a class="dropdown-link" href="#">Copywriting</a></li>
-                                    <li><a class="dropdown-link" href="#">Email Marketing</a></li>
-                                    <li><a class="dropdown-link" href="#">Outbound Marketing</a></li>
-                                </ul>
-                            </div>
-                        </div> --}}
-
                     </div>
 
                 </div>
             </div>
 
-            <a href="" class="nav-link flex items-center gap-2 ">
-                <i data-lucide="workflow" class="w-5 h-5 nav-icon"></i>
-                <span>Process</span>
+            <a href="{{ route('blogs') }}" class="nav-link flex items-center gap-2 ">
+                <i data-lucide="file-text" class="w-5 h-5 nav-icon"></i>
+                <span>Blogs</span>
             </a>
-            <a href="" class="nav-link flex items-center gap-2 ">
+            {{-- <a href="" class="nav-link flex items-center gap-2 ">
                 <i data-lucide="shield-check" class="w-5 h-5 nav-icon"></i>
                 <span>Why us</span>
-            </a>
-            <a href="" class="nav-link flex items-center gap-2 ">
+            </a> --}}
+            {{-- <a href="" class="nav-link flex items-center gap-2 ">
                 <i data-lucide="star" class="w-5 h-5 nav-icon"></i>
                 <span>Testimonials</span>
-            </a>
-            <a href="" class="nav-link flex items-center gap-2 ">
+            </a> --}}
+            <a href="{{ request()->is('/') ? '#contact' : url('/') . '#contact' }}" class="nav-link flex items-center gap-2 ">
                 <i data-lucide="phone" class="w-5 h-5 nav-icon"></i>
                 <span>Contact</span>
             </a>
 
-            <a href="#contact"
+            <a href="{{ request()->is('/') ? '#contact' : url('/') . '#contact' }}"
                 class="hidden sm:block bg-[#4373F6] text-white px-8 py-3 rounded-full font-bold hover:bg-[#010521] transition-all transform hover:scale-105 lg:ml-auto">
                 Book a Consultation
             </a>

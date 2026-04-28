@@ -10,7 +10,7 @@ class ViewController extends Controller
     public function index()
     {
         $services = Service::parents()->showOnHome()->active()->orderBy('home_order')->take(7)->get();
-        return view('home', compact('services'));
+        return view('front.home.home', compact('services'));
     }
 
     function login()
@@ -22,4 +22,9 @@ class ViewController extends Controller
     {
         return view('digitalmarketing');
     }
+
+    public function blogs()
+    {
+        return view('front.blog.blogs');
+    }   
 }

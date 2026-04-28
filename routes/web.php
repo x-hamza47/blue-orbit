@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 
 // ! Static Routes HERE
 Route::get('/', [ViewController::class, 'index'])->name('home');
+Route::get('/blogs', [ViewController::class, 'blogs'])->name('blogs');  
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // ? Temporary Routes HERE
