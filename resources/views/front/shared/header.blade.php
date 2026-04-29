@@ -90,7 +90,7 @@
                             <div class="sub-menu">
                                 <div class="flex items-center gap-x-1 mb-3">
                                     <span
-                                        class="w-7 h-7 flex items-center justify-center rounded-md" style="background-color: {{ $service->color }}20; color: {{ $service->color }}">
+                                        class="w-7 h-7 flex items-center justify-center rounded-md shrink-0" style="background-color: {{ $service->color }}20; color: {{ $service->color }}">
                                         <i data-lucide="{{ $service->icon }}" class="w-4 h-4"></i>
                                     </span>
                                     <a class="flex items-center text-base gap-2 font-semibold sub-menu-title"

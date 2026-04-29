@@ -17,11 +17,11 @@
 /* Hide scrollbar globally */
 html,
 body {
-    overflow: auto; 
-    scrollbar-width: none; 
-    -ms-overflow-style: none; 
+    /* overflow-x: auto;  */
+    scrollbar-width: none;
+    /* -ms-overflow-style: none;  */
     scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
+    /* scroll-snap-type: y mandatory; */
 }
 
 html::-webkit-scrollbar,
@@ -32,20 +32,20 @@ section {
     scroll-snap-align: center;
 }
 /* Update your CSS block */
-html.has-scroll-smooth {
+/* html.has-scroll-smooth {
     overflow: hidden;
-}
+} */
 
-html.has-scroll-dragging {
+/* html.has-scroll-dragging {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
+} */
 
-.has-scroll-smooth body {
+/* .has-scroll-smooth body {
     overflow: hidden;
-}
+} */
 
 .montserrat {
     font-family: "Montserrat";

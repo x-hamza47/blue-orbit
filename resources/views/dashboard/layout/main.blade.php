@@ -47,7 +47,7 @@
             @include('dashboard.layout.header')
 
             {{-- ! Main Content --}}
-            <main class="flex-1 flex flex-col  overflow-hidden">
+            <main class="flex-1 flex flex-col overflow-hidden">
                 @yield('content')
             </main>
         </div>

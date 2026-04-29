@@ -27,4 +27,8 @@ class ViewController extends Controller
     {
         return view('front.blog.blogs');
     }   
+    public function blogDetails()
+    {
+        return view('front.blog.blog-detail');
+    }   
 }
