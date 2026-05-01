@@ -1,4 +1,4 @@
-<header class="h-20 bg-white border-b border-gray-100 sticky top-0 flex items-center justify-between px-8 ">
+<header class="h-20 bg-white border-b border-gray-100 sticky top-0 flex items-center justify-between px-8 z-10">
     <div class="flex items-center gap-4">
        <h1 class="font-black text-xl text-[#010521]">
                 Services <span class="text-gray-300 font-light mx-2">/</span> Management

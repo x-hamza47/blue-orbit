@@ -39,7 +39,7 @@ class ServiceSectionController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Invalid section type'
-            ], 422);
+            ], 400);
         }
 
         $sectionConfig = config('sections')[$type];
@@ -59,7 +59,7 @@ class ServiceSectionController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Section already exists'
-            ], 422);
+            ], 409);
         }
 
         $validated = $validator->validated();
@@ -110,7 +110,21 @@ class ServiceSectionController extends Controller
         }
 
         return response()->json([
+            'status' => true,
             'message' => 'Order updated successfully'
+        ]);
+    }
+    public function toggle(Service $service, int $sectionId)
+    {
+        $section = $service->sections()->findOrFail($sectionId);
+
+        $section->update([
+            'is_active' => !$section->is_active
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Section status updated successfully',
         ]);
     }
 }

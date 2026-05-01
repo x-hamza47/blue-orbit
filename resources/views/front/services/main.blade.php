@@ -1,15 +1,20 @@
 @extends('front.main')
 
 @section('content')
-    @foreach ($service->sections as $section)
+    {{-- @include('temp.casestudy') --}}
+    @forelse ($service->sections as $section)
         @include('temp.' . $section->type, ['data' => $section->data])
-    @endforeach
+
+    @empty
+        <div class="text-center py-10 text-gray-400">
+            No active sections found
+        </div>
+    @endforelse
 @endsection
 
 @push('scripts')
     {{-- @stack('service.section.scripts') --}}
     <script>
-
         function addFAQ(question = '', answer = '') {
 
             const container = document.getElementById('faqContainer');

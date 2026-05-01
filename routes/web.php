@@ -62,7 +62,9 @@ Route::prefix('dashboard')->group(function () {
     Route::delete('/services/{service}/sections/{id}', [ServiceSectionController::class, 'destroy'])
         ->name('service.sections.destroy');
     Route::post('/services/{service}/sections', [ServiceSectionController::class, 'store'])
-        ->name('service.sections.store');   
+        ->name('service.sections.store');
+    Route::post('/services/{service}/sections/{section}/toggle', [ServiceSectionController::class, 'toggle'])
+        ->name('service.sections.toggle');
 
     Route::post('/services/{service}/sections/reorder', [ServiceSectionController::class, 'reorder'])->name('service.sections.reorder');
 });

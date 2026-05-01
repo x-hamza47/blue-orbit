@@ -109,10 +109,9 @@
             </div>
 
             <div class="overflow-x-auto">
-                <table class="w-full text-left">
+                <table class="w-full text-left overflow-hidden">
                     <thead class="bg-gray-50/50">
                         <tr>
-                            {{-- <th class="px-8 py-4 text-[10px] font-black uppercase text-gray-400">Order</th> --}}
                             <th class="px-8 py-4 text-[10px] font-black uppercase text-gray-400">Service</th>
                             <th class="px-8 py-4 text-[10px] font-black uppercase text-gray-400">Sections</th>
                             <th class="px-8 py-4 text-[10px] font-black uppercase text-gray-400">Status</th>
@@ -120,9 +119,9 @@
                         </tr>
                     </thead>
 
-                    <tbody class="divide-y divide-gray-50" id="sortable-sub-services">
+                    <tbody class="divide-y divide-gray-50 js-sortable overflow-y-hidden" data-order-url="{{ route('service.sub.reorder', $service->id) }}">
                         @forelse ($subServices as $child)
-                            <tr class="hover:bg-gray-50/50 transition-colors group" data-id="{{ $child->id }}">
+                            <tr class="js-item hover:bg-gray-50/50 group" data-id="{{ $child->id }}">
 
                                 {{-- Order --}}
                                 {{-- <td class="px-8 py-6">
@@ -190,8 +189,9 @@
                                             <i data-lucide="edit-3" class="w-4 h-4"></i>
                                         </a>
 
-                                        <button onclick="deleteService({{ $child->id }})"
-                                            class="w-10 h-10 rounded-xl bg-gray-50 text-red-500 hover:bg-red-500 hover:text-white transition flex items-center justify-center">
+                                        <button data-url="{{ route('service.sub.destroy', $child->id) }}"
+                                            data-text="service"
+                                            class="js-delete w-10 h-10 rounded-xl bg-gray-50 text-red-500 hover:bg-red-500 hover:text-white transition flex items-center justify-center">
                                             <i data-lucide="trash-2" class="w-4 h-4"></i>
                                         </button>
                                         <a href="{{ route('service.sections.index', $child->id) }}"
@@ -277,71 +277,6 @@
             });
         });
 
-
-        // Initialize SortableJS
-        const el = document.getElementById('sortable-sub-services');
-
-        new Sortable(el, {
-            animation: 150,
-            handle: '.drag-handle',
-
-            scroll: true,
-            scrollSensitivity: 90,
-            scrollSpeed: 10,
-            bubbleScroll: true,
-
-            onEnd: function() {
-
-                let order = [];
-
-                document.querySelectorAll('#sortable-sub-services tr').forEach((row, index) => {
-                    let id = row.dataset.id;
-
-                    if (id) {
-                        order.push({
-                            id: id,
-                            order: index + 1
-                        });
-                    }
-                });
-
-                sendOrderUpdate(order);
-            }
-        });
-
-        const sendOrderUpdate = debounce((order) => {
-
-            axios.post('{{ route('service.sub.reorder', $service->id) }}', {
-                    order: order
-                })
-                .then((res) => {
-
-                    if (res.data.status) {
-                        showToast({
-                            title: 'Success',
-                            text: res.data.message,
-                            type: 'success'
-                        });
-                    } else {
-                        showToast({
-                            title: 'Error',
-                            text: res.data.message,
-                            type: 'error'
-                        });
-                    }
-
-                })
-                .catch((err) => {
-
-                    showToast({
-                        title: 'Error',
-                        text: err.response?.data?.message || 'Something went wrong',
-                        type: 'error'
-                    });
-
-                });
-
-        }, 2000);
 
         function editSubService(service) {
 
@@ -506,52 +441,6 @@
                     }, 2000);
                 });
         }
-
-        function deleteService(id) {
-
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "This service will be permanently deleted!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it',
-                cancelButtonText: 'Cancel',
-                confirmButtonColor: '#EF4444',
-                cancelButtonColor: '#6B7280',
-                customClass: {
-                    popup: 'rounded-2xl p-6'
-                }
-            }).then(async (result) => {
-
-                if (!result.isConfirmed) return;
-
-                try {
-
-                    const res = await axios.delete(
-                        '{{ route('service.sub.destroy', ':id') }}'.replace(':id', id)
-                    );
-
-                    showToast({
-                        type: 'success',
-                        title: 'Deleted',
-                        text: res.data.message || 'Service deleted successfully'
-                    });
-
-                    setTimeout(() => {
-                        location.reload();
-                    }, 2500);
-
-                } catch (err) {
-
-                    showToast({
-                        type: 'error',
-                        title: 'Error',
-                        text: err.response?.data?.message || 'Something went wrong'
-                    });
-                }
-            });
-        }
-
 
         function initServiceUI(isEdit = false) {
 

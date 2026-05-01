@@ -1,4 +1,4 @@
-@extends('home-layout.layout')
+@extends('front.main')
 @section('content')
     <div class="flex min-h-screen flex-col justify-center bg-white py-10 px-[clamp(1.5rem,5vw,5rem)]">
 

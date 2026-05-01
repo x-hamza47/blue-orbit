@@ -79,7 +79,7 @@
                         + Add Service
                     </button>
 
-                </div>
+                </div> 
 
             </div>
 
@@ -95,9 +95,9 @@
                         </tr>
                     </thead>
 
-                    <tbody class="divide-y divide-gray-50" id="sortable-services">
+                    <tbody class="divide-y divide-gray-50 js-sortable" data-order-url="{{ route('service.reorder') }}">
                         @foreach ($services as $service)
-                            <tr class="hover:bg-gray-50/50 transition-colors group">
+                            <tr class="hover:bg-gray-50/50 group js-item" data-id="{{ $service->id }}">
 
                                 {{-- Order --}}
                                 {{-- <td class="px-8 py-6">
@@ -167,8 +167,9 @@
                                             <i data-lucide="edit-3" class="w-4 h-4"></i>
                                         </a>
 
-                                        <button onclick="deleteService({{ $service->id }})"
-                                            class="w-10 h-10 rounded-xl bg-gray-50 text-red-500 hover:bg-red-500 hover:text-white transition flex items-center justify-center">
+                                        <button
+                                            data-url="{{ route('service.destroy', $service->id) }}"
+                                            class="js-delete w-10 h-10 rounded-xl bg-gray-50 text-red-500 hover:bg-red-500 hover:text-white transition flex items-center justify-center">
                                             <i data-lucide="trash-2" class="w-4 h-4"></i>
                                         </button>
 
@@ -272,57 +273,57 @@
 
 
         // Initialize SortableJS
-        const el = document.getElementById('sortable-services');
+        // const el = document.getElementById('sortable-services');
 
-        new Sortable(el, {
-            animation: 150,
-            handle: '.drag-handle',
+        // new Sortable(el, {
+        //     animation: 150,
+        //     handle: '.drag-handle',
 
-            scroll: true,
-            scrollSensitivity: 90,
-            scrollSpeed: 10,
-            bubbleScroll: true,
+        //     scroll: true,
+        //     scrollSensitivity: 90,
+        //     scrollSpeed: 10,
+        //     bubbleScroll: true,
 
-            onEnd: function() {
+        //     onEnd: function() {
 
-                let order = [];
+        //         let order = [];
 
-                document.querySelectorAll('#sortable-services tr').forEach((row, index) => {
-                    let id = row.querySelector('.toggle-status')?.dataset.id;
+        //         document.querySelectorAll('#sortable-services tr').forEach((row, index) => {
+        //             let id = row.querySelector('.toggle-status')?.dataset.id;
 
-                    if (id) {
-                        order.push({
-                            id: id,
-                            home_order: index + 1
-                        });
-                    }
-                });
+        //             if (id) {
+        //                 order.push({
+        //                     id: id,
+        //                     home_order: index + 1
+        //                 });
+        //             }
+        //         });
 
 
-                sendOrderUpdate(order);
-            }
-        });
+        //         sendOrderUpdate(order);
+        //     }
+        // });
 
-        const sendOrderUpdate = debounce((order) => {
+        // const sendOrderUpdate = debounce((order) => {
 
-            fetch('/dashboard/services/reorder', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                            .getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        order
-                    })
-                })
-                .then(res => res.json())
-                .then(() => {
-                    console.log('Order updated');
-                })
-                .catch(err => console.error(err));
+        //     fetch('/dashboard/services/reorder', {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+        //                     .getAttribute('content')
+        //             },
+        //             body: JSON.stringify({
+        //                 order
+        //             })
+        //         })
+        //         .then(res => res.json())
+        //         .then(() => {
+        //             console.log('Order updated');
+        //         })
+        //         .catch(err => console.error(err));
 
-        }, 2000);
+        // }, 2000);
 
 
         document.getElementById('createServiceBtn').addEventListener('click', createService);
@@ -653,64 +654,64 @@
         }
 
 
-        function deleteService(id) {
+        // function deleteService(id) {
 
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "This service will be permanently deleted!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it',
-                cancelButtonText: 'Cancel',
-                confirmButtonColor: '#EF4444',
-                cancelButtonColor: '#6B7280',
-                customClass: {
-                    popup: 'rounded-2xl p-6'
-                }
-            }).then(async (result) => {
+        //     Swal.fire({
+        //         title: 'Are you sure?',
+        //         text: "This service will be permanently deleted!",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonText: 'Yes, delete it',
+        //         cancelButtonText: 'Cancel',
+        //         confirmButtonColor: '#EF4444',
+        //         cancelButtonColor: '#6B7280',
+        //         customClass: {
+        //             popup: 'rounded-2xl p-6'
+        //         }
+        //     }).then(async (result) => {
 
-                if (!result.isConfirmed) return;
+        //         if (!result.isConfirmed) return;
 
-                try {
+        //         try {
 
-                    const res = await fetch(`/dashboard/services/${id}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Accept': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                .getAttribute('content')
-                        }
-                    });
+        //             const res = await fetch(`/dashboard/services/${id}`, {
+        //                 method: 'DELETE',
+        //                 headers: {
+        //                     'Accept': 'application/json',
+        //                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+        //                         .getAttribute('content')
+        //                 }
+        //             });
 
-                    const data = await res.json();
+        //             const data = await res.json();
 
-                    if (!res.ok) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: data.message || 'Something went wrong'
-                        });
-                        return;
-                    }
+        //             if (!res.ok) {
+        //                 Swal.fire({
+        //                     icon: 'error',
+        //                     title: 'Error!',
+        //                     text: data.message || 'Something went wrong'
+        //                 });
+        //                 return;
+        //             }
 
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Deleted!',
-                        text: 'Service has been deleted.',
-                        timer: 1200,
-                        showConfirmButton: false
-                    }).then(() => {
-                        location.reload();
-                    });
+        //             Swal.fire({
+        //                 icon: 'success',
+        //                 title: 'Deleted!',
+        //                 text: 'Service has been deleted.',
+        //                 timer: 1200,
+        //                 showConfirmButton: false
+        //             }).then(() => {
+        //                 location.reload();
+        //             });
 
-                } catch (err) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Server Error',
-                        text: 'Please try again later.'
-                    });
-                }
-            });
-        }
+        //         } catch (err) {
+        //             Swal.fire({
+        //                 icon: 'error',
+        //                 title: 'Server Error',
+        //                 text: 'Please try again later.'
+        //             });
+        //         }
+        //     });
+        // }
     </script>
 @endpush

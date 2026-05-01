@@ -23,7 +23,9 @@ class ServiceController extends Controller
                 ->whereNull('parent_id')
                 ->firstOrFail();
 
-            $service->load('sections');
+            $service->load(['sections' => function ($query) {
+                $query->where('is_active', true);
+            }]);
 
             return view('service', compact('service'));
         }
@@ -36,7 +38,9 @@ class ServiceController extends Controller
             ->where('parent_id', $parent->id)
             ->firstOrFail();
 
-        $service->load('sections');
+        $service->load(['sections' => function ($query) {
+            $query->where('is_active', true);
+        }]);
 
         return view('front.services.main', compact('service', 'parent'));
     }
@@ -205,7 +209,7 @@ class ServiceController extends Controller
         ]);
     }
 
-    public function subDestroy($id)
+    public function subDestroy(int $id)
     {
         $service = Service::where('id', $id)
             ->whereNotNull('parent_id')

@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
         trigger.addEventListener("click", () => {
             const isActive = item.classList.contains("active");
 
-            // Close all other items (Optional: Remove this if you want multiple open)
             faqItems.forEach((otherItem) => {
                 otherItem.classList.remove("active");
                 otherItem.querySelector(".faq-content").style.maxHeight = null;

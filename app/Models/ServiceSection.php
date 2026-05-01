@@ -11,6 +11,7 @@ class ServiceSection extends Model
         'type',
         'data',
         'order',
+        'is_active'
     ];
     protected $casts = [
         'data' => 'array',
