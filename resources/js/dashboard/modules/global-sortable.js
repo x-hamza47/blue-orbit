@@ -19,7 +19,7 @@ export function initGlobalSortable() {
         }, 2000);
 
         new Sortable(el, {
-            animation: parseInt(el.dataset.animation || 350),
+            animation: parseInt(el.dataset.animation ?? 350),
             delay: parseInt(el.dataset.delay || 0),
             handle: ".drag-handle",
             scrollSensitivity: 90,

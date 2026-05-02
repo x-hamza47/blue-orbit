@@ -13,8 +13,11 @@ export default defineConfig({
                 // "resources/js/testimonialSwiper.js",
                 // "resources/css/testimonialSwiper.css",
                 "resources/js/faqs.js",
-                "resources/js/helpers/toast.js",
+                // "resources/js/helpers/toast.js",
                 "resources/js/dashboard/app.js",
+                "resources/js/dashboard/pages/services.js",
+                "resources/js/dashboard/pages/sections.js",
+
             ],
             refresh: true,
         }),

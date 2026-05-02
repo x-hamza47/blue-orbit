@@ -72,9 +72,10 @@
         </h3>
 
         <!-- FAQ Items -->
-        <div id="faqContainer" class="space-y-4"></div>
-        
-        <button type="button" onclick="addFAQ()" id="addQuestionBtn"
+        <div id="faqContainer" class="space-y-4" data-limit="4"></div>
+
+        <button type="button" id="addQuestionBtn" data-dynamic-list-add="faqContainer"
+            data-template="faq"
             class="px-3 mt-4 py-1.5 bg-[#4373F6] text-white text-[10px] font-black uppercase rounded-lg shadow hover:bg-[#010521] transition">
             + Add Question
         </button>

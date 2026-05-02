@@ -194,6 +194,7 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @vite('resources/js/dashboard/pages/sections.js')
 
     <script>
         function debounce(func, delay) {
@@ -294,90 +295,90 @@
             }
         });
 
-        function removeFAQ(btn) {
+    //     function removeFAQ(btn) {
 
-            const item = btn.closest('.faq-item');
-            item.remove();
+    //         const item = btn.closest('.faq-item');
+    //         item.remove();
 
-            updateFAQButtonState();
-        }
+    //         updateFAQButtonState();
+    //     }
 
-        function updateFAQButtonState() {
+    //     function updateFAQButtonState() {
 
-            const btn = document.getElementById('addQuestionBtn');
-            const currentCount = document.querySelectorAll('.faq-item').length;
+    //         const btn = document.getElementById('addQuestionBtn');
+    //         const currentCount = document.querySelectorAll('.faq-item').length;
 
-            if (currentCount >= 4) {
+    //         if (currentCount >= 4) {
 
-                btn.disabled = true;
-                btn.classList.add('opacity-50', 'cursor-not-allowed');
+    //             btn.disabled = true;
+    //             btn.classList.add('opacity-50', 'cursor-not-allowed');
 
-            } else {
+    //         } else {
 
-                btn.disabled = false;
-                btn.classList.remove('opacity-50', 'cursor-not-allowed');
-            }
-        }
+    //             btn.disabled = false;
+    //             btn.classList.remove('opacity-50', 'cursor-not-allowed');
+    //         }
+    //     }
 
-        function addFAQ(question = '', answer = '') {
+    //     function addFAQ(question = '', answer = '') {
 
-            const container = document.getElementById('faqContainer');
-            const btn = document.getElementById('addQuestionBtn');
+    //         const container = document.getElementById('faqContainer');
+    //         const btn = document.getElementById('addQuestionBtn');
 
-            const currentCount = container.querySelectorAll('.faq-item').length;
+    //         const currentCount = container.querySelectorAll('.faq-item').length;
 
-            if (currentCount >= 4) {
+    //         if (currentCount >= 4) {
 
-                showToast({
-                    type: 'error',
-                    title: 'Limit reached',
-                    text: 'You can only add up to 4 FAQs'
-                });
+    //             showToast({
+    //                 type: 'error',
+    //                 title: 'Limit reached',
+    //                 text: 'You can only add up to 4 FAQs'
+    //             });
 
-                updateFAQButtonState();
+    //             updateFAQButtonState();
 
-                return;
-            }
+    //             return;
+    //         }
 
-            const index = currentCount;
+    //         const index = currentCount;
 
-            const html = `
-        <div class="faq-item bg-gray-50 border border-gray-100 rounded-xl p-4 relative">
+    //         const html = `
+    //     <div class="faq-item bg-gray-50 border border-gray-100 rounded-xl p-4 relative">
 
-            <button type="button"
-                onclick="removeFAQ(this)"
-                class="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition">
-                ✕
-            </button>
+    //         <button type="button"
+    //             onclick="removeFAQ(this)"
+    //             class="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition">
+    //             ✕
+    //         </button>
 
-            <div class="space-y-3">
+    //         <div class="space-y-3">
 
-                <div>
-                    <label class="text-xs font-semibold text-gray-500">Question *</label>
-                    <input type="text"
-                        name="faqs[${index}][question]"
-                        value="${question}"
-                        class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+    //             <div>
+    //                 <label class="text-xs font-semibold text-gray-500">Question *</label>
+    //                 <input type="text"
+    //                     name="faqs[${index}][question]"
+    //                     value="${question}"
+    //                     class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
 
-                    <small id="error-faqs.${index}.question" class="text-red-500 text-xs hidden"></small>
-                </div>
+    //                 <small id="error-faqs.${index}.question" class="text-red-500 text-xs hidden"></small>
+    //             </div>
 
-                <div>
-                    <label class="text-xs font-semibold text-gray-500">Answer *</label>
-                    <textarea
-                        name="faqs[${index}][answer]"
-                        rows="3"
-                        class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none resize-none">${answer}</textarea>
+    //             <div>
+    //                 <label class="text-xs font-semibold text-gray-500">Answer *</label>
+    //                 <textarea
+    //                     name="faqs[${index}][answer]"
+    //                     rows="3"
+    //                     class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none resize-none">${answer}</textarea>
 
-                    <small id="error-faqs.${index}.answer" class="text-red-500 text-xs hidden"></small>
-                </div>
+    //                 <small id="error-faqs.${index}.answer" class="text-red-500 text-xs hidden"></small>
+    //             </div>
 
-            </div>
-        </div>
-    `;
+    //         </div>
+    //     </div>
+    // `;
 
-            container.insertAdjacentHTML('beforeend', html);
-        }
+    //         container.insertAdjacentHTML('beforeend', html);
+    //     }
 
         function toggleSection(id) {
             sendToggleRequest(id);

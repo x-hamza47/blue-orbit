@@ -74,7 +74,7 @@ Route::prefix('dashboard')->group(function () {
 // !Sub Services Crud
 
 
-Route::get('/getSlug', function (Request $request) {
+Route::get('/get-slug', function (Request $request) {
 
     abort_if(!$request->name, 400, 'Name is required');
 

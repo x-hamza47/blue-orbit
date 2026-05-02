@@ -110,7 +110,7 @@ class ServiceController extends Controller
         ]);
 
         return response()->json([
-            'status' => 'success',
+            'status' => true,
             'message' => 'Service created successfully',
             'data' => $service
         ]);
@@ -132,7 +132,8 @@ class ServiceController extends Controller
 
         return response()->json([
             'status' => true,
-            'data' => $service
+            'data' => $service,
+            'message' => 'Service updated successfully',
         ]);
     }
 

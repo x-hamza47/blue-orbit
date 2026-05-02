@@ -1,19 +1,26 @@
 import axios from "axios";
 import { showToast } from "../../helpers/toast";
+import { validation } from "./validation";
 
 const api = {
-    async request({ method = "get", url, data = {}, successMsg = null }) {
+    async request({
+        method = "get",
+        url,
+        data = {},
+        successMsg = null,
+        container = document,
+    }) {
         try {
             const res = await axios({ method, url, data });
 
             if (res.data?.status) {
-                    showToast({
-                        type: "success",
-                        title: "Success",
-                        text: successMsg || res.data.message,
-                    });
+                showToast({
+                    type: "success",
+                    title: "Success",
+                    text: successMsg || res.data.message,
+                });
             } else {
-                throw res;
+                throw new Error(res.data?.message || "Request failed");
             }
 
             return res.data;
@@ -21,15 +28,15 @@ const api = {
             const response = err.response;
 
             if (response?.status === 422 && response.data.errors) {
-                this.handleValidation(response.data.errors);
+                validation.handle(response.data.errors, container);
 
-                showToast({
-                    type: "error",
-                    title: "Validation Error",
-                    text: "Please fix the highlighted fields",
-                });
+                // showToast({
+                //     type: "error",
+                //     title: "Validation Error",
+                //     text: "Please fix the highlighted fields",
+                // });
 
-                throw response.data.errors;
+                throw err;
             }
 
             showToast({
@@ -40,21 +47,6 @@ const api = {
 
             throw err;
         }
-    },
-
-    handleValidation(errors) {
-        document.querySelectorAll('[id^="error-"]').forEach((el) => {
-            el.innerText = "";
-            el.classList.add("hidden");
-        });
-
-        Object.keys(errors).forEach((key) => {
-            const el = document.getElementById(`error-${key}`);
-            if (el) {
-                el.innerText = errors[key][0];
-                el.classList.remove("hidden");
-            }
-        });
     },
 };
 

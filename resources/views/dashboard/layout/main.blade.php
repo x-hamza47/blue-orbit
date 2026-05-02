@@ -15,6 +15,11 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 
+        :root {
+    --color-primary: #4373F6;
+    --color-primary-hover: #2F5FE0;
+    --color-secondary: #010521;
+}
         body {
             font-family: 'Inter', sans-serif;
         }
@@ -35,6 +40,69 @@
             background: #E2E8F0;
             border-radius: 10px;
         }
+/* 1. Main Popup Container */
+.custom-swal-popup {
+    padding: 0 !important; /* Needed for the full-width header */
+    background: #ffffff !important;
+    overflow: hidden !important;
+}
+
+/* 2. The Header (styled via the title class) */
+.custom-swal-header {
+    background-color: var(--color-secondary);
+    background-image: radial-gradient(circle at 0% 0%, rgba(67, 115, 246, 0.2) 0%, transparent 70%);
+    color: white !important;
+    margin: 0 !important;
+    padding: 1.5rem 2rem !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    width: 100%;
+    display: block;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* 3. The Form Body */
+.custom-swal-body {
+    padding: 2rem !important;
+    margin: 0 !important;
+    text-align: left !important;
+}
+
+/* 4. The Bottom Actions (Buttons) */
+.custom-swal-actions {
+    background: #fcfdfe;
+    padding: 1.25rem 2rem !important;
+    margin: 0 !important;
+    border-top: 1px solid #f1f5f9;
+    width: 100%;
+    justify-content: flex-end !important;
+}
+
+/* Button Customization */
+.swal2-confirm {
+    padding: 0.8rem 2.5rem !important;
+    font-weight: 600 !important;
+    border-radius: 0.75rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 0.85rem !important;
+}
+
+.swal2-cancel {
+    background: transparent !important;
+    color: #94a3b8 !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+}
+
+/* Close button (if enabled) */
+.swal2-close {
+    color: white !important;
+    top: 10px !important;
+}
     </style>
 </head>
 
