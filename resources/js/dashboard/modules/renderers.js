@@ -1,0 +1,139 @@
+export const renderers = {
+    text: ({ name, errorId, label = "", value = "", placeholder = "" }) => `
+    <div>
+        <label class="text-xs font-semibold text-gray-500">${label}</label>
+        <input
+            type="text"
+            name="${name}"
+            value="${esc(value)}"
+            placeholder="${esc(placeholder)}"
+            class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none"
+        >
+        <small id="${errorId}" class="text-red-500 text-xs hidden"></small>
+    </div>
+    `,
+    textarea: ({
+        name,
+        errorId,
+        label = "",
+        value = "",
+        placeholder = "",
+        rows = 2,
+    }) => `
+    <div>
+        <label class="text-xs font-semibold text-gray-500">${label}</label>
+        <textarea
+            name="${name}"
+            rows="${rows}"
+            placeholder="${esc(placeholder)}"
+            class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none resize-none"
+        >${esc(value)}</textarea>
+        <small id="${errorId}" class="text-red-500 text-xs hidden"></small>
+    </div>
+    `,
+
+    icon: ({
+        name,
+        errorId,
+        label = "",
+        value = "",
+        placeholder = "e.g. zap",
+        previewDefault = "zap",
+        previewId,
+        iconType = "lucide",
+    }) => {
+        const iconName = value.trim() || previewDefault;
+        const preview =
+            iconType === "devicon"
+                ? `<i class="${esc(iconName)}"></i>`
+                : `<i data-lucide="${esc(iconName)}"></i>`;
+
+        const browseLink =
+            iconType === "devicon"
+                ? `https://devicon.dev"`
+                : `https://lucide.dev/icons"`;
+
+        return `
+            <div>
+                <label class="text-xs font-semibold text-gray-500">${label}</label>
+                <div class="flex items-center gap-3 mt-2">
+                    <input type="text"
+                        name="${name}"
+                        value="${esc(value)}"
+                        data-icon-input
+                        data-type="${iconType}"
+                        data-target="#${previewId}"
+                        placeholder="e.g. zap, check, star"
+                        class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+
+                    <div id="${previewId}"
+                        class="w-11 h-11 shrink-0 flex items-center justify-center bg-white border rounded-lg text-gray-600">
+                         ${preview}
+                    </div>
+
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1 flex items-center gap-2">
+    
+                        <a href="${browseLink}" target="_blank"
+                        class="text-[#4373F6] font-semibold hover:underline">
+                            Browse ${iconType === "devicon" ? "Devicon" : "Lucide"} icons
+                        </a>
+
+                        <span class="text-gray-300">→</span>
+
+                        <span class="text-gray-400">
+                            copy icon name only
+                        </span>
+                     </p>
+                <small id="${errorId}" class="text-red-500 text-xs hidden"></small>
+            </div>
+        `;
+    },
+    checkbox: ({ name, label = "", checked = false }) => `
+       <div class="flex items-center gap-2">
+            <input type="hidden" name="${name}" value="0">
+
+            <input type="checkbox"
+                name="${name}"
+                value="1"
+                id="item-checkbox"
+                ${checked ? "checked" : ""}
+                class="w-4 h-4 accent-[#4373F6]">
+
+            <label class="text-xs font-semibold text-gray-500" for="item-checkbox">
+                ${label}
+            </label>
+        </div>
+    `,
+
+    select: ({ name, errorId, label = "", value = "", options = [] }) => {
+        const opts = options
+            .map((o) => (typeof o === "string" ? { value: o, label: o } : o))
+            .map(
+                (o) =>
+                    `<option value="${esc(o.value)}" ${o.value === value ? "selected" : ""}>${esc(o.label)}</option>`,
+            )
+            .join("");
+
+        return `
+            <div>
+                <label class="text-xs font-semibold text-gray-500">${label}</label>
+                <select
+                    name="${name}"
+                    class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none bg-white"
+                >
+                    <option value="" disabled ${!value ? "selected" : ""}>Select…</option>
+                    ${opts}
+                </select>
+                <small id="${errorId}" class="text-red-500 text-xs hidden"></small>
+            </div>`;
+    },
+};
+
+function esc(str) {
+    return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}

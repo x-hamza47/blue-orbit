@@ -23,9 +23,23 @@ return [
             'subheading' => 'nullable|string|max:500',
             'items' => 'required|array|min:1|max:9',
             'items.*.icon' => 'required|string|max:255',
-            'items.*.title' => 'required|string|max:255',
-            'items.*.desc' => 'required|string|max:1000',
+            'items.*.title' => 'required|string|max:100',
+            'items.*.desc' => 'required|string|max:120',
+        ],
+        'messages' => [
+            'items.required'         => 'Add at least one benefit before saving.',
+            'items.min'              => 'Add at least one benefit before saving.',
+            'items.max'              => 'You can add up to 9 benefits only.',
+            'subheading.max'         => 'Description cannot exceed 500 characters.',
 
+            'items.*.icon.required'  => 'Item :position — icon is required.',
+            'items.*.icon.max'       => 'Item :position — icon name is too long.',
+
+            'items.*.title.required' => 'Item :position — title is required.',
+            'items.*.title.max'      => 'Item :position — title cannot exceed 100 characters.',
+
+            'items.*.desc.required'  => 'Item :position — description is required.',
+            'items.*.desc.max'       => 'Item :position — description cannot exceed 120 characters.',
         ],
     ],
 

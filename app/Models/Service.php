@@ -44,6 +44,10 @@ class Service extends Model
         return $this->belongsTo(Service::class, 'parent_id');
     }
 
+    public function getTypeAttribute()
+    {
+        return $this->parent_id ? 'sub' : 'parent';
+    }
 
     // Info: Query Scopes
 

@@ -1,9 +1,7 @@
-import { addListItem, initDynamicLists } from "../modules/dynamic-list";
+import { initDynamicItems } from "../modules/dynamic-items";
+import { initGlobalForms } from "../modules/forms";
 
-document.addEventListener("DOMContentLoaded", () => {
-    initDynamicLists(document);
-
-    document.getElementById("addFaqBtn")?.addEventListener("click", () => {
-        addListItem("faqContainer", "faq");
-    });
-});
+// document.addEventListener("DOMContentLoaded", () => {
+   window.initDynamicItems = initDynamicItems;
+   window.initGlobalForms = initGlobalForms;
+// });

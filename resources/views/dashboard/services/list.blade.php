@@ -128,7 +128,7 @@
                                     </a>
                                 </td>
 
-                                {{-- Status --}}
+                                {{-- Status --}} 
                                 <td class="px-8 py-6">
                                     <label class="inline-flex items-center cursor-pointer">
                                         <input type="checkbox" class="sr-only peer toggle-status"
@@ -156,6 +156,12 @@
                                             class="service-open-form w-10 h-10 rounded-xl bg-gray-50 text-[#010521] hover:bg-[#4373F6] hover:text-white transition flex items-center justify-center">
                                             <i data-lucide="edit-3" class="w-4 h-4"></i>
                                         </button>
+                                         <a href="{{ route('service.sections.index', $service->id) }}"
+                                            class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition flex items-center justify-center"
+                                            title="Manage Sections">
+                                            <i data-lucide="layout" class="w-4 h-4"></i>
+                                        </a>
+
 
                                         <button data-url="{{ route('service.destroy', $service->id) }}"
                                             class="js-delete w-10 h-10 rounded-xl bg-gray-50 text-red-500 hover:bg-red-500 hover:text-white transition flex items-center justify-center">

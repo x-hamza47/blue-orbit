@@ -174,7 +174,8 @@
                         @endforeach
                     </select>
 
-                    <form id="sectionForm" class="mt-4">
+                    <form class="js-form" data-url="{{ route('service.sections.store', $service->id) }}" data-method="post"
+                        data-success="reload" class="mt-4">
                         <input type="hidden" name="type" id="typeInput">
 
                         <div id="formContainer"></div>
@@ -221,128 +222,130 @@
             axios.get('{{ route('service.sections.form', ['type' => ':type']) }}'.replace(':type', type))
                 .then(res => {
                     document.getElementById('formContainer').innerHTML = res.data;
+                    initGlobalForms();
+                    initDynamicItems();
                 });
         }
 
-        document.getElementById('sectionForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        // document.getElementById('sectionForm').addEventListener('submit', async function(e) {
+        //     e.preventDefault();
 
-            let formData = new FormData(this);
+        //     let formData = new FormData(this);
 
-            document.querySelectorAll('[id^="error-"]').forEach(el => {
-                el.innerText = '';
-                el.classList.add('hidden');
-            });
+        //     document.querySelectorAll('[id^="error-"]').forEach(el => {
+        //         el.innerText = '';
+        //         el.classList.add('hidden');
+        //     });
 
 
-            try {
+        //     try {
 
-                const res = await axios.post(
-                    `{{ route('service.sections.store', $service->id) }}`,
-                    formData
-                );
+        //         const res = await axios.post(
+        //             `{{ route('service.sections.store', $service->id) }}`,
+        //             formData
+        //         );
 
-                showToast({
-                    type: 'success',
-                    title: 'Success',
-                    text: res.data.message
-                });
+        //         showToast({
+        //             type: 'success',
+        //             title: 'Success',
+        //             text: res.data.message
+        //         });
 
-                closeModal();
-                location.reload();
+        //         closeModal();
+        //         location.reload();
 
-            } catch (err) {
+        //     } catch (err) {
 
-                const status = err.response?.status;
+        //         const status = err.response?.status;
 
-                if (status === 422 && err.response.data.errors) {
+        //         if (status === 422 && err.response.data.errors) {
 
-                    const errors = err.response.data.errors;
+        //             const errors = err.response.data.errors;
 
-                    Object.keys(errors).forEach(key => {
-                        const el = document.getElementById(`error-${key}`);
-                        if (el) {
-                            el.innerText = errors[key][0];
-                            el.classList.remove('hidden');
-                        }
-                    });
+        //             Object.keys(errors).forEach(key => {
+        //                 const el = document.getElementById(`error-${key}`);
+        //                 if (el) {
+        //                     el.innerText = errors[key][0];
+        //                     el.classList.remove('hidden');
+        //                 }
+        //             });
 
-                    showToast({
-                        type: 'error',
-                        title: 'Validation Error',
-                        text: 'Please fix the highlighted fields'
-                    });
+        //             showToast({
+        //                 type: 'error',
+        //                 title: 'Validation Error',
+        //                 text: 'Please fix the highlighted fields'
+        //             });
 
-                    return;
-                }
+        //             return;
+        //         }
 
-                if (err.response?.data?.message) {
-                    showToast({
-                        type: 'error',
-                        title: 'Error',
-                        text: err.response.data.message
-                    });
+        //         if (err.response?.data?.message) {
+        //             showToast({
+        //                 type: 'error',
+        //                 title: 'Error',
+        //                 text: err.response.data.message
+        //             });
 
-                    return;
-                }
+        //             return;
+        //         }
 
-                showToast({
-                    type: 'error',
-                    title: 'Error',
-                    text: 'Something went wrong'
-                });
+        //         showToast({
+        //             type: 'error',
+        //             title: 'Error',
+        //             text: 'Something went wrong'
+        //         });
 
-            }
-        });
+        //     }
+        // });
 
-    //     function removeFAQ(btn) {
+        //     function removeFAQ(btn) {
 
-    //         const item = btn.closest('.faq-item');
-    //         item.remove();
+        //         const item = btn.closest('.faq-item');
+        //         item.remove();
 
-    //         updateFAQButtonState();
-    //     }
+        //         updateFAQButtonState();
+        //     }
 
-    //     function updateFAQButtonState() {
+        //     function updateFAQButtonState() {
 
-    //         const btn = document.getElementById('addQuestionBtn');
-    //         const currentCount = document.querySelectorAll('.faq-item').length;
+        //         const btn = document.getElementById('addQuestionBtn');
+        //         const currentCount = document.querySelectorAll('.faq-item').length;
 
-    //         if (currentCount >= 4) {
+        //         if (currentCount >= 4) {
 
-    //             btn.disabled = true;
-    //             btn.classList.add('opacity-50', 'cursor-not-allowed');
+        //             btn.disabled = true;
+        //             btn.classList.add('opacity-50', 'cursor-not-allowed');
 
-    //         } else {
+        //         } else {
 
-    //             btn.disabled = false;
-    //             btn.classList.remove('opacity-50', 'cursor-not-allowed');
-    //         }
-    //     }
+        //             btn.disabled = false;
+        //             btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        //         }
+        //     }
 
-    //     function addFAQ(question = '', answer = '') {
+        //     function addFAQ(question = '', answer = '') {
 
-    //         const container = document.getElementById('faqContainer');
-    //         const btn = document.getElementById('addQuestionBtn');
+        //         const container = document.getElementById('faqContainer');
+        //         const btn = document.getElementById('addQuestionBtn');
 
-    //         const currentCount = container.querySelectorAll('.faq-item').length;
+        //         const currentCount = container.querySelectorAll('.faq-item').length;
 
-    //         if (currentCount >= 4) {
+        //         if (currentCount >= 4) {
 
-    //             showToast({
-    //                 type: 'error',
-    //                 title: 'Limit reached',
-    //                 text: 'You can only add up to 4 FAQs'
-    //             });
+        //             showToast({
+        //                 type: 'error',
+        //                 title: 'Limit reached',
+        //                 text: 'You can only add up to 4 FAQs'
+        //             });
 
-    //             updateFAQButtonState();
+        //             updateFAQButtonState();
 
-    //             return;
-    //         }
+        //             return;
+        //         }
 
-    //         const index = currentCount;
+        //         const index = currentCount;
 
-    //         const html = `
+        //         const html = `
     //     <div class="faq-item bg-gray-50 border border-gray-100 rounded-xl p-4 relative">
 
     //         <button type="button"
@@ -377,8 +380,8 @@
     //     </div>
     // `;
 
-    //         container.insertAdjacentHTML('beforeend', html);
-    //     }
+        //         container.insertAdjacentHTML('beforeend', html);
+        //     }
 
         function toggleSection(id) {
             sendToggleRequest(id);
@@ -408,402 +411,401 @@
 
         }, 1000);
 
-        function addItem(icon = '', title = '') {
+        // function addItem(icon = '', title = '') {
 
-            const container = document.getElementById('itemsContainer');
-            const index = container.children.length;
+        //     const container = document.getElementById('itemsContainer');
+        //     const index = container.children.length;
 
-            const html = `
-        <div class="bg-gray-50 border border-gray-100 rounded-xl p-4 relative">
+        //     const html = `
+    //             <div class="bg-gray-50 border border-gray-100 rounded-xl p-4 relative">
 
-            <button type="button"
-                onclick="this.parentElement.remove()"
-                class="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition">
-                ✕
-            </button>
+    //                 <button type="button"
+    //                     onclick="this.parentElement.remove()"
+    //                     class="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition">
+    //                     ✕
+    //                 </button>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    //                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                <!-- Icon -->
-                <div>
-                    <label class="text-xs font-semibold text-gray-500">Devicon Class</label>
+    //                     <!-- Icon -->
+    //                     <div>
+    //                         <label class="text-xs font-semibold text-gray-500">Devicon Class</label>
 
-                    <div class="flex items-center gap-3 mt-2">
+    //                         <div class="flex items-center gap-3 mt-2">
 
-                        <!-- Input -->
-                        <input type="text"
-                            name="items[${index}][icon]"
-                            value="${icon}"
-                            oninput="updateIconPreview(this, ${index})"
-                            placeholder="e.g. devicon-laravel-plain"
-                            class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+    //                             <!-- Input -->
+    //                             <input type="text"
+    //                                 name="items[${index}][icon]"
+    //                                 value="${icon}"
+    //                                 oninput="updateIconPreview(this, ${index})"
+    //                                 placeholder="e.g. devicon-laravel-plain"
+    //                                 class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
 
-                        <!-- Preview -->
-                        <div id="icon-preview-${index}"
-                            class="w-12 h-12 flex items-center justify-center bg-white border rounded-lg text-xl shrink-0">
-                            <i class="${icon || 'devicon-devicon-plain'}"></i>
-                        </div>
+    //                             <!-- Preview -->
+    //                             <div id="icon-preview-${index}"
+    //                                 class="w-12 h-12 flex items-center justify-center bg-white border rounded-lg text-xl shrink-0">
+    //                                 <i class="${icon || 'devicon-devicon-plain'}"></i>
+    //                             </div>
 
-                    </div>
+    //                         </div>
 
-                    <small id="error-items.${index}.icon" class="text-red-500 text-xs hidden"></small>
+    //                         <small id="error-items.${index}.icon" class="text-red-500 text-xs hidden"></small>
 
-                    <!-- helper links -->
-                    <div class="mt-2 flex items-center justify-between">
-                        <a href="https://devicon.dev/" target="_blank"
-                        class="text-xs text-[#4373F6] font-semibold hover:underline">
-                            Browse icons →
-                        </a>
+    //                         <!-- helper links -->
+    //                         <div class="mt-2 flex items-center justify-between">
+    //                             <a href="https://devicon.dev/" target="_blank"
+    //                             class="text-xs text-[#4373F6] font-semibold hover:underline">
+    //                                 Browse icons →
+    //                             </a>
 
-                        <span class="text-[10px] text-gray-400">
-                            Copy class name from site
-                        </span>
-                    </div>
-                </div>
+    //                             <span class="text-[10px] text-gray-400">
+    //                                 Copy class name from site
+    //                             </span>
+    //                         </div>
+    //                     </div>
 
-                <!-- Title -->
-                <div>
-                    <label class="text-xs font-semibold text-gray-500">Title</label>
+    //                     <!-- Title -->
+    //                     <div>
+    //                         <label class="text-xs font-semibold text-gray-500">Title</label>
 
-                    <input type="text"
-                        name="items[${index}][title]"
-                        value="${title}"
-                        placeholder="e.g. Laravel Development"
-                        class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+    //                         <input type="text"
+    //                             name="items[${index}][title]"
+    //                             value="${title}"
+    //                             placeholder="e.g. Laravel Development"
+    //                             class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
 
-                    <small id="error-items.${index}.title" class="text-red-500 text-xs hidden"></small>
-                </div>
+    //                         <small id="error-items.${index}.title" class="text-red-500 text-xs hidden"></small>
+    //                     </div>
 
-            </div>
+    //                 </div>
 
 
 
-        </div>
-    `;
+    //             </div>
+    //         `;
 
-            container.insertAdjacentHTML('beforeend', html);
-        }
+        //     container.insertAdjacentHTML('beforeend', html);
+        // }
 
-        function updateIconPreview(input, index) {
+        // function updateIconPreview(input, index) {
 
-            const preview = document.getElementById(`icon-preview-${index}`);
+        //     const preview = document.getElementById(`icon-preview-${index}`);
 
-            if (!preview) return;
+        //     if (!preview) return;
 
-            const iconClass = input.value.trim();
+        //     const iconClass = input.value.trim();
 
-            preview.innerHTML = `
-        <i class="${iconClass || 'devicon-devicon-plain'}"></i>
-    `;
-        }
+        //     preview.innerHTML = `
+    //         <i class="${iconClass || 'devicon-devicon-plain'}"></i>
+    //     `;
+        // }
 
-        function addBenefitItem(icon = '', title = '', desc = '') {
+        // function addBenefitItem(icon = '', title = '', desc = '') {
 
-            const container = document.getElementById('benefitsContainer');
-            const index = container.children.length;
+        //     const container = document.getElementById('benefitsContainer');
+        //     const index = container.children.length;
 
-            const html = `
-    <div class="bg-gray-50 border border-gray-100 rounded-xl p-4 relative">
+        //     const html = `
+    //         <div class="bg-gray-50 border border-gray-100 rounded-xl p-4 relative">
 
-        <button type="button"
-            onclick="this.parentElement.remove()"
-            class="absolute top-3 right-3 text-gray-400 hover:text-red-500">
-            ✕
-        </button>
+    //             <button type="button"
+    //                 onclick="this.parentElement.remove()"
+    //                 class="absolute top-3 right-3 text-gray-400 hover:text-red-500">
+    //                 ✕
+    //             </button>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    //             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-            <!-- ICON + PREVIEW -->
-            <div>
-                <label class="text-xs font-semibold text-gray-500">Lucide Icon</label>
+    //                 <!-- ICON + PREVIEW -->
+    //                 <div>
+    //                     <label class="text-xs font-semibold text-gray-500">Lucide Icon</label>
 
-                <div class="flex items-center gap-3 mt-2">
+    //                     <div class="flex items-center gap-3 mt-2">
 
-                    <input type="text"
-                        name="items[${index}][icon]"
-                        value="${icon}"
-                        oninput="updateBenefitIcon(this, ${index})"
-                        placeholder="e.g. zap, check, star"
-                        class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+    //                         <input type="text"
+    //                             name="items[${index}][icon]"
+    //                             value="${icon}"
+    //                             oninput="updateBenefitIcon(this, ${index})"
+    //                             placeholder="e.g. zap, check, star"
+    //                             class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
 
-                    <div id="benefit-icon-${index}"
-                        class="w-11 h-11 flex items-center justify-center bg-white border rounded-lg text-gray-600">
-                        <i data-lucide="${icon || 'zap'}"></i>
-                    </div>
+    //                         <div id="benefit-icon-${index}"
+    //                             class="w-11 h-11 flex items-center justify-center bg-white border rounded-lg text-gray-600">
+    //                             <i data-lucide="${icon || 'zap'}"></i>
+    //                         </div>
 
-                    </div>
-                    <p class="text-xs text-gray-400 mt-1">
-                        Browse icons: <a href="https://lucide.dev/icons" target="_blank" class="hover:underline">
-                            lucide.dev/icons
-                        </a>
-                    </p>
+    //                         </div>
+    //                         <p class="text-xs text-gray-400 mt-1">
+    //                             Browse icons: <a href="https://lucide.dev/icons" target="_blank" class="hover:underline">
+    //                                 lucide.dev/icons
+    //                             </a>
+    //                         </p>
 
-                <small id="error-items.${index}.icon" class="text-red-500 text-xs hidden"></small>
-            </div>
+    //                     <small id="error-items.${index}.icon" class="text-red-500 text-xs hidden"></small>
+    //                 </div>
 
-            <!-- TITLE -->
-            <div>
-                <label class="text-xs font-semibold text-gray-500">Title</label>
-                <input type="text"
-                    name="items[${index}][title]"
-                    value="${title}"
-                    class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
-                <small id="error-items.${index}.title" class="text-red-500 text-xs hidden"></small>
-            </div>
+    //                 <!-- TITLE -->
+    //                 <div>
+    //                     <label class="text-xs font-semibold text-gray-500">Title</label>
+    //                     <input type="text"
+    //                         name="items[${index}][title]"
+    //                         value="${title}"
+    //                         class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+    //                     <small id="error-items.${index}.title" class="text-red-500 text-xs hidden"></small>
+    //                 </div>
 
-        </div>
+    //             </div>
 
-        <!-- DESCRIPTION -->
-        <div class="mt-4">
-            <label class="text-xs font-semibold text-gray-500">Description</label>
-            <textarea name="items[${index}][desc]" rows="2"
-                class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none resize-none">${desc}</textarea>
-            <small id="error-items.${index}.desc" class="text-red-500 text-xs hidden"></small>
-        </div>
+    //             <!-- DESCRIPTION -->
+    //             <div class="mt-4">
+    //                 <label class="text-xs font-semibold text-gray-500">Description</label>
+    //                 <textarea name="items[${index}][desc]" rows="2"
+    //                     class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none resize-none">${desc}</textarea>
+    //                 <small id="error-items.${index}.desc" class="text-red-500 text-xs hidden"></small>
+    //             </div>
 
-    </div>
-    `;
+    //         </div>
+    //         `;
 
-            container.insertAdjacentHTML('beforeend', html);
+        //     container.insertAdjacentHTML('beforeend', html);
 
-            lucide.createIcons();
-        }
+        //     lucide.createIcons();
+        // }
 
-        function updateBenefitIcon(input, index) {
+        // function updateBenefitIcon(input, index) {
 
-            const iconBox = document.getElementById(`benefit-icon-${index}`);
-            const value = input.value.trim() || 'zap';
+        //     const iconBox = document.getElementById(`benefit-icon-${index}`);
+        //     const value = input.value.trim() || 'zap';
 
-            iconBox.innerHTML = `<i data-lucide="${value}"></i>`;
+        //     iconBox.innerHTML = `<i data-lucide="${value}"></i>`;
 
-            lucide.createIcons();
-        }
+        //     lucide.createIcons();
+        // }
 
 
+        // function addIndustryItem(icon = '', title = '', desc = '') {
 
+        //     const container = document.getElementById('industriesContainer');
+        //     const index = container.children.length;
 
-        function addIndustryItem(icon = '', title = '', desc = '') {
+        //     const html = `
+    //         <div class="bg-gray-50 border border-gray-100 rounded-xl p-4 relative">
 
-            const container = document.getElementById('industriesContainer');
-            const index = container.children.length;
+    //             <button type="button"
+    //                 onclick="this.parentElement.remove()"
+    //                 class="absolute top-3 right-3 text-gray-400 hover:text-red-500">
+    //                 ✕
+    //             </button>
 
-            const html = `
-    <div class="bg-gray-50 border border-gray-100 rounded-xl p-4 relative">
+    //             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-        <button type="button"
-            onclick="this.parentElement.remove()"
-            class="absolute top-3 right-3 text-gray-400 hover:text-red-500">
-            ✕
-        </button>
+    //                 <!-- ICON -->
+    //                 <div>
+    //                     <label class="text-xs font-semibold text-gray-500">Lucide Icon</label>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    //                     <div class="flex items-center gap-3 mt-2">
 
-            <!-- ICON -->
-            <div>
-                <label class="text-xs font-semibold text-gray-500">Lucide Icon</label>
+    //                         <!-- INPUT -->
+    //                         <input type="text"
+    //                             name="items[${index}][icon]"
+    //                             value="${icon}"
+    //                             oninput="updateIndustryIcon(this, ${index})"
+    //                             placeholder="e.g. building, briefcase"
+    //                             class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
 
-                <div class="flex items-center gap-3 mt-2">
+    //                         <!-- PREVIEW -->
+    //                     <div id="industry-icon-${index}"
+    //                         class="w-12 h-12 flex items-center justify-center bg-white border rounded-lg text-gray-600 shrink-0">
+    //                         <i data-lucide="${icon || 'building'}"></i>
+    //                     </div>
+    //                     </div>
 
-                    <!-- INPUT -->
-                    <input type="text"
-                        name="items[${index}][icon]"
-                        value="${icon}"
-                        oninput="updateIndustryIcon(this, ${index})"
-                        placeholder="e.g. building, briefcase"
-                        class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+    //                     <!-- HELP LINKS -->
+    //                     <div class="mt-2 flex items-center justify-between">
 
-                    <!-- PREVIEW -->
-                 <div id="industry-icon-${index}"
-                    class="w-12 h-12 flex items-center justify-center bg-white border rounded-lg text-gray-600 shrink-0">
-                    <i data-lucide="${icon || 'building'}"></i>
-                </div>
-                </div>
+    //                         <a href="https://lucide.dev/icons/" target="_blank"
+    //                             class="text-xs text-[#4373F6] font-semibold hover:underline">
+    //                             Browse Lucide icons →
+    //                         </a>
 
-                <!-- HELP LINKS -->
-                <div class="mt-2 flex items-center justify-between">
+    //                         <span class="text-[10px] text-gray-400">
+    //                             Use icon name only (no "data-lucide")
+    //                         </span>
 
-                    <a href="https://lucide.dev/icons/" target="_blank"
-                        class="text-xs text-[#4373F6] font-semibold hover:underline">
-                        Browse Lucide icons →
-                    </a>
+    //                     </div>
 
-                    <span class="text-[10px] text-gray-400">
-                        Use icon name only (no "data-lucide")
-                    </span>
+    //                     <small id="error-items.${index}.icon" class="text-red-500 text-xs hidden"></small>
+    //                 </div>
 
-                </div>
+    //                 <!-- TITLE -->
+    //                 <div>
+    //                     <label class="text-xs font-semibold text-gray-500">Title</label>
 
-                <small id="error-items.${index}.icon" class="text-red-500 text-xs hidden"></small>
-            </div>
+    //                     <input type="text"
+    //                         name="items[${index}][title]"
+    //                         value="${title}"
+    //                         placeholder="e.g. Healthcare"
+    //                         class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
 
-            <!-- TITLE -->
-            <div>
-                <label class="text-xs font-semibold text-gray-500">Title</label>
+    //                     <small id="error-items.${index}.title" class="text-red-500 text-xs hidden"></small>
+    //                 </div>
 
-                <input type="text"
-                    name="items[${index}][title]"
-                    value="${title}"
-                    placeholder="e.g. Healthcare"
-                    class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+    //             </div>
 
-                <small id="error-items.${index}.title" class="text-red-500 text-xs hidden"></small>
-            </div>
+    //             <!-- DESCRIPTION -->
+    //             <div class="mt-4">
+    //                 <label class="text-xs font-semibold text-gray-500">Description</label>
 
-        </div>
+    //                 <textarea name="items[${index}][desc]" rows="2"
+    //                     class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none resize-none">${desc}</textarea>
 
-        <!-- DESCRIPTION -->
-        <div class="mt-4">
-            <label class="text-xs font-semibold text-gray-500">Description</label>
+    //                 <small id="error-items.${index}.desc" class="text-red-500 text-xs hidden"></small>
+    //             </div>
 
-            <textarea name="items[${index}][desc]" rows="2"
-                class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none resize-none">${desc}</textarea>
+    //         </div>
+    //         `;
 
-            <small id="error-items.${index}.desc" class="text-red-500 text-xs hidden"></small>
-        </div>
+        //     container.insertAdjacentHTML('beforeend', html);
 
-    </div>
-    `;
+        //     lucide.createIcons();
+        // }
 
-            container.insertAdjacentHTML('beforeend', html);
+        // function updateIndustryIcon(input, index) {
 
-            lucide.createIcons();
-        }
+        //     const iconBox = document.getElementById(`industry-icon-${index}`);
+        //     const value = input.value.trim() || 'building';
 
-        function updateIndustryIcon(input, index) {
+        //     iconBox.innerHTML = `<i data-lucide="${value}"></i>`;
 
-            const iconBox = document.getElementById(`industry-icon-${index}`);
-            const value = input.value.trim() || 'building';
+        //     lucide.createIcons();
+        // }
 
-            iconBox.innerHTML = `<i data-lucide="${value}"></i>`;
+        // function updateCaseStudyButtonState() {
 
-            lucide.createIcons();
-        }
+        //     const btn = document.getElementById('addCaseStudyBtn');
+        //     const currentCount = document.querySelectorAll('.case-item').length;
 
-        function updateCaseStudyButtonState() {
+        //     if (!btn) return;
 
-            const btn = document.getElementById('addCaseStudyBtn');
-            const currentCount = document.querySelectorAll('.case-item').length;
+        //     if (currentCount >= 6) {
 
-            if (!btn) return;
+        //         btn.disabled = true;
+        //         btn.classList.add('opacity-50', 'cursor-not-allowed');
 
-            if (currentCount >= 6) {
+        //     } else {
 
-                btn.disabled = true;
-                btn.classList.add('opacity-50', 'cursor-not-allowed');
+        //         btn.disabled = false;
+        //         btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        //     }
+        // }
 
-            } else {
+        // function addCaseStudy(metric = '', title = '', tag1 = '', tag2 = '', featured = false) {
 
-                btn.disabled = false;
-                btn.classList.remove('opacity-50', 'cursor-not-allowed');
-            }
-        }
+        //     const container = document.getElementById('caseContainer');
 
-        function addCaseStudy(metric = '', title = '', tag1 = '', tag2 = '', featured = false) {
+        //     if (!container) return;
 
-            const container = document.getElementById('caseContainer');
+        //     const currentCount = container.querySelectorAll('.case-item').length;
 
-            if (!container) return;
+        //     if (currentCount >= 6) {
 
-            const currentCount = container.querySelectorAll('.case-item').length;
+        //         showToast({
+        //             type: 'error',
+        //             title: 'Limit reached',
+        //             text: 'You can only add up to 6 Case Study items'
+        //         });
 
-            if (currentCount >= 6) {
+        //         updateCaseStudyButtonState();
+        //         return;
+        //     }
 
-                showToast({
-                    type: 'error',
-                    title: 'Limit reached',
-                    text: 'You can only add up to 6 Case Study items'
-                });
+        //     const index = currentCount;
 
-                updateCaseStudyButtonState();
-                return;
-            }
+        //     const html = `
+    //     <div class="case-item bg-gray-50 border border-gray-100 rounded-xl p-5 relative">
 
-            const index = currentCount;
+    //         <button type="button"
+    //             onclick="removeCaseStudy(this)"
+    //             class="absolute top-3 right-3 text-gray-400 hover:text-red-500">
+    //             ✕
+    //         </button>
 
-            const html = `
-    <div class="case-item bg-gray-50 border border-gray-100 rounded-xl p-5 relative">
+    //         <div class="space-y-4">
 
-        <button type="button"
-            onclick="removeCaseStudy(this)"
-            class="absolute top-3 right-3 text-gray-400 hover:text-red-500">
-            ✕
-        </button>
+    //             <!-- FEATURED -->
+    //             <div class="flex items-center gap-2">
+    //                 <input type="hidden" name="items[${index}][featured]" value="0">
 
-        <div class="space-y-4">
+    //                 <input type="checkbox"
+    //                     name="items[${index}][featured]"
+    //                     id="item-checkbox"
+    //                     value="1"
+    //                     ${featured ? 'checked' : ''}
+    //                     class="w-4 h-4 accent-[#4373F6]">
 
-            <!-- FEATURED -->
-            <div class="flex items-center gap-2">
-                <input type="hidden" name="items[${index}][featured]" value="0">
+    //                 <label class="text-xs font-semibold text-gray-500" for="item-checkbox">
+    //                     Featured Card
+    //                 </label>
+    //             </div>
 
-                <input type="checkbox"
-                    name="items[${index}][featured]"
-                    value="1"
-                    ${featured ? 'checked' : ''}
-                    class="w-4 h-4 accent-[#4373F6]">
+    //             <!-- METRIC + TITLE -->
+    //             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                <label class="text-xs font-semibold text-gray-500">
-                    Featured Card
-                </label>
-            </div>
+    //                 <div>
+    //                     <label class="text-xs font-semibold text-gray-500">Metric *</label>
+    //                     <input type="text"
+    //                         name="items[${index}][metric]"
+    //                         value="${metric}"
+    //                         placeholder="+320% / 4x / $180K"
+    //                         class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+    //                 </div>
 
-            <!-- METRIC + TITLE -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    //                 <div>
+    //                     <label class="text-xs font-semibold text-gray-500">Title *</label>
+    //                     <input type="text"
+    //                         name="items[${index}][title]"
+    //                         value="${title}"
+    //                         placeholder="Organic Traffic"
+    //                         class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+    //                 </div>
 
-                <div>
-                    <label class="text-xs font-semibold text-gray-500">Metric *</label>
-                    <input type="text"
-                        name="items[${index}][metric]"
-                        value="${metric}"
-                        placeholder="+320% / 4x / $180K"
-                        class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
-                </div>
+    //             </div>
 
-                <div>
-                    <label class="text-xs font-semibold text-gray-500">Title *</label>
-                    <input type="text"
-                        name="items[${index}][title]"
-                        value="${title}"
-                        placeholder="Organic Traffic"
-                        class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
-                </div>
+    //             <!-- TAGS -->
+    //             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-            </div>
+    //                 <div>
+    //                     <label class="text-xs font-semibold text-gray-500">Tag 1</label>
+    //                     <input type="text"
+    //                         name="items[${index}][tags][]"
+    //                         value="${tag1}"
+    //                         placeholder="E-commerce"
+    //                         class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+    //                 </div>
 
-            <!-- TAGS -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    //                 <div>
+    //                     <label class="text-xs font-semibold text-gray-500">Tag 2</label>
+    //                     <input type="text"
+    //                         name="items[${index}][tags][]"
+    //                         value="${tag2}"
+    //                         placeholder="SEO"
+    //                         class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+    //                 </div>
 
-                <div>
-                    <label class="text-xs font-semibold text-gray-500">Tag 1</label>
-                    <input type="text"
-                        name="items[${index}][tags][]"
-                        value="${tag1}"
-                        placeholder="E-commerce"
-                        class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
-                </div>
+    //             </div>
 
-                <div>
-                    <label class="text-xs font-semibold text-gray-500">Tag 2</label>
-                    <input type="text"
-                        name="items[${index}][tags][]"
-                        value="${tag2}"
-                        placeholder="SEO"
-                        class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
-                </div>
+    //         </div>
+    //     </div>
+    //     `;
 
-            </div>
+        //     container.insertAdjacentHTML('beforeend', html);
 
-        </div>
-    </div>
-    `;
+        //     updateCaseStudyButtonState();
+        // }
 
-            container.insertAdjacentHTML('beforeend', html);
-
-            updateCaseStudyButtonState();
-        }
-
-        function removeCaseStudy(btn) {
-            btn.closest('.case-item').remove();
-            updateCaseStudyButtonState();
-        }
+        // function removeCaseStudy(btn) {
+        //     btn.closest('.case-item').remove();
+        //     updateCaseStudyButtonState();
+        // }
     </script>
 @endpush

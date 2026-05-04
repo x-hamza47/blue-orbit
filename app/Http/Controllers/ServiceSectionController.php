@@ -16,7 +16,7 @@ class ServiceSectionController extends Controller
 
         $existingSections = $sections->pluck('type')->toArray();
 
-        $serviceType = is_null($service->parent_id) ? 'parent' : 'sub';
+        $serviceType = $service->type;
 
         $availableSections = collect(config('sections'))
             ->filter(function ($section, $key) use ($existingSections, $serviceType) {
@@ -44,7 +44,7 @@ class ServiceSectionController extends Controller
 
         $sectionConfig = config('sections')[$type];
 
-        $validator = Validator::make($request->all(), $sectionConfig['rules'] ?? []);
+        $validator = Validator::make($request->all(), $sectionConfig['rules'] ?? [], $sectionConfig['messages'] ?? []);
 
         if ($validator->fails()) {
             return response()->json([
