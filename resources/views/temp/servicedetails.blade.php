@@ -2,27 +2,27 @@
     <div class="mx-auto max-w-480 px-[clamp(1.5rem,5vw,5rem)]">
 
         <div class="mb-8">
-            <h2 class="font-black text-[#010521] leading-[1.1]" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">
+            <h2 class="font-black text-[#010521] leading-[1.1] text-[clamp(1.875rem,5vw,3rem)] mb-2">
                 {{ $data['heading'] }}
             </h2>
         </div>
 
-        <div class="space-y-32">
+        <div class="lg:space-y-32 md:space-y-28 space-y-20">
             @foreach ($data['items'] as $index => $item)
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 
                     <div class="lg:col-span-5 {{ $loop->even ? 'lg:order-2' : '' }}">
                         <div class="relative">
                             <span
-                                class="absolute -top-12 -left-8 text-[12rem] font-black text-[#F8FAFF] select-none z-0">
+                                class="absolute -top-12 -left-8 text-[12rem] font-black text-[#e4ecfd] select-none z-0">
                                 {{ sprintf('%02d', $loop->iteration) }}
                             </span>
 
                             <div class="relative z-10">
-                                <h3 class="text-[#010521] font-black text-4xl mb-8 leading-tight">
+                                <h3 class="text-[#010521] font-black text-2xl md:text-3xl lg:text-4xl mb-6 md:mb-8 leading-tight">
                                     {{ $item['title'] }}
                                 </h3>
-                                <p class="text-gray-500 font-medium text-lg leading-relaxed mb-8">
+                                <p class="text-gray-500 font-medium text-base md:text-lg leading-relaxed mb-6 md:mb-8">
                                     {{ $item['desc'] }}
                                 </p>
                                 <div class="w-20 h-1 bg-[#4373F6] rounded-full"></div>
@@ -31,22 +31,22 @@
                     </div>
 
                     <div class="lg:col-span-7 {{ $loop->even ? 'lg:order-1' : '' }}">
-                        <div class="space-y-6">
+                        <div class="md:space-y-6 space-y-4">
                             @foreach ($item['details'] as $detail)
                                 <div
-                                    class="group bg-[#010521] p-10 rounded-[3rem] shadow-2xl shadow-[#010521]/10 transition-all duration-500 hover:-translate-y-1.25 relative overflow-hidden">
+                                    class="group bg-[#010521] p-6 md:p-8 lg:p-10 rounded-4xl md:rounded-[3rem] shadow-2xl shadow-[#010521]/10 transition-all duration-500 hover:-translate-y-1.25 relative overflow-hidden">
                                     <div
-                                        class="absolute top-0 right-0 w-32 h-32 bg-[#4373F6] opacity-0 group-hover:opacity-10 blur-[50px] transition-opacity">
+                                        class="absolute top-0 right-0 w-32 h-32 bg-[#4373F6] opacity-0 group-hover:opacity-30 blur-[50px] transition-opacity ">
                                     </div>
 
                                     <div class="relative z-10">
-                                        <div class="flex gap-4 mb-4">
-                                            <i data-lucide="help-circle" class="w-5 h-5 text-[#4373F6] shrink-0"></i>
+                                        <div class="flex gap-3 md:gap-4 mb-3 md:mb-4">
+                                            <i data-lucide="help-circle" class="md:w-5 md:h-5 w-4 h-4 text-[#4373F6] shrink-0"></i>
                                             <h4 class="text-[#4373F6] font-black uppercase tracking-widest text-[11px]">
                                                 {{ $detail['question'] }}
                                             </h4>
                                         </div>
-                                        <p class="text-gray-300 text-base leading-relaxed font-medium pl-9">
+                                        <p class="text-gray-300 text-sm md:text-base leading-relaxed font-medium pl-5 md:pl-9">
                                             {{ $detail['answer'] }}
                                         </p>
                                     </div>

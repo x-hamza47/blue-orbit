@@ -1,6 +1,6 @@
 <section class="w-full bg-(--color-secondary) py-10 overflow-hidden">
     <div class="mx-auto max-w-480 px-[clamp(1.5rem,5vw,5rem)]">
-
+{{-- @dd($data) --}}
         <!-- HEADING -->
         <div class="mb-12">
             <h2 class="font-black text-white leading-tight text-[clamp(1.875rem,5vw,3rem)]">

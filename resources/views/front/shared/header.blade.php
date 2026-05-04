@@ -69,7 +69,7 @@
                 <span>About</span>
             </a>
             {{-- dummy --}}
-            <div class="relative group menu-item h-fit dropdown-container flex items-center flex-col">
+            <div class="relative group menu-item h-fit dropdown-container flex xl:items-center flex-col">
 
                 <!-- Trigger -->
                 <button class="nav-link px-3 py-1! flex items-center justify-between w-full gap-2 cursor-pointer">
@@ -83,17 +83,17 @@
                 <!-- Dropdown -->
                 <div class="menu-dropdown">
 
-                    <div class="menu-grid flex [&>div]:min-w-3xs h-auto flex-wrap gap-x-4 gap-y-2">
+                    <div class="menu-grid xl:overflow-y-auto flex xl:justify-center [&>div]:min-w-3xs xl:[&>div]:flex-1  xl:max-h-[calc(100dvh-200px)] flex-wrap gap-x-4 gap-y-2 ">
 
                         @foreach ($navServices as $service)
-                            <!-- Digital Marketing -->
+
                             <div class="sub-menu">
                                 <div class="flex items-center gap-x-1 mb-3">
                                     <span
                                         class="w-7 h-7 flex items-center justify-center rounded-md shrink-0" style="background-color: {{ $service->color }}20; color: {{ $service->color }}">
                                         <i data-lucide="{{ $service->icon }}" class="w-4 h-4"></i>
                                     </span>
-                                    <a class="flex items-center text-base gap-2 font-semibold sub-menu-title"
+                                    <a class="flex items-center text-sm xl:text-base gap-2 font-semibold sub-menu-title"
                                         href="{{ route('service', ['parentSlug' => $service->slug]) }}">
                                        {{ $service->title }}
                                     </a>
@@ -124,14 +124,7 @@
                 <i data-lucide="file-text" class="w-5 h-5 nav-icon"></i>
                 <span>Blogs</span>
             </a>
-            {{-- <a href="" class="nav-link flex items-center gap-2 ">
-                <i data-lucide="shield-check" class="w-5 h-5 nav-icon"></i>
-                <span>Why us</span>
-            </a> --}}
-            {{-- <a href="" class="nav-link flex items-center gap-2 ">
-                <i data-lucide="star" class="w-5 h-5 nav-icon"></i>
-                <span>Testimonials</span>
-            </a> --}}
+
             <a href="{{ request()->is('/') ? '#contact' : url('/') . '#contact' }}" class="nav-link flex items-center gap-2 ">
                 <i data-lucide="phone" class="w-5 h-5 nav-icon"></i>
                 <span>Contact</span>
@@ -141,32 +134,7 @@
                 class="hidden sm:block bg-[#4373F6] text-white px-8 py-3 rounded-full font-bold hover:bg-[#010521] transition-all transform hover:scale-105 lg:ml-auto">
                 Book a Consultation
             </a>
-            {{-- @foreach ($navCategories as $category)
-                <div class="relative group menu-item w-max dropdown-container">
-                    <button class="nav-link flex items-center justify-between w-full gap-2">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid {{ $category->icon }} text-xl nav-icon"></i>
-                            <span>{{ $category->name }}</span>
-                        </div>
-
-                        <i
-                            class="fa-solid fa-chevron-down nav-icon text-white text-lg transition-transform duration-300"></i>
-                    </button>
-                    @if ($category->services->count())
-                        <div class="menu-dropdown">
-                            <ul class="space-y-1">
-                                @foreach ($category->services as $service)
-                                    <li><a class="dropdown-link"
-                                            href="{{ route('services.companies', $service->slug) }}">{{ $service->name }}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                </div>
-            @endforeach --}}
-
-
+   
 
         </nav>
 

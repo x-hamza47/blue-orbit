@@ -81,7 +81,7 @@
                         class="bg-white rounded-3xl overflow-hidden shadow-xl  transition-transform duration-500 ease-out transform-gpu">
 
                         <div class="overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0"
+                            <img src="https://picsum.photos/seed/blog1/600/400"
                                 class="h-48 w-full object-cover"
                                 loading="lazy" decoding="async">
                         </div>
@@ -126,7 +126,7 @@
                         class="bg-white rounded-3xl overflow-hidden shadow-xl  transition-transform duration-500 ease-out transform-gpu">
 
                         <div class="overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d"
+                            <img src="https://picsum.photos/seed/blog2/600/400"
                                 class="h-48 w-full object-cover"
                                 loading="lazy" decoding="async">
                         </div>
@@ -171,7 +171,7 @@
                         class="bg-white rounded-3xl overflow-hidden shadow-xl  transition-transform duration-500 ease-out transform-gpu">
 
                         <div class="overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+                            <img src="https://picsum.photos/seed/blog3/600/400"
                                 class="h-48 w-full object-cover"
                                 loading="lazy" decoding="async">
                         </div>
@@ -209,7 +209,7 @@
                         class="bg-white rounded-3xl overflow-hidden shadow-xl  transition-transform duration-500 ease-out transform-gpu">
 
                         <div class="overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71"
+                            <img src="https://picsum.photos/seed/blog4/600/400"
                                 class="h-48 w-full object-cover"
                                 loading="lazy" decoding="async">
                         </div>
@@ -247,7 +247,7 @@
                         class="bg-white rounded-3xl overflow-hidden shadow-xl  transition-transform duration-500 ease-out transform-gpu">
 
                         <div class="overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c"
+                            <img src="https://picsum.photos/seed/blog5/600/400"
                                 class="h-48 w-full object-cover"
                                 loading="lazy" decoding="async">
                         </div>
@@ -285,7 +285,7 @@
                         class="bg-white rounded-3xl overflow-hidden shadow-xl  transition-transform duration-500 ease-out transform-gpu">
 
                         <div class="overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5"
+                            <img src="https://picsum.photos/seed/blog6/600/400"
                                 class="h-48 w-full object-cover"
                                 loading="lazy" decoding="async">
                         </div>
@@ -323,7 +323,7 @@
                         class="bg-white rounded-3xl overflow-hidden shadow-xl  transition-transform duration-500 ease-out transform-gpu">
 
                         <div class="overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c"
+                            <img src="https://picsum.photos/seed/blog7/600/400"
                                 class="h-48 w-full object-cover"
                                 loading="lazy" decoding="async">
                         </div>
@@ -361,7 +361,7 @@
                         class="bg-white rounded-3xl overflow-hidden shadow-xl  transition-transform duration-500 ease-out transform-gpu">
 
                         <div class="overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
+                            <img src="https://picsum.photos/seed/blog8/600/400"
                                 class="h-48 w-full object-cover"
                                 loading="lazy" decoding="async">
                         </div>

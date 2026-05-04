@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('service_id')->constrained()->cascadeOnDelete();
             $table->string('type');
             $table->integer('order')->default(0);
-            $table->json('data');
+            $table->json('data')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

@@ -21,8 +21,6 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/service', function () {
     return view('servicetemp');
 });
-Route::get('/digital-marketing-services', [ViewController::class, 'digitalmarketing'])->name('digitalmarketing');
-
 
 // ! Guest Routes HERE
 Route::middleware('guest')->group(function () {

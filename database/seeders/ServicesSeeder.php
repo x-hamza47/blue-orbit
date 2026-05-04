@@ -35,7 +35,7 @@ class ServicesSeeder extends Seeder
                         'title' => $child['title'],
                         'icon' => null,
                         'color' => null,
-                        'desc' => null,
+                        'desc' => $service['desc'],
                         'slug' => Str::slug($child['title']),
                         'show_on_home' => true,
                         'parent_id' => $parentId,

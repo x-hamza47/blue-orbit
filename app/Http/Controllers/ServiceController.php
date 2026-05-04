@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Services\SectionResolver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 // use Illuminate\Support\Facades\File;
@@ -14,37 +15,36 @@ class ServiceController extends Controller
     //     return collect(File::files(resource_path('views/service-section')))
     //         ->map(fn($file) => pathinfo($file->getFilename(), PATHINFO_FILENAME));
     // }
-    public function service(string $parentSlug, ?string $childSlug = null): \Illuminate\View\View
+    public function service(string $parentSlug, ?string $childSlug = null)
     {
-        // dd(ServiceController::getFiles());
+        $resolver = new SectionResolver();
+
         if (!$childSlug) {
 
             $service = Service::where('slug', $parentSlug)
                 ->whereNull('parent_id')
                 ->firstOrFail();
+        } else {
 
-            $service->load(['sections' => function ($query) {
-                $query->where('is_active', true);
-            }]);
+            $parent = Service::where('slug', $parentSlug)
+                ->whereNull('parent_id')
+                ->firstOrFail();
 
-            return view('service', compact('service'));
+            $service = Service::where('slug', $childSlug)
+                ->where('parent_id', $parent->id)
+                ->firstOrFail();
         }
 
-        $parent = Service::where('slug', $parentSlug)
-            ->whereNull('parent_id')
-            ->firstOrFail();
-
-        $service = Service::where('slug', $childSlug)
-            ->where('parent_id', $parent->id)
-            ->firstOrFail();
-
         $service->load(['sections' => function ($query) {
-            $query->where('is_active', true);
+            $query->where('is_active', true)->orderBy('order');
         }]);
 
-        return view('front.services.main', compact('service', 'parent'));
-    }
+        foreach ($service->sections as $section) {
+            $section->resolved_data = $resolver->resolve($section, $service);
+        }
 
+        return view('front.services.main', compact('service', 'parentSlug', 'childSlug'));
+    }
 
     public function index(Request $request)
     {
