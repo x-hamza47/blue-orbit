@@ -9,9 +9,9 @@ let makeId = () => `uid-${Date.now()}-${uid++}`;
 //!  Field Builder
 //! ===================================
 
-function buildField(field, index, data = {}) {
-   const name = `items[${index}][${field.key}]`;
-    const errorId = `error-items.${index}.${field.key}`;
+function buildField(field, index, data = {}, arrayKey = "items") {
+    const name = `${arrayKey}[${index}][${field.key}]`;
+    const errorId = `error-${arrayKey}.${index}.${field.key}`;
 
     const resolved = {
         ...field,
@@ -62,13 +62,11 @@ function buildLayout(layout, fieldsHtml) {
 //! ===================================
 
 function renderCard(config, index, data = {}) {
+    const arrayKey = config.arrayKey ?? "items";
     const fieldsHtml = config.fields.map((field) => {
         const renderer = renderers[field.type];
-        if (!renderer) {
-            console.warn("Missing renderer for type:", field.type);
-            return "";
-        }
-        return renderer(buildField(field, index, data));
+        if (!renderer) return "";
+        return renderer(buildField(field, index, data, arrayKey));
     });
 
     return `
@@ -86,16 +84,14 @@ function renderCard(config, index, data = {}) {
 //! ===================================
 //!  Reiindex
 //! ===================================
-function reindex(container) {
+function reindex(container, arrayKey = "items") {
     container.querySelectorAll(".js-dynamic-item").forEach((card, i) => {
         card.dataset.index = i;
-
         card.querySelectorAll("[name]").forEach((input) => {
-            input.name = input.name.replace(/items\[\d+\]/, `items[${i}]`);
+            input.name = input.name.replace(/\w+\[\d+\]/, `${arrayKey}[${i}]`);
         });
-
-        card.querySelectorAll("[id^='error-items']").forEach((el) => {
-            el.id = el.id.replace(/error-items\.\d+/, `error-items.${i}`);
+        card.querySelectorAll(`[id^="error-${arrayKey}"]`).forEach((el) => {
+            el.id = el.id.replace(/error-\w+\.\d+/, `error-${arrayKey}.${i}`);
         });
     });
 }
@@ -144,17 +140,18 @@ function initWrapper(wrapper) {
         initIconPreview(newCard);
 
         syncBtn(addBtn, container, config.max);
+         newCard.scrollIntoView({
+             behavior: "smooth",
+             block: "center",
+         });
     });
 
+    const arrayKey = config.arrayKey ?? "items";
     container.addEventListener("click", (e) => {
         const btn = e.target.closest("[data-remove]");
         if (!btn) return;
-
-        const card = btn.closest(".js-dynamic-item");
-
-        card.remove();
-
-        reindex(container);
+        btn.closest(".js-dynamic-item").remove();
+        reindex(container, arrayKey);
         syncBtn(addBtn, container, config.max);
     });
 }
@@ -177,6 +174,6 @@ function syncBtn(btn, container, max) {
 //! ===================================
 //! INIT
 //! ===================================
-export function initDynamicItems() {
-    document.querySelectorAll("[data-dynamic-wrapper]").forEach(initWrapper);
+export function initDynamicItems(root = document) {
+    root.querySelectorAll("[data-dynamic-wrapper]").forEach(initWrapper);
 }

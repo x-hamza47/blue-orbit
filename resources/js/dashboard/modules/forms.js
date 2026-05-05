@@ -1,24 +1,31 @@
 import api from "../utils/api";
+import { validation } from "../utils/validation";
 
-export function initGlobalForms() {
-    document.querySelectorAll(".js-form").forEach((form) => {
+export function initGlobalForms(root = document) {
+    root.querySelectorAll(".js-form").forEach((form) => {
+        if (form.dataset.bound) return; 
+        form.dataset.bound = "true";
+
         form.addEventListener("submit", async (e) => {
-            
             e.preventDefault();
+
             const url = form.dataset.url;
             const method = form.dataset.method || "post";
 
             const formData = new FormData(form);
 
+            if (method.toLowerCase() === "put") {
+                formData.append("_method", "PUT");
+            }
+
             try {
-               await api.request({
-                    method,
+                await api.request({
+                    method: "post",
                     url,
-                    data: formData,
-                    container: form, 
+                    data: new FormData(form),
+                    container: form,
                 });
 
-               
                 if (form.dataset.success === "reload") {
                     location.reload();
                 }
@@ -28,7 +35,7 @@ export function initGlobalForms() {
                         .getElementById(form.dataset.modal)
                         ?.classList.add("hidden");
                 }
-            } catch (err) {
+            } catch {
                
             }
         });

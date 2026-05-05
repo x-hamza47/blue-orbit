@@ -1,20 +1,28 @@
 <section class="w-full bg-(--color-secondary) py-10 overflow-hidden">
     <div class="mx-auto max-w-480 px-[clamp(1.5rem,5vw,5rem)]">
-{{-- @dd($data) --}}
+
         <!-- HEADING -->
         <div class="mb-12">
             <h2 class="font-black text-white leading-tight text-[clamp(1.875rem,5vw,3rem)]">
-                 {{ $data['heading_main'] ?? "Client" }}<span class="text-(--color-primary)"> {{ $data['heading_highlight'] ?? "Case Studies" }}</span>
+                {{ $data['heading_main'] ?? 'Client' }}
+                <span class="text-(--color-primary)">
+                    {{ $data['heading_highlight'] ?? 'Case Studies' }}
+                </span>
             </h2>
         </div>
 
         <!-- GRID -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-            @foreach ($data['items'] as $item)
+            @foreach ($data['items'] ?? [] as $item)
 
                 @php
                     $isFeatured = !empty($item['featured']);
+
+                    $tags = array_filter([
+                        $item['tag1'] ?? null,
+                        $item['tag2'] ?? null,
+                    ]);
                 @endphp
 
                 <div
@@ -25,26 +33,24 @@
 
                     <!-- METRIC -->
                     <div class="md:mb-8 sm:mb-6 mb-4">
-                        <span
-                            class="font-black text-[clamp(2rem,5vw,4rem)]
+                        <span class="font-black text-[clamp(2rem,5vw,4rem)]
                             {{ $isFeatured ? 'text-white' : 'text-(--color-primary)' }}">
                             {{ $item['metric'] }}
                         </span>
                     </div>
 
                     <!-- TITLE -->
-                    <h3 class="font-black text-xl md:text-2xl sm:mb-2 mb-1
-                        {{ $isFeatured ? 'text-white' : 'text-white' }}">
+                    <h3 class="font-black text-xl md:text-2xl sm:mb-2 mb-1 text-white">
                         {{ $item['title'] }}
                     </h3>
 
                     <!-- TAGS -->
                     <div class="flex items-center gap-3 flex-wrap">
 
-                        @foreach ($item['tags'] ?? [] as $index => $tag)
+                        @foreach ($tags as $index => $tag)
 
                             <span class="font-bold text-xs uppercase tracking-widest
-                                {{ $isFeatured ? 'text-white/70' : 'text-gray-500' }}">
+                                {{ $isFeatured ? 'text-white/70' : 'text-gray-400' }}">
                                 {{ $tag }}
                             </span>
 
@@ -62,5 +68,6 @@
             @endforeach
 
         </div>
+
     </div>
 </section>

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('color')->nullable();
             $table->text('desc')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
             $table->boolean('show_on_home')->default(false); 
             $table->integer('home_order')->default(0);
             $table->boolean('is_active')->default(true);

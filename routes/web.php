@@ -63,6 +63,10 @@ Route::prefix('dashboard')->group(function () {
         ->name('service.sections.store');
     Route::post('/services/{service}/sections/{section}/toggle', [ServiceSectionController::class, 'toggle'])
         ->name('service.sections.toggle');
+    Route::get('{service}/sections/{section}/show', [ServiceSectionController::class, 'show'])
+        ->name('service.sections.show');
+    Route::post('{service}/sections/{section}', [ServiceSectionController::class, 'update'])
+        ->name('service.sections.update');
 
     Route::post('/services/{service}/sections/reorder', [ServiceSectionController::class, 'reorder'])->name('service.sections.reorder');
 });

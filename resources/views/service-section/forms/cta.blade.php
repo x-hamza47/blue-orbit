@@ -8,22 +8,22 @@
 
         <div class="space-y-4">
 
-            <!-- Heading -->
             <div>
                 <label class="text-xs font-semibold text-gray-500">Heading *</label>
                 <textarea name="heading" rows="3"
                     placeholder="Ready to grow? Let's create your winning strategy..."
-                    class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none resize-none"></textarea>
-                <p class="text-xs text-red-500 mt-1 hidden" id="error-heading"></p>
+                    class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none resize-none"
+                >{{ $existing['heading'] ?? '' }}</textarea>
+                <small id="error-heading" class="text-red-500 text-xs hidden"></small>
             </div>
 
-            <!-- Subheading -->
             <div>
                 <label class="text-xs font-semibold text-gray-500">Subheading</label>
                 <input type="text" name="subheading"
+                    value="{{ $existing['subheading'] ?? '' }}"
                     placeholder="Build around your goals, backed by data..."
                     class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
-                <p class="text-xs text-red-500 mt-1 hidden" id="error-subheading"></p>
+                <small id="error-subheading" class="text-red-500 text-xs hidden"></small>
             </div>
 
         </div>
@@ -37,22 +37,22 @@
 
         <div class="space-y-4">
 
-            <!-- Button Text -->
             <div>
                 <label class="text-xs font-semibold text-gray-500">Button Text *</label>
                 <input type="text" name="button_text"
+                    value="{{ $existing['button_text'] ?? '' }}"
                     placeholder="Book Your Free Call"
                     class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
-                <p class="text-xs text-red-500 mt-1 hidden" id="error-button_text"></p>
+                <small id="error-button_text" class="text-red-500 text-xs hidden"></small>
             </div>
 
-            <!-- Button Link -->
             <div>
                 <label class="text-xs font-semibold text-gray-500">Button Link</label>
                 <input type="text" name="button_link"
+                    value="{{ $existing['button_link'] ?? '' }}"
                     placeholder="/booking or https://..."
                     class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
-                <p class="text-xs text-red-500 mt-1 hidden" id="error-button_link"></p>
+                <small id="error-button_link" class="text-red-500 text-xs hidden"></small>
             </div>
 
         </div>

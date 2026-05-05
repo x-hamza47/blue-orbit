@@ -63,7 +63,7 @@ export const renderers = {
                         data-icon-input
                         data-type="${iconType}"
                         data-target="#${previewId}"
-                        placeholder="e.g. zap, check, star"
+                        placeholder="${placeholder}"
                         class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
 
                     <div id="${previewId}"
@@ -89,22 +89,25 @@ export const renderers = {
             </div>
         `;
     },
-    checkbox: ({ name, label = "", checked = false }) => `
-       <div class="flex items-center gap-2">
-            <input type="hidden" name="${name}" value="0">
+    checkbox: ({ name, label = "", value = 0 }) => {
+        const id = `${name}-${Math.random().toString(36).slice(2, 8)}`;
+        return `
+            <div class="flex items-center gap-2">
+                    <input type="hidden" name="${name}" value="0">
 
-            <input type="checkbox"
-                name="${name}"
-                value="1"
-                id="item-checkbox"
-                ${checked ? "checked" : ""}
-                class="w-4 h-4 accent-[#4373F6]">
+                    <input type="checkbox"
+                        name="${name}"
+                        value="1"
+                        id="${id}"
+                        ${value == 1 || value === "1" ? "checked" : ""}
+                        class="w-4 h-4 accent-[#4373F6]">
 
-            <label class="text-xs font-semibold text-gray-500" for="item-checkbox">
-                ${label}
-            </label>
-        </div>
-    `,
+                    <label class="text-xs font-semibold text-gray-500" for="${id}">
+                        ${label}
+                    </label>
+                </div>
+            `;
+    },
 
     select: ({ name, errorId, label = "", value = "", options = [] }) => {
         const opts = options

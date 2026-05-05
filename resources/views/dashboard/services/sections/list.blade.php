@@ -155,7 +155,7 @@
 
                 <!-- Header -->
                 <div class="flex justify-between items-center p-6 border-b">
-                    <h2 class="font-bold text-lg">Add Section</h2>
+                    <h2 class="font-bold text-lg" id="modalTitle">Add Section</h2>
                     <button onclick="closeModal()">✕</button>
                 </div>
 
@@ -174,8 +174,11 @@
                         @endforeach
                     </select>
 
-                    <form class="js-form" data-url="{{ route('service.sections.store', $service->id) }}" data-method="post"
-                        data-success="reload" class="mt-4">
+                    <form id="sectionForm" data-store="{{ route('service.sections.store', $service->id) }}"
+                        data-update="{{ route('service.sections.update', [$service->id, ':id']) }}"
+                        data-show="{{ route('service.sections.show', [$service->id, ':id']) }}"
+                        data-form="{{ route('service.sections.form', ['type' => ':type']) }}" data-success="reload"
+                        class="mt-4 js-form">
                         <input type="hidden" name="type" id="typeInput">
 
                         <div id="formContainer"></div>
@@ -206,26 +209,26 @@
             };
         }
 
-        function openModal() {
-            document.getElementById('sectionModal').classList.remove('hidden');
-            loadForm();
-        }
+        // function openModal() {
+        //     document.getElementById('sectionModal').classList.remove('hidden');
+        //     loadForm();
+        // }
 
-        function closeModal() {
-            document.getElementById('sectionModal').classList.add('hidden');
-        }
+        // function closeModal() {
+        //     document.getElementById('sectionModal').classList.add('hidden');
+        // }
 
-        function loadForm() {
-            let type = document.getElementById('sectionType').value;
-            document.getElementById('typeInput').value = type;
+        // function loadForm() {
+        //     let type = document.getElementById('sectionType').value;
+        //     document.getElementById('typeInput').value = type;
 
-            axios.get('{{ route('service.sections.form', ['type' => ':type']) }}'.replace(':type', type))
-                .then(res => {
-                    document.getElementById('formContainer').innerHTML = res.data;
-                    initGlobalForms();
-                    initDynamicItems();
-                });
-        }
+        //     axios.get('{{ route('service.sections.form', ['type' => ':type']) }}'.replace(':type', type))
+        //         .then(res => {
+        //             document.getElementById('formContainer').innerHTML = res.data;
+        //             initGlobalForms();
+        //             initDynamicItems();
+        //         });
+        // }
 
         function toggleSection(id) {
             sendToggleRequest(id);

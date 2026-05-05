@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use App\Models\ServiceSection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ServiceSectionController extends Controller
@@ -76,11 +77,23 @@ class ServiceSectionController extends Controller
             'section' => $section
         ]);
     }
-    public function destroy($serviceId, $id)
+    public function show(Service $service, $sectionId)
     {
-        $section = ServiceSection::where('id', $id)
-            ->where('service_id', $serviceId)
-            ->firstOrFail();
+        $section = $service->sections()->findOrFail($sectionId);
+
+        return response()->json([
+            'status'  => true,
+            'section' => [
+                'id'   => $section->id,
+                'type' => $section->type,
+                'data' => $section->data,
+            ]
+        ]);
+    }
+
+    public function destroy(Service $service, $sectionId)
+    {
+        $section = $service->sections()->findOrFail($sectionId);
 
         $section->delete();
 
@@ -90,7 +103,38 @@ class ServiceSectionController extends Controller
         ]);
     }
 
-    public function getForm($type)
+
+    public function update(Request $request, Service $service, $sectionId)
+    {
+        $section = $service->sections()->findOrFail($sectionId);
+
+        $sectionConfig = config('sections')[$section->type];
+
+        $validator = Validator::make(
+            $request->all(),
+            $sectionConfig['rules']    ?? [],
+            $sectionConfig['messages'] ?? []
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $section->update([
+            'data' => $validator->validated(),
+        ]);
+
+        return response()->json([
+            'status'  => true,
+            'message' => 'Section updated successfully',
+            'section' => $section
+        ]);
+    }
+
+    public function getForm(Request $request, string $type)
     {
         $viewPath = "service-section.forms.$type";
 
@@ -98,7 +142,11 @@ class ServiceSectionController extends Controller
             return response('Form not found', 404);
         }
 
-        return view($viewPath);
+        $existing = $request->existing
+            ? json_decode($request->existing, true)
+            : null;
+
+        return view($viewPath, compact('existing'));
     }
 
     public function reorder(Request $request, Service $service)
