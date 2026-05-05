@@ -12,6 +12,7 @@ export const CONFIGS = {
                 previewDefault: "zap",
             },
             { key: "title", type: "text", label: "Title", placeholder: "" },
+            { key: "checkbox", type: "checkbox", label: "Checkbox", },
             { key: "desc", type: "textarea", label: "Description", rows: 2 },
         ],
     },

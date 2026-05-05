@@ -180,7 +180,7 @@
 
                         <div id="formContainer"></div>
 
-                        <button type="submit" class="mt-4 bg-[#4373F6] text-white px-4 py-2 rounded w-full">
+                        <button type="submit" class="mt-4 bg-[#4373F6] text-white px-4 py-2 rounded-md w-full">
                             Save Section
                         </button>
                     </form>
@@ -227,6 +227,33 @@
                 });
         }
 
+        function toggleSection(id) {
+            sendToggleRequest(id);
+        }
+
+        const sendToggleRequest = debounce(function(id) {
+
+            axios.post("{{ route('service.sections.toggle', [$service->id, ':id']) }}".replace(':id', id))
+                .then(res => {
+
+                    showToast({
+                        title: 'Updated',
+                        text: res.data.message,
+                        type: 'success'
+                    });
+
+                })
+                .catch(err => {
+
+                    showToast({
+                        title: 'Error',
+                        text: err.response?.data?.message || 'Something went wrong',
+                        type: 'error'
+                    });
+
+                });
+
+        }, 1000);
         // document.getElementById('sectionForm').addEventListener('submit', async function(e) {
         //     e.preventDefault();
 
@@ -383,33 +410,7 @@
         //         container.insertAdjacentHTML('beforeend', html);
         //     }
 
-        function toggleSection(id) {
-            sendToggleRequest(id);
-        }
 
-        const sendToggleRequest = debounce(function(id) {
-
-            axios.post("{{ route('service.sections.toggle', [$service->id, ':id']) }}".replace(':id', id))
-                .then(res => {
-
-                    showToast({
-                        title: 'Updated',
-                        text: res.data.message,
-                        type: 'success'
-                    });
-
-                })
-                .catch(err => {
-
-                    showToast({
-                        title: 'Error',
-                        text: err.response?.data?.message || 'Something went wrong',
-                        type: 'error'
-                    });
-
-                });
-
-        }, 1000);
 
         // function addItem(icon = '', title = '') {
 
