@@ -209,4 +209,138 @@ export const CONFIGS = {
             },
         ],
     },
+
+    comparison: {
+        max: 10,
+        arrayKey: "items",
+        fields: [
+            {
+                key: "feature",
+                type: "text",
+                label: "Feature",
+            },
+            {
+                key: "us_text",
+                type: "textarea",
+                label: "Your Value (BlueOrbit)",
+                rows: 3,
+            },
+            {
+                key: "agency_text",
+                type: "textarea",
+                label: "Typical Agency",
+                rows: 3,
+            },
+            {
+                key: "diy_text",
+                type: "textarea",
+                label: "DIY",
+                rows: 3,
+            },
+        ],
+    },
+
+    testimonials: {
+        max: 10,
+        arrayKey: "items",
+        fields: [
+            {
+                key: "rating",
+                type: "number",
+                label: "Rating (1-5)",
+                min: 1,
+                max: 5,
+                step: 1,
+            },
+            {
+                key: "text",
+                type: "textarea",
+                label: "Testimonial Text",
+                rows: 4,
+            },
+            {
+                key: "name",
+                type: "text",
+                label: "Client Name",
+            },
+            {
+                key: "role",
+                type: "text",
+                label: "Role / Industry",
+            },
+            {
+                key: "company",
+                type: "text",
+                label: "Company (optional)",
+            },
+            {
+                key: "image",
+                type: "text",
+                label: "Image URL",
+            },
+        ],
+    },
+
+    trust: {
+        max: 6,
+        arrayKey: "features",
+        fields: [
+            {
+                key: "icon",
+                type: "text",
+                label: "Icon (Lucide name)",
+                iconType: "lucide",
+                previewDefault: "zap",
+            },
+            { key: "title", type: "text", label: "Title" },
+            { key: "desc", type: "textarea", label: "Description", rows: 3 },
+        ],
+    },
+
+    trust_partners: {
+        max: 10,
+        arrayKey: "partners",
+        fields: [
+            {
+                key: "icon",
+                type: "text",
+                label: "Devicon Class",
+                iconType: "devicon",
+                previewDefault: "devicon-devicon-plain",
+            },
+        ],
+    },
+
+    trust_tags: {
+        max: 10,
+        arrayKey: "tags",
+        fields: [{ key: "value", type: "text", label: "Tag Text" }],
+    },
+
+    usecases: {
+        max: 9,
+        arrayKey: "items",
+        layout: [],
+        fields: [
+            {
+                key: "title",
+                type: "text",
+                label: "Industry Title",
+                placeholder: "e.g. Healthcare",
+            },
+            {
+                key: "link",
+                type: "text",
+                label: "Read More Link",
+                placeholder: "/industries/healthcare",
+            },
+            {
+                key: "points",
+                type: "repeater",
+                label: "Bullet Point",
+                placeholder: "Enter bullet point...",
+                max: 6,
+            },
+        ],
+    },
 };

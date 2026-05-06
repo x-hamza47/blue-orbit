@@ -60,7 +60,13 @@ class ServiceSectionController extends Controller
         if ($sectionConfig['system'] ?? false) {
             $data = null;
         } else {
-            $validator = Validator::make($request->all(), $sectionConfig['rules'] ?? [], $sectionConfig['messages'] ?? []);
+            $this->cleanNestedPoints($request);
+
+            $validator = Validator::make(
+                $request->all(),
+                $sectionConfig['rules'] ?? [],
+                $sectionConfig['messages'] ?? []
+            );
 
             if ($validator->fails()) {
                 return response()->json([
@@ -79,11 +85,12 @@ class ServiceSectionController extends Controller
         ]);
 
         return response()->json([
-            'status'   => true,
-            'message'  => 'Section created successfully',
-            'section'  => $section
+            'status'  => true,
+            'message' => 'Section created successfully',
+            'section' => $section
         ]);
     }
+
     public function show(Service $service, $sectionId)
     {
         $section = $service->sections()->findOrFail($sectionId);
@@ -125,6 +132,7 @@ class ServiceSectionController extends Controller
             ], 403);
         }
 
+        $this->cleanNestedPoints($request);
         $validator = Validator::make(
             $request->all(),
             $sectionConfig['rules']    ?? [],
@@ -199,5 +207,22 @@ class ServiceSectionController extends Controller
             'status' => true,
             'message' => 'Section status updated successfully',
         ]);
+    }
+
+    private function cleanNestedPoints(Request $request): void
+    {
+        if (!$request->has('items')) return;
+
+        $items = $request->input('items');
+
+        foreach ($items as &$item) {
+            if (isset($item['points']) && is_array($item['points'])) {
+                $item['points'] = array_values(
+                    array_filter($item['points'], fn($p) => trim($p) !== '')
+                );
+            }
+        }
+
+        $request->merge(['items' => $items]);
     }
 }

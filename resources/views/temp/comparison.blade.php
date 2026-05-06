@@ -5,11 +5,15 @@
 
         <div class="mb-12 relative z-10">
             <h2 class="font-black text-(--color-secondary) leading-tight text-[clamp(1.875rem,5vw,3rem)]">
-                Comparison - <span class="text-(--color-primary)">Why Choose Us</span>
+                {{ $data['heading'] ?? 'Comparison' }}
+                <span class="text-(--color-primary)">
+                    {{ $data['highlight'] ?? 'Why Choose Us' }}
+                </span>
             </h2>
         </div>
 
-        <div class="bg-white rounded-4xl sm:rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden z-9 relative">
+        <div
+            class="bg-white rounded-4xl sm:rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden z-9 relative">
 
             <div
                 class="grid grid-cols-1 md:grid-cols-4 items-center bg-gray-50/50 border-b border-gray-100 divide-x divide-gray-100 md:divide-x-0">
@@ -18,42 +22,58 @@
                 </div>
                 <div
                     class="p-6 sm:p-8  bg-(--color-secondary) text-white rounded-t-[2.5rem] md:rounded-t-none md:rounded-l-none text-center">
-                    <span class="font-black uppercase tracking-widest text-sm">BlueOrbit</span>
+                    <span class="font-black uppercase tracking-widest text-sm">
+                        {{ $data['us_label'] ?? 'Us' }}
+                    </span>
                 </div>
                 <div class="p-6 sm:p-8  text-center bg-gray-50 md:bg-transparent">
-                    <span class="text-(--color-secondary) font-black uppercase tracking-widest text-sm">Typical Agency</span>
+                   {{ $data['agency_label'] ?? 'Agency' }}
                 </div>
                 <div class="p-6 sm:p-8  text-center bg-gray-50 md:bg-transparent">
-                    <span class="text-(--color-secondary) font-black uppercase tracking-widest text-sm">DIY</span>
+                   {{ $data['diy_label'] ?? 'DIY' }}
                 </div>
             </div>
 
             <div class="divide-y sm:divide-gray-50 divide-gray-400">
 
-                <div class="grid grid-cols-1 md:grid-cols-4 items-stretch divide-x divide-gray-50 md:divide-x-0 group">
-                    <div class="p-6 sm:p-8 flex items-center md:bg-gray-50/20">
-                        <span class="text-(--color-secondary) font-bold text-base sm:text-lg">Pricing Transparency</span>
-                    </div>
+                @foreach ($data['items'] ?? [] as $item)
                     <div
-                        class="p-6 sm:p-8 lg:p-10 bg-(--color-secondary)/5 text-(--color-secondary) border-l-4 border-l-(--color-primary) relative group-hover:bg-(--color-secondary)/10 transition-colors">
-                        <span class="absolute top-4 right-4 text-(--color-primary) text-xl font-bold">✓</span>
-                        <p class="text-sm leading-relaxed font-semibold">Clear, transparent upfront pricing, no hidden
-                            fees</p>
-                    </div>
-                    <div class="p-6 sm:p-8 flex items-start group-hover:bg-gray-50/20 transition-colors">
-                        <span class="text-gray-400 text-xl font-bold mr-3 mt-0.5">X</span>
-                        <p class="text-gray-500 text-sm leading-relaxed font-medium">Hidden costs and fees</p>
-                    </div>
-                    <div class="p-6 sm:p-8 flex items-start group-hover:bg-gray-50/20 transition-colors">
-                        <span class="text-gray-400 text-xl font-bold mr-3 mt-0.5">X</span>
-                        <p class="text-gray-500 text-sm leading-relaxed font-medium">No or less costly, but
-                            time-consuming</p>
-                    </div>
-                </div>
+                        class="grid grid-cols-1 md:grid-cols-4 items-stretch divide-x divide-gray-50 md:divide-x-0 group">
 
-                <div class="grid grid-cols-1 md:grid-cols-4 items-stretch divide-x divide-gray-50 md:divide-x-0 group">
+
+                        <!-- Feature -->
+                        <div class="p-6 flex items-center md:bg-gray-50/20">
+                            <span class="text-(--color-secondary) font-bold">
+                                {{ $item['feature'] }}
+                            </span>
+                        </div>
+
+                        <!-- Us -->
+                        <div class="p-6 bg-(--color-secondary)/5 border-l-4 border-l-(--color-primary) relative">
+                            <span class="absolute top-4 right-4 text-(--color-primary)">✓</span>
+                            <p>{{ $item['us_text'] }}</p>
+                        </div>
+
+                        <!-- Agency -->
+                        <div class="p-6 flex items-start">
+                            <span class="text-gray-400 mr-2">X</span>
+                            <p>{{ $item['agency_text'] }}</p>
+                        </div>
+
+                        <!-- DIY -->
+                        <div class="p-6 flex items-start">
+                            <span class="text-gray-400 mr-2">X</span>
+                            <p>{{ $item['diy_text'] }}</p>
+                        </div>
+
+
+                    </div>
+                @endforeach
+
+                {{-- <div class="grid grid-cols-1 md:grid-cols-4 items-stretch divide-x divide-gray-50 md:divide-x-0 group">
                     <div class="p-6 sm:p-8 flex items-center md:bg-gray-50/20">
-                        <span class="text-(--color-secondary) font-bold text-base sm:text-lg">Dedicated & Expert Support</span>
+                        <span class="text-(--color-secondary) font-bold text-base sm:text-lg">Dedicated & Expert
+                            Support</span>
                     </div>
                     <div
                         class="p-6 sm:p-8 lg:p-10  bg-(--color-secondary)/5 text-(--color-secondary) border-l-4 border-l-(--color-primary) relative group-hover:bg-(--color-secondary)/10 transition-colors">
@@ -95,7 +115,8 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-4 items-stretch divide-x divide-gray-50 md:divide-x-0 group">
                     <div class="p-6 sm:p-8  flex items-center md:bg-gray-50/20">
-                        <span class="text-(--color-secondary) font-bold text-base sm:text-lg">Reporting & Insights</span>
+                        <span class="text-(--color-secondary) font-bold text-base sm:text-lg">Reporting &
+                            Insights</span>
                     </div>
                     <div
                         class="p-8 md:p-10 bg-(--color-secondary)/5 text-(--color-secondary) border-l-4 border-l-(--color-primary) relative group-hover:bg-(--color-secondary)/10 transition-colors">
@@ -115,7 +136,8 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-4 items-stretch divide-x divide-gray-50 md:divide-x-0 group">
                     <div class="p-6 sm:p-8  flex items-center md:bg-gray-50/20">
-                        <span class="text-(--color-secondary) font-bold text-base sm:text-lg">Contract Flexibility</span>
+                        <span class="text-(--color-secondary) font-bold text-base sm:text-lg">Contract
+                            Flexibility</span>
                     </div>
                     <div
                         class="p-8 md:p-10 bg-(--color-secondary)/5 text-(--color-secondary) border-l-4 border-l-(--color-primary) relative group-hover:bg-(--color-secondary)/10 transition-colors">
@@ -151,7 +173,7 @@
                         <span class="text-gray-400 text-xl font-bold mr-3 mt-0.5">X</span>
                         <p class="text-gray-500 text-sm leading-relaxed font-medium">No structured tracking</p>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
 

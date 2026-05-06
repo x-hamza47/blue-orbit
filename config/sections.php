@@ -106,7 +106,7 @@ return [
             'items.min' => 'Add at least one challenge item.',
             'items.max' => 'You can add up to 10 challenges only.',
 
-            'items.*.issue_text.required' => 'Challenge :position — issue is required.',
+            'items.*.issue.required' => 'Challenge :position — issue is required.',
             'items.*.fixed.required' => 'Challenge :position — fixed solution is required.',
             'items.*.result.required' => 'Challenge :position — result line is required.',
         ],
@@ -320,5 +320,148 @@ return [
         ],
     ],
 
+    'comparison' => [
+        'label' => 'Comparison Section',
+        'allowed_for' => ['parent', 'sub'],
+        'system' => false,
+
+        'rules' => [
+            'heading' => 'required|string|max:255',
+            'highlight' => 'required|string|max:255',
+
+            // 👇 NEW
+            'us_label' => 'required|string|max:100',
+            'agency_label' => 'required|string|max:100',
+            'diy_label' => 'required|string|max:100',
+
+            'items' => 'required|array|min:1|max:10',
+
+            'items.*.feature' => 'required|string|max:255',
+            'items.*.us_text' => 'required|string|max:500',
+            'items.*.agency_text' => 'required|string|max:500',
+            'items.*.diy_text' => 'required|string|max:500',
+        ],
+
+        'messages' => [
+            'us_label.required' => 'Your column label is required.',
+            'agency_label.required' => 'Agency column label is required.',
+            'diy_label.required' => 'DIY column label is required.',
+
+            'items.*.feature.required' => 'Row :position — feature is required.',
+            'items.*.us_text.required' => 'Row :position — your value is required.',
+            'items.*.agency_text.required' => 'Row :position — agency value is required.',
+            'items.*.diy_text.required' => 'Row :position — DIY value is required.',
+        ],
+    ],
+
+    'testimonials' => [
+        'label' => 'Testimonials Section',
+        'allowed_for' => ['parent', 'sub'],
+        'system' => false,
+
+        'rules' => [
+            'heading' => 'required|string|max:255',
+            'highlight' => 'required|string|max:255',
+
+            'items' => 'required|array|min:1|max:10',
+
+            'items.*.rating' => 'required|integer|min:1|max:5',
+            'items.*.text' => 'required|string|max:1000',
+            'items.*.name' => 'required|string|max:100',
+            'items.*.role' => 'required|string|max:150',
+            'items.*.company' => 'nullable|string|max:150',
+            'items.*.image' => 'nullable|string|max:255',
+        ],
+
+        'messages' => [
+            'heading.required' => 'Heading is required.',
+            'highlight.required' => 'Highlight text is required.',
+
+            'items.required' => 'Add at least one testimonial.',
+            'items.min' => 'Add at least one testimonial.',
+            'items.max' => 'You can add up to 10 testimonials only.',
+
+            'items.*.rating.required' => 'Rating is required.',
+            'items.*.rating.max' => 'Rating cannot exceed 5 stars.',
+
+            'items.*.text.required' => 'Testimonial text is required.',
+            'items.*.name.required' => 'Client name is required.',
+            'items.*.role.required' => 'Client role is required.',
+        ],
+    ],
+    'whyblueorbit' => [
+        'label' => 'Trust Section',
+        'allowed_for' => ['parent', 'sub'],
+        'system' => false,
+
+        'rules' => [
+            'heading' => 'required|string|max:255',
+            'highlight' => 'required|string|max:255',
+
+            // FEATURES
+            'features' => 'required|array|min:1|max:6',
+            'features.*.icon' => 'required|string|max:100',
+            'features.*.title' => 'required|string|max:255',
+            'features.*.desc' => 'required|string|max:1000',
+
+            // PARTNERS
+            'partners' => 'nullable|array|max:10',
+            'partners.*.icon' => 'required|string|max:100',
+
+            // TAGS
+            'tags' => 'nullable|array|max:10',
+            'tags.*' => 'required|string|max:255',
+        ],
+
+        'messages' => [
+            'heading.required' => 'Heading is required.',
+            'highlight.required' => 'Highlight is required.',
+
+            'features.required' => 'Add at least one feature.',
+            'features.min' => 'Add at least one feature.',
+            'features.max' => 'Max 6 features allowed.',
+
+            'features.*.icon.required' => 'Feature icon is required.',
+            'features.*.title.required' => 'Feature title is required.',
+            'features.*.desc.required' => 'Feature description is required.',
+
+            'partners.max' => 'Max 10 partners allowed.',
+            'tags.max' => 'Max 10 tags allowed.',
+        ],
+    ],
+
+    'usecases' => [
+        'label' => 'Usecases Section',
+        'allowed_for' => ['parent', 'sub'],
+        'system' => false,
+        'rules' => [
+            'heading'              => 'required|string|max:500',
+            'heading_highlight'    => 'required|string|max:200',
+            'subheading'           => 'nullable|string|max:500',
+
+            'items'                => 'required|array|min:1|max:9',
+            'items.*.title'        => 'required|string|max:100',
+            'items.*.link'         => 'nullable|string|max:255',
+            'items.*.points'       => 'required|array|min:1|max:6',
+            'items.*.points.*'     => 'required|string|max:255',
+
+            'cta_heading'          => 'nullable|string|max:200',
+            'cta_subheading'       => 'nullable|string|max:300',
+            'cta_button_text'      => 'nullable|string|max:100',
+            'cta_button_link'      => 'nullable|string|max:255',
+        ],
+        'messages' => [
+            'heading.required'           => 'Main heading is required.',
+            'heading_highlight.required' => 'Highlighted heading text is required.',
+            'items.required'             => 'Add at least one industry.',
+            'items.min'                  => 'Add at least one industry.',
+            'items.max'                  => 'You can add up to 9 industries.',
+            'items.*.title.required'     => 'Item :position — title is required.',
+            'items.*.points.required'    => 'Item :position — add at least one bullet point.',
+            'items.*.points.min'         => 'Item :position — add at least one bullet point.',
+            'items.*.points.max'         => 'Item :position — max 6 bullet points.',
+            'items.*.points.*.required'  => 'Item :position — bullet point cannot be empty.',
+        ],
+    ],
 
 ];

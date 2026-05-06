@@ -31,7 +31,33 @@ export const renderers = {
         <small id="${errorId}" class="text-red-500 text-xs hidden"></small>
     </div>
     `,
+    number: ({
+        name,
+        errorId,
+        label = "",
+        value = "",
+        placeholder = "",
+        min = "",
+        max = "",
+        step = 1,
+    }) => `
+        <div>
+            <label class="text-xs font-semibold text-gray-500">${label}</label>
 
+            <input
+                type="number"
+                name="${name}"
+                value="${esc(value)}"
+                placeholder="${esc(placeholder)}"
+                min="${min}"
+                max="${max}"
+                step="${step}"
+                class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none"
+            >
+
+            <small id="${errorId}" class="text-red-500 text-xs hidden"></small>
+        </div>
+        `,
     icon: ({
         name,
         errorId,
@@ -130,6 +156,43 @@ export const renderers = {
                 </select>
                 <small id="${errorId}" class="text-red-500 text-xs hidden"></small>
             </div>`;
+    },
+    repeater: ({
+        name,
+        label = "",
+        value = [],
+        placeholder = "",
+        max = 10,
+        errorId,
+    }) => {
+        const rows = (Array.isArray(value) && value.length ? value : [""])
+            .map(
+                (v) => `
+        <div class="flex gap-2 nested-point-item">
+            <input type="text" name="${name}[]" value="${esc(v)}"   {{-- ← [] here --}}
+                placeholder="${esc(placeholder)}"
+                class="flex-1 p-2.5 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none text-sm">
+            <button type="button" data-remove-point
+                class="w-9 h-9 shrink-0 rounded-xl bg-red-50 text-red-400 hover:bg-red-500 hover:text-white transition flex items-center justify-center text-xs">✕</button>
+        </div>`,
+            )
+            .join("");
+
+        return `
+        <div>
+            <label class="text-xs font-semibold text-gray-500">${label}</label>
+            <div class="nested-repeater mt-2 space-y-2" 
+                data-nested-key="${name}" 
+                data-max="${max}">
+                ${rows}
+            </div>
+            <button type="button" data-add-point
+                class="mt-2 text-[11px] font-bold text-[#4373F6] uppercase tracking-widest hover:underline">
+                + Add ${label}
+            </button>
+            <small id="${errorId}" class="text-red-500 text-xs hidden"></small>
+        </div>
+    `;
     },
 };
 

@@ -17,7 +17,10 @@ function buildField(field, index, data = {}, arrayKey = "items") {
         ...field,
         name,
         errorId,
-        value: data[field.key] ?? field.default ?? "",
+        value:
+            field.type === "repeater"
+                ? (data[field.key] ?? [])
+                : (data[field.key] ?? field.default ?? ""),
     };
 
     if (field.type === "icon") {
@@ -87,9 +90,21 @@ function renderCard(config, index, data = {}) {
 function reindex(container, arrayKey = "items") {
     container.querySelectorAll(".js-dynamic-item").forEach((card, i) => {
         card.dataset.index = i;
+
         card.querySelectorAll("[name]").forEach((input) => {
-            input.name = input.name.replace(/\w+\[\d+\]/, `${arrayKey}[${i}]`);
+            input.name = input.name.replace(
+                new RegExp(`${arrayKey}\\[\\d+\\]`),
+                `${arrayKey}[${i}]`,
+            );
         });
+
+        card.querySelectorAll(".nested-repeater").forEach((repeater) => {
+            repeater.dataset.nestedKey = repeater.dataset.nestedKey.replace(
+                new RegExp(`${arrayKey}\\[\\d+\\]`),
+                `${arrayKey}[${i}]`,
+            );
+        });
+
         card.querySelectorAll(`[id^="error-${arrayKey}"]`).forEach((el) => {
             el.id = el.id.replace(/error-\w+\.\d+/, `error-${arrayKey}.${i}`);
         });
@@ -149,10 +164,41 @@ function initWrapper(wrapper) {
     const arrayKey = config.arrayKey ?? "items";
     container.addEventListener("click", (e) => {
         const btn = e.target.closest("[data-remove]");
-        if (!btn) return;
-        btn.closest(".js-dynamic-item").remove();
-        reindex(container, arrayKey);
-        syncBtn(addBtn, container, config.max);
+        if (btn) {
+            btn.closest(".js-dynamic-item").remove();
+            reindex(container, arrayKey);
+            syncBtn(addBtn, container, config.max);
+            return;
+        }
+
+        // add nested point
+   if (e.target.matches("[data-add-point]")) {
+       const repeater = e.target.previousElementSibling;
+       const max = parseInt(repeater.dataset.max);
+       const name = repeater.dataset.nestedKey; // e.g. items[0][points]
+
+       if (repeater.children.length >= max) return;
+
+       repeater.insertAdjacentHTML(
+           "beforeend",
+           `
+        <div class="flex gap-2 nested-point-item">
+            <input type="text" name="${name}[]"   {{-- ← [] here too --}}
+                placeholder=""
+                class="flex-1 p-2.5 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none text-sm">
+            <button type="button" data-remove-point
+                class="w-9 h-9 shrink-0 rounded-xl bg-red-50 text-red-400 hover:bg-red-500 hover:text-white transition flex items-center justify-center text-xs">✕</button>
+        </div>
+    `,
+       );
+       return;
+   }
+
+    // remove nested point
+    if (e.target.closest("[data-remove-point]")) {
+        e.target.closest(".nested-point-item").remove();
+        return;
+    }
     });
 }
 
