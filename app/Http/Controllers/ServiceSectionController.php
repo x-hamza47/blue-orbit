@@ -14,24 +14,27 @@ class ServiceSectionController extends Controller
     public function index(Service $service)
     {
         $sections = $service->sections;
-
         $existingSections = $sections->pluck('type')->toArray();
-
         $serviceType = $service->type;
 
-        $availableSections = collect(config('sections'))
-            ->filter(function ($section, $key) use ($existingSections, $serviceType) {
+        $all = collect(config('sections'))
+            ->filter(
+                fn($section, $key) =>
+                in_array($serviceType, $section['allowed_for']) &&
+                    !in_array($key, $existingSections)
+            );
 
-                return in_array($serviceType, $section['allowed_for'])
-                    && !in_array($key, $existingSections);
-            });
+        $availableSections = $all->where('system', false);
+        $availableSystemSections = $all->where('system', true);
 
         return view('dashboard.services.sections.list', compact(
             'service',
             'sections',
-            'availableSections'
+            'availableSections',
+            'availableSystemSections'
         ));
     }
+
     public function store(Request $request, Service $service)
     {
         $type = $request->type;
@@ -45,15 +48,6 @@ class ServiceSectionController extends Controller
 
         $sectionConfig = config('sections')[$type];
 
-        $validator = Validator::make($request->all(), $sectionConfig['rules'] ?? [], $sectionConfig['messages'] ?? []);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
         $exists = $service->sections()->where('type', $type)->exists();
 
         if ($exists) {
@@ -63,30 +57,52 @@ class ServiceSectionController extends Controller
             ], 409);
         }
 
-        $validated = $validator->validated();
+        if ($sectionConfig['system'] ?? false) {
+            $data = null;
+        } else {
+            $this->cleanNestedPoints($request);
+
+            $validator = Validator::make(
+                $request->all(),
+                $sectionConfig['rules'] ?? [],
+                $sectionConfig['messages'] ?? []
+            );
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $data = $validator->validated();
+        }
 
         $section = $service->sections()->create([
-            'type' => $type,
-            'data' => $validated,
+            'type'  => $type,
+            'data'  => $data,
             'order' => $service->sections()->count() + 1,
         ]);
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Section created successfully',
             'section' => $section
         ]);
     }
+
     public function show(Service $service, $sectionId)
     {
         $section = $service->sections()->findOrFail($sectionId);
+        $sectionConfig = config('sections')[$section->type];
 
         return response()->json([
             'status'  => true,
             'section' => [
-                'id'   => $section->id,
-                'type' => $section->type,
-                'data' => $section->data,
+                'id'     => $section->id,
+                'type'   => $section->type,
+                'system' => $sectionConfig['system'] ?? false,
+                'data'   => $section->data,
             ]
         ]);
     }
@@ -107,9 +123,16 @@ class ServiceSectionController extends Controller
     public function update(Request $request, Service $service, $sectionId)
     {
         $section = $service->sections()->findOrFail($sectionId);
-
         $sectionConfig = config('sections')[$section->type];
 
+        if ($sectionConfig['system'] ?? false) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'System sections cannot be edited'
+            ], 403);
+        }
+
+        $this->cleanNestedPoints($request);
         $validator = Validator::make(
             $request->all(),
             $sectionConfig['rules']    ?? [],
@@ -136,6 +159,16 @@ class ServiceSectionController extends Controller
 
     public function getForm(Request $request, string $type)
     {
+        $sectionConfig = config('sections')[$type] ?? null;
+
+        if (!$sectionConfig) {
+            return response('Invalid section type', 400);
+        }
+
+        if ($sectionConfig['system'] ?? false) {
+            return response('', 204);
+        }
+
         $viewPath = "service-section.forms.$type";
 
         if (!view()->exists($viewPath)) {
@@ -174,5 +207,22 @@ class ServiceSectionController extends Controller
             'status' => true,
             'message' => 'Section status updated successfully',
         ]);
+    }
+
+    private function cleanNestedPoints(Request $request): void
+    {
+        if (!$request->has('items')) return;
+
+        $items = $request->input('items');
+
+        foreach ($items as &$item) {
+            if (isset($item['points']) && is_array($item['points'])) {
+                $item['points'] = array_values(
+                    array_filter($item['points'], fn($p) => trim($p) !== '')
+                );
+            }
+        }
+
+        $request->merge(['items' => $items]);
     }
 }

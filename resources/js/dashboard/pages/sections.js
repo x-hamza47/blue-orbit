@@ -1,11 +1,6 @@
 import { initDynamicItems } from "../modules/dynamic-items";
 import { initGlobalForms } from "../modules/forms";
 
-// document.addEventListener("DOMContentLoaded", () => {
-// window.initDynamicItems = initDynamicItems;
-// window.initGlobalForms = initGlobalForms;
-// });
-
 const modal = document.getElementById("sectionModal");
 const form = document.getElementById("sectionForm");
 const formContainer = document.getElementById("formContainer");
@@ -13,7 +8,67 @@ const typeSelect = document.getElementById("sectionType");
 const typeInput = document.getElementById("typeInput");
 const modalTitle = document.getElementById("modalTitle");
 
+function switchTab(tab) {
+    const isContent = tab === "content";
+
+    document
+        .getElementById("panelContent")
+        .classList.toggle("hidden", !isContent);
+    document.getElementById("panelAuto").classList.toggle("hidden", isContent);
+
+    document
+        .getElementById("tabContent")
+        .classList.toggle("bg-white", isContent);
+    document
+        .getElementById("tabContent")
+        .classList.toggle("text-[#4373F6]", isContent);
+    document
+        .getElementById("tabContent")
+        .classList.toggle("shadow-sm", isContent);
+    document
+        .getElementById("tabContent")
+        .classList.toggle("text-gray-400", !isContent);
+
+    document.getElementById("tabAuto").classList.toggle("bg-white", !isContent);
+    document
+        .getElementById("tabAuto")
+        .classList.toggle("text-[#4373F6]", !isContent);
+    document
+        .getElementById("tabAuto")
+        .classList.toggle("shadow-sm", !isContent);
+    document
+        .getElementById("tabAuto")
+        .classList.toggle("text-gray-400", isContent);
+}
+
+ function addSystemSection(type) {
+     const form = document.getElementById("sectionForm");
+
+     axios
+         .post(form.dataset.store, {
+             type,
+         })
+         .then((res) => {
+             closeModal();
+             showToast({
+                 title: "Section added successfully",
+                 text: res.data.message,
+                 type: "success",
+             });
+             setTimeout(() => location.reload(), 2500);
+         })
+         .catch((err) => {
+             showToast({
+                 title: "Error",
+                 text: err.response?.data?.message || "Something went wrong",
+                 type: "error",
+             });
+         });
+ }
+
 function openModal() {
+    document.getElementById("submitBtn").classList.add("hidden");
+    switchTab("content"); 
     modalTitle.innerText = "Add Section";
 
     typeSelect.value = "";
@@ -50,7 +105,13 @@ function loadForm(section = null) {
             },
         })
         .then((res) => {
+            if (res.status === 204 || !res.data) {
+                formContainer.innerHTML = "";
+                return;
+            }
+
             formContainer.innerHTML = res.data;
+            document.getElementById("submitBtn").classList.remove("hidden");
             initDynamicItems(formContainer);
         });
 }
@@ -59,6 +120,16 @@ function editSection(id) {
     axios
         .get(form.dataset.show.replace(":id", id))
         .then((res) => {
+            const section = res.data.section;
+
+            if (section.system) {
+                showToast({
+                    type: "info",
+                    title: "System Section",
+                    text: "This section is managed automatically and cannot be edited.",
+                });
+                return;
+            }
             modalTitle.innerText = "Edit Section";
             typeSelect.value = res.data.section.type;
             typeSelect.disabled = true;
@@ -81,6 +152,8 @@ Object.assign(window, {
     closeModal,
     loadForm,
     editSection,
+    switchTab,
+    addSystemSection,
 });
 
 initGlobalForms();
