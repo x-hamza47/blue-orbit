@@ -34,7 +34,6 @@
             });
         });
     </script>
-    @vite('resources/js/testimonialSwiper.js')
 @endpush
 
 @push('styles')

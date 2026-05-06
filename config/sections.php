@@ -2,9 +2,16 @@
 
 
 return [
+    'relatedservices' => [
+        'label' => 'Related Services',
+        'allowed_for' => ['parent', 'sub'],
+        'system' => true,
+        'description' => 'Automatically shows sibling or child services.',
+    ],
     'hero' => [
         'label' => 'Hero Section',
         'allowed_for' => ['parent', 'sub'],
+        'system' => false,
         'rules' => [
             'heading' => 'required|string|max:500',
             'subheading' => 'nullable|string|max:500',
@@ -19,6 +26,7 @@ return [
     'benefits' => [
         'label' => 'Benefits Section',
         'allowed_for' => ['parent', 'sub'],
+        'system' => false,
         'rules' => [
             'subheading' => 'nullable|string|max:500',
             'items' => 'required|array|min:1|max:9',
@@ -46,6 +54,7 @@ return [
     'casestudy' => [
         'label' => 'Case Study Section',
         'allowed_for' => ['parent', 'sub'],
+        'system' => false,
 
         'rules' => [
             'heading_main' => 'required|string|max:255',
@@ -77,6 +86,7 @@ return [
     'challenges' => [
         'label' => 'Challenges Section',
         'allowed_for' => ['parent', 'sub'],
+        'system' => false,
 
         'rules' => [
             'heading' => 'required|string|max:255',
@@ -101,19 +111,12 @@ return [
             'items.*.result.required' => 'Challenge :position — result line is required.',
         ],
     ],
-    // 'comparison' => [
-    //     'label' => 'Comparison Section',
-    //     'allowed_for' => ['parent'],
-    // ],
 
-    // 'contact' => [
-    //     'label' => 'Contact Section',
-    //     'allowed_for' => ['parent', 'sub'],
-    // ],
 
     'cta' => [
         'label'       => 'Call To Action',
         'allowed_for' => ['parent', 'sub'],
+        'system' => false,
         'rules' => [
             'heading'     => 'required|string|max:500',
             'subheading'  => 'nullable|string|max:500',
@@ -132,6 +135,7 @@ return [
     'faqs' => [
         'label'       => 'FAQs Section',
         'allowed_for' => ['parent', 'sub'],
+        'system' => false,
         'rules' => [
             'heading'         => 'required|string|max:255',
             'subheading'      => 'nullable|string|max:500',
@@ -158,6 +162,7 @@ return [
     'tech' => [
         'label' => 'Technologies Section',
         'allowed_for' => ['parent', 'sub'],
+        'system' => false,
         'rules' => [
             'heading' => 'nullable|string|max:255',
             'subheading' => 'nullable|string|max:500',
@@ -180,6 +185,7 @@ return [
     'industries' => [
         'label'       => 'Industries Section',
         'allowed_for' => ['parent', 'sub'],
+        'system' => false,
         'rules' => [
             'subheading'    => 'nullable|string|max:500',
             'items'         => 'required|array|min:1|max:8',
@@ -207,6 +213,7 @@ return [
     'process' => [
         'label' => 'Process Section',
         'allowed_for' => ['parent', 'sub'],
+        'system' => false,
 
         'rules' => [
             'heading' => 'required|string|max:255',
@@ -230,19 +237,10 @@ return [
         ],
     ],
 
-    // 'relatedservices' => [
-    //     'label' => 'Related Services',
-    //     'allowed_for' => ['parent'],
-    // ],
-
-    // 'results' => [
-    //     'label' => 'Results Section',
-    //     'allowed_for' => ['parent', 'sub'],
-    // ],
-
     'roicalculator' => [
         'label'       => 'ROI Calculator',
         'allowed_for' => ['parent', 'sub'],
+        'system' => false,
         'rules' => [
             'button_text'          => 'required|string|max:100',
             'disclaimer'           => 'nullable|string|max:255',
@@ -271,6 +269,7 @@ return [
     'stats' => [
         'label' => 'Stats Section',
         'allowed_for' => ['parent', 'sub'],
+        'system' => false,
 
         'rules' => [
             'heading' => 'required|string|max:255',
@@ -299,6 +298,7 @@ return [
     'custom' => [
         'label'       => 'Custom Section',
         'allowed_for' => ['parent', 'sub'],
+        'system' => false,
 
         'rules' => [
             'heading' => 'required|string|max:255',
@@ -319,19 +319,6 @@ return [
             'paragraphs.*.text.max'      => 'Paragraph is too long.',
         ],
     ],
-    // 'testimonials' => [
-    //     'label' => 'Testimonials',
-    //     'allowed_for' => ['parent', 'sub'],
-    // ],
 
-    // 'usecases' => [
-    //     'label' => 'Use Cases',
-    //     'allowed_for' => ['parent', 'sub'],
-    // ],
-
-    // 'whyblueorbit' => [
-    //     'label' => 'Why Choose Us',
-    //     'allowed_for' => ['parent', 'sub'],
-    // ],
 
 ];
