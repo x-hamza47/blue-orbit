@@ -141,13 +141,22 @@ header .navbar {
 }
 
 header .navbar .menu-dropdown {
-    @apply bg-white rounded-lg absolute top-full left-0 transition-all duration-300 overflow-hidden pointer-events-none w-max xl:shadow-xl sm:p-6 pl-3;
+    @apply bg-(--color-secondary) rounded-lg absolute top-full left-0 transition-all duration-300 overflow-hidden pointer-events-none w-max xl:shadow-xl sm:p-6 pl-3;
     opacity: 0;
     max-width: calc(100vw - 200px);
     transform: translateY(24px) translateX(-150px);
     /* max-height: auto; */
 }
-
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+    animation: marquee 18s linear infinite;
+}
+.animate-marquee:hover {
+    animation-play-state: paused;
+}
 .swal2-high-z {
     top: 15% !important;
     z-index: 999999 !important;
@@ -170,7 +179,7 @@ header .navbar .menu-dropdown.active {
     @apply hover:bg-(--color-primary)/70 w-max sm:px-3 px-2 py-0.5 rounded hover:text-white cursor-pointer;
 }
 .nav-link {
-    @apply transition font-semibold text-nowrap hover:text-(--color-primary) text-base  px-3 py-1 rounded-full text-gray-700;
+    @apply transition font-semibold text-nowrap hover:text-(--color-primary) text-base  px-3 py-1 rounded-full text-white;
 }
 .nav-link.active {
     @apply text-(--color-primary);
@@ -257,3 +266,5 @@ header .navbar .menu-dropdown.active {
 .card-wrapper .card {
     @apply max-w-[389px] min-w-[295px];
 }
+
+
