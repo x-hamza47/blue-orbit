@@ -33,6 +33,18 @@
              <i data-lucide="layers" class="w-5 h-5"></i>
              <span class="font-bold text-sm sidebar-text">Services</span>
          </a>
+         <a href="{{ route('posts.index') }}"
+             class="flex items-center gap-4 px-3 py-3 rounded-xl transition-all group 
+               {{ request()->routeIs('posts.*') ? 'bg-[#4373F6] text-white' : 'text-gray-400 hover:bg-white/5 hover:text-white' }}">
+             <i data-lucide="file-text" class="w-5 h-5"></i>
+             <span class="font-bold text-sm sidebar-text">Blogs</span>
+         </a>
+         <a href="{{ route('author.index') }}"
+             class="flex items-center gap-4 px-3 py-3 rounded-xl transition-all group 
+               {{ request()->routeIs('author.*') ? 'bg-[#4373F6] text-white' : 'text-gray-400 hover:bg-white/5 hover:text-white' }}">
+             <i data-lucide="users" class="w-5 h-5"></i>
+             <span class="font-bold text-sm sidebar-text">Authors</span>
+         </a>
 
 
          <div class="pt-6">

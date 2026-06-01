@@ -119,8 +119,9 @@ export function serviceForm(data = {}) {
                 <textarea
                     name="desc"
                     rows="3"
-                    maxlength="120"
-                    data-char-count
+                    maxlength="120" 
+                    data-char-count 
+                    data-char-type="desc"
                     placeholder="Briefly explain what this service offers..."
                     class="w-full p-4 rounded-xl border border-gray-200 
                         focus:border-[--color-primary] focus:ring-4 focus:ring-[--color-primary]/10 
@@ -130,10 +131,63 @@ export function serviceForm(data = {}) {
                 <div class="flex justify-between mt-2 px-1">
                     <p class="text-[11px] text-gray-400">Keep it short and clear.</p>
                     <p class="text-[11px] font-bold text-gray-400">
-                        <span data-char-current class="text-[--color-primary]">0</span>/120
+                        <span data-char-current data-char-type="desc" class="text-[--color-primary]">0</span>/120
                     </p>
                 </div>
                 <p id="error-desc" class="text-[11px] text-red-500 mt-1 hidden"></p>
+            </div>
+
+            <!-- META TITLE -->
+            <div class="lg:col-span-2 group">
+                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 group-focus-within:text-[--color-primary]">
+                    Meta Title
+                </label>
+
+                <div class="relative">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[--color-primary]">
+                        <i data-lucide="heading-1" class="w-4 h-4"></i>
+                    </span>
+
+                    <input
+                        type="text"
+                        name="meta_title"
+                        value="${data.meta_title ?? ""}"
+                        placeholder="SEO title for this service"
+                        class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 
+                            focus:border-[--color-primary] focus:ring-4 focus:ring-[--color-primary]/10 
+                            outline-none transition-all bg-white font-medium placeholder:text-gray-300"
+                    >
+                </div>
+
+                <p id="error-meta_title" class="text-[11px] text-red-500 mt-1 hidden"></p>
+            </div>
+
+            <!-- META DESCRIPTION -->
+            <div class="lg:col-span-2 group">
+                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 group-focus-within:text-[--color-primary]">
+                    Meta Description
+                </label>
+
+                <textarea
+                    name="meta_description"
+                    rows="3"
+                    maxlength="160"
+                    data-char-count 
+                    data-char-type="meta"
+                    placeholder="SEO description for search engines..."
+                    class="w-full p-4 rounded-xl border border-gray-200 
+                        focus:border-[--color-primary] focus:ring-4 focus:ring-[--color-primary]/10 
+                        outline-none resize-none transition-all bg-white font-medium"
+                >${data.meta_description ?? ""}</textarea>
+
+                <div class="flex justify-between mt-2 px-1">
+                    <p class="text-[11px] text-gray-400">Recommended length: 150–160 characters.</p>
+                    <p class="text-[11px] font-bold text-gray-400">
+                        <span data-char-current data-char-type="meta" class="text-[--color-primary]">0</span>/160
+                    </p>
+                </div>
+
+                <p id="error-meta_description" class="text-[11px] text-red-500 mt-1 hidden"></p>
             </div>
         </div>
     </div>

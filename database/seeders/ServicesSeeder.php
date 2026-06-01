@@ -37,7 +37,7 @@ class ServicesSeeder extends Seeder
                         'color' => null,
                         'desc' => $service['desc'],
                         'slug' => Str::slug($child['title']),
-                        'show_on_home' => true,
+                        'show_on_home' => false,
                         'parent_id' => $parentId,
                         'is_active' => true,
                         'created_at' => Carbon::now(),

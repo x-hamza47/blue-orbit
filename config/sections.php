@@ -1,6 +1,5 @@
 <?php
 
-
 return [
     'relatedservices' => [
         'label' => 'Related Services',
@@ -13,14 +12,14 @@ return [
         'allowed_for' => ['parent', 'sub'],
         'system' => false,
         'rules' => [
-            'heading' => 'required|string|max:500',
-            'subheading' => 'nullable|string|max:500',
+            'heading' => 'required|string|max:250',
+            'subheading' => 'required|string|max:250',
             'input_placeholder' => 'nullable|string|max:255',
             'button_text' => 'nullable|string|max:100',
             'button_link' => 'nullable|string|max:255',
             'review_text' => 'required|string',
             'reviewer_name' => 'required|string|max:100',
-            'image' => 'nullable|string'
+            'image' => 'nullable|string',
         ],
     ],
     'benefits' => [
@@ -35,19 +34,60 @@ return [
             'items.*.desc' => 'required|string|max:120',
         ],
         'messages' => [
-            'items.required'         => 'Add at least one benefit before saving.',
-            'items.min'              => 'Add at least one benefit before saving.',
-            'items.max'              => 'You can add up to 9 benefits only.',
-            'subheading.max'         => 'Description cannot exceed 500 characters.',
+            'items.required' => 'Add at least one benefit before saving.',
+            'items.min' => 'Add at least one benefit before saving.',
+            'items.max' => 'You can add up to 9 benefits only.',
+            'subheading.max' => 'Description cannot exceed 500 characters.',
 
-            'items.*.icon.required'  => 'Item :position — icon is required.',
-            'items.*.icon.max'       => 'Item :position — icon name is too long.',
+            'items.*.icon.required' => 'Item :position - icon is required.',
+            'items.*.icon.max' => 'Item :position - icon name is too long.',
 
-            'items.*.title.required' => 'Item :position — title is required.',
-            'items.*.title.max'      => 'Item :position — title cannot exceed 100 characters.',
+            'items.*.title.required' => 'Item :position - title is required.',
+            'items.*.title.max' => 'Item :position - title cannot exceed 100 characters.',
 
-            'items.*.desc.required'  => 'Item :position — description is required.',
-            'items.*.desc.max'       => 'Item :position — description cannot exceed 120 characters.',
+            'items.*.desc.required' => 'Item :position - description is required.',
+            'items.*.desc.max' => 'Item :position - description cannot exceed 120 characters.',
+        ],
+    ],
+    'services_detail' => [
+        'label' => 'Services Detail Section',
+        'allowed_for' => ['parent', 'sub'],
+        'system' => false,
+
+        'rules' => [
+            'heading' => 'nullable|string|max:120',
+            'heading_highlight' => 'nullable|string|max:80',
+
+            'services' => 'required|array|min:1',
+
+            'services.*.title' => 'required|string|max:120',
+            'services.*.intro' => 'nullable|string|max:600',
+
+            'services.*.what_title' => 'nullable|string|max:120',
+            'services.*.what_desc' => 'required|string|max:800',
+
+            'services.*.why_title' => 'nullable|string|max:120',
+            'services.*.why_desc' => 'required|string|max:800',
+        ],
+
+        'messages' => [
+            'heading.max' => 'Section heading cannot exceed 120 characters.',
+            'heading_highlight.max' => 'Highlighted text cannot exceed 80 characters.',
+
+            'services.required' => 'Add at least one service before saving.',
+            'services.min' => 'Add at least one service before saving.',
+
+            'services.*.title.required' => 'Service :position - title is required.',
+            'services.*.title.max' => 'Service :position - title cannot exceed 120 characters.',
+
+            'services.*.intro.required' => 'Service :position - intro description is required.',
+            'services.*.intro.max' => 'Service :position - intro cannot exceed 600 characters.',
+
+            'services.*.what_desc.required' => 'Service :position - "What it Involves" body is required.',
+            'services.*.what_desc.max' => 'Service :position - card 1 body cannot exceed 800 characters.',
+
+            'services.*.why_desc.required' => 'Service :position - "Why it\'s a Great Investment" body is required.',
+            'services.*.why_desc.max' => 'Service :position - card 2 body cannot exceed 800 characters.',
         ],
     ],
 
@@ -57,8 +97,8 @@ return [
         'system' => false,
 
         'rules' => [
-            'heading_main' => 'required|string|max:255',
-            'heading_highlight' => 'required|string|max:255',
+            'heading_main' => 'nullable|string|max:255',
+            'heading_highlight' => 'nullable|string|max:255',
 
             'items' => 'required|array|min:1|max:6',
 
@@ -76,11 +116,11 @@ return [
             'items.min' => 'Add at least one case study item.',
             'items.max' => 'You can add up to 6 case study items only.',
 
-            'items.*.metric.required' => 'Item :position — metric is required.',
-            'items.*.title.required' => 'Item :position — title is required.',
+            'items.*.metric.required' => 'Item :position - metric is required.',
+            'items.*.title.required' => 'Item :position - title is required.',
 
-            'items.*.tag1.max' => 'Item :position — Tag 1 max 50 characters.',
-            'items.*.tag2.max' => 'Item :position — Tag 2 max 50 characters.',
+            'items.*.tag1.max' => 'Item :position - Tag 1 max 50 characters.',
+            'items.*.tag2.max' => 'Item :position - Tag 2 max 50 characters.',
         ],
     ],
     'challenges' => [
@@ -106,57 +146,57 @@ return [
             'items.min' => 'Add at least one challenge item.',
             'items.max' => 'You can add up to 10 challenges only.',
 
-            'items.*.issue.required' => 'Challenge :position — issue is required.',
-            'items.*.fixed.required' => 'Challenge :position — fixed solution is required.',
-            'items.*.result.required' => 'Challenge :position — result line is required.',
+            'items.*.issue.required' => 'Challenge :position - issue is required.',
+            'items.*.fixed.required' => 'Challenge :position - fixed solution is required.',
+            'items.*.result.required' => 'Challenge :position - result line is required.',
         ],
     ],
 
-
     'cta' => [
-        'label'       => 'Call To Action',
+        'label' => 'Call To Action',
         'allowed_for' => ['parent', 'sub'],
         'system' => false,
         'rules' => [
-            'heading'     => 'required|string|max:500',
-            'subheading'  => 'nullable|string|max:500',
+            'heading' => 'required|string|max:500',
+            'subheading' => 'nullable|string|max:500',
             'button_text' => 'required|string|max:100',
             'button_link' => 'nullable|string|max:255',
         ],
         'messages' => [
-            'heading.required'     => 'Heading is required.',
-            'heading.max'          => 'Heading cannot exceed 500 characters.',
+            'heading.required' => 'Heading is required.',
+            'heading.max' => 'Heading cannot exceed 500 characters.',
             'button_text.required' => 'Button text is required.',
-            'button_text.max'      => 'Button text cannot exceed 100 characters.',
-            'button_link.max'      => 'Button link cannot exceed 255 characters.',
+            'button_text.max' => 'Button text cannot exceed 100 characters.',
+            'button_link.max' => 'Button link cannot exceed 255 characters.',
         ],
     ],
 
     'faqs' => [
-        'label'       => 'FAQs Section',
+        'label' => 'FAQs Section',
         'allowed_for' => ['parent', 'sub'],
         'system' => false,
         'rules' => [
-            'heading'         => 'required|string|max:255',
-            'subheading'      => 'nullable|string|max:500',
-            'support_title'   => 'nullable|string|max:255',
-            'support_text'    => 'nullable|string|max:500',
-            'support_email'   => 'required|email|max:255',
-            'faqs'            => 'required|array|min:1|max:4',
+            'heading' => 'nullable|string|max:255',
+            'heading_highlight' => 'nullable|string|max:255',
+            'subheading' => 'nullable|string|max:500',
+            'support_title' => 'nullable|string|max:255',
+            'support_text' => 'nullable|string|max:500',
+            'support_email' => 'nullable|email|max:255',
+            'faqs' => 'required|array|min:1|max:4',
             'faqs.*.question' => 'required|string|max:255',
-            'faqs.*.answer'   => 'required|string',
+            'faqs.*.answer' => 'required|string',
         ],
         'messages' => [
-            'heading.required'          => 'Section heading is required.',
-            'heading.max'               => 'Heading cannot exceed 255 characters.',
-            'support_email.required'    => 'Support email is required.',
-            'support_email.email'       => 'Support email must be a valid email address.',
-            'faqs.required'             => 'Add at least one FAQ before saving.',
-            'faqs.min'                  => 'Add at least one FAQ before saving.',
-            'faqs.max'                  => 'You can add up to 4 FAQs only.',
-            'faqs.*.question.required'  => 'FAQ :position — question is required.',
-            'faqs.*.question.max'       => 'FAQ :position — question cannot exceed 255 characters.',
-            'faqs.*.answer.required'    => 'FAQ :position — answer is required.',
+            'heading.required' => 'Section heading is required.',
+            'heading.max' => 'Heading cannot exceed 255 characters.',
+            'support_email.required' => 'Support email is required.',
+            'support_email.email' => 'Support email must be a valid email address.',
+            'faqs.required' => 'Add at least one FAQ before saving.',
+            'faqs.min' => 'Add at least one FAQ before saving.',
+            'faqs.max' => 'You can add up to 4 FAQs only.',
+            'faqs.*.question.required' => 'FAQ :position - question is required.',
+            'faqs.*.question.max' => 'FAQ :position - question cannot exceed 255 characters.',
+            'faqs.*.answer.required' => 'FAQ :position - answer is required.',
         ],
     ],
     'tech' => [
@@ -164,7 +204,8 @@ return [
         'allowed_for' => ['parent', 'sub'],
         'system' => false,
         'rules' => [
-            'heading' => 'nullable|string|max:255',
+            'heading' => 'nullable|string|max:100',
+            'heading_highlight' => 'nullable|string|max:150',
             'subheading' => 'nullable|string|max:500',
             'items' => 'required|array|min:1',
             'items.*.icon' => 'required|string|max:50',
@@ -174,39 +215,39 @@ return [
             'items.required' => 'Add at least one technology item.',
             'items.min' => 'Add at least one technology item.',
 
-            'items.*.icon.required' => 'Item :position — icon is required.',
-            'items.*.title.required' => 'Item :position — title is required.',
+            'items.*.icon.required' => 'Item :position - icon is required.',
+            'items.*.title.required' => 'Item :position - title is required.',
 
-            'items.*.icon.max' => 'Item :position — icon name is too long.',
-            'items.*.title.max' => 'Item :position — title cannot exceed 255 characters.',
+            'items.*.icon.max' => 'Item :position - icon name is too long.',
+            'items.*.title.max' => 'Item :position - title cannot exceed 255 characters.',
         ],
     ],
 
     'industries' => [
-        'label'       => 'Industries Section',
+        'label' => 'Industries Section',
         'allowed_for' => ['parent', 'sub'],
         'system' => false,
         'rules' => [
-            'subheading'    => 'nullable|string|max:500',
-            'items'         => 'required|array|min:1|max:8',
-            'items.*.icon'  => 'required|string|max:100',
+            'subheading' => 'nullable|string|max:500',
+            'items' => 'required|array|min:1|max:8',
+            'items.*.icon' => 'required|string|max:100',
             'items.*.title' => 'required|string|max:255',
-            'items.*.desc'  => 'required|string|max:1000',
+            'items.*.desc' => 'required|string|max:1000',
         ],
         'messages' => [
-            'items.required'         => 'Add at least one industry before saving.',
-            'items.min'              => 'Add at least one industry before saving.',
-            'items.max'              => 'You can add up to 8 industries only.',
-            'subheading.max'         => 'Description cannot exceed 500 characters.',
+            'items.required' => 'Add at least one industry before saving.',
+            'items.min' => 'Add at least one industry before saving.',
+            'items.max' => 'You can add up to 8 industries only.',
+            'subheading.max' => 'Description cannot exceed 500 characters.',
 
-            'items.*.icon.required'  => 'Item :position — icon is required.',
-            'items.*.icon.max'       => 'Item :position — icon name is too long.',
+            'items.*.icon.required' => 'Item :position - icon is required.',
+            'items.*.icon.max' => 'Item :position - icon name is too long.',
 
-            'items.*.title.required' => 'Item :position — title is required.',
-            'items.*.title.max'      => 'Item :position — title cannot exceed 255 characters.',
+            'items.*.title.required' => 'Item :position - title is required.',
+            'items.*.title.max' => 'Item :position - title cannot exceed 255 characters.',
 
-            'items.*.desc.required'  => 'Item :position — description is required.',
-            'items.*.desc.max'       => 'Item :position — description cannot exceed 1000 characters.',
+            'items.*.desc.required' => 'Item :position - description is required.',
+            'items.*.desc.max' => 'Item :position - description cannot exceed 1000 characters.',
         ],
     ],
 
@@ -216,10 +257,11 @@ return [
         'system' => false,
 
         'rules' => [
-            'heading' => 'required|string|max:255',
+            'heading' => 'nullable|string|max:255',
+            'heading_highlight' => 'nullable|string|max:100',
             'subheading' => 'nullable|string|max:500',
 
-            'items' => 'required|array|min:1|max:4',
+            'items' => 'required|array|min:1|max:7',
 
             'items.*.icon' => 'required|string|max:50',
             'items.*.step' => 'nullable|string|max:10',
@@ -232,37 +274,37 @@ return [
             'items.min' => 'Add at least one step.',
             'items.max' => 'Maximum 4 steps allowed.',
 
-            'items.*.title.required' => 'Step :position — title is required.',
-            'items.*.desc.required' => 'Step :position — description is required.',
+            'items.*.title.required' => 'Step :position - title is required.',
+            'items.*.desc.required' => 'Step :position - description is required.',
         ],
     ],
 
     'roicalculator' => [
-        'label'       => 'ROI Calculator',
+        'label' => 'ROI Calculator',
         'allowed_for' => ['parent', 'sub'],
         'system' => false,
         'rules' => [
-            'button_text'          => 'required|string|max:100',
-            'disclaimer'           => 'nullable|string|max:255',
-            'budget_coefficient'   => 'required|numeric|min:0',
-            'traffic_coefficient'  => 'required|numeric|min:0',
-            'revenue_multiplier'   => 'required|numeric|min:0',
-            'industries'           => 'required|array|min:1|max:10',
-            'industries.*.label'   => 'required|string|max:100',
-            'industries.*.value'   => 'required|string|max:100',
+            'button_text' => 'required|string|max:100',
+            'disclaimer' => 'nullable|string|max:255',
+            'budget_coefficient' => 'required|numeric|min:0',
+            'traffic_coefficient' => 'required|numeric|min:0',
+            'revenue_multiplier' => 'required|numeric|min:0',
+            'industries' => 'required|array|min:1|max:10',
+            'industries.*.label' => 'required|string|max:100',
+            'industries.*.value' => 'required|string|max:100',
             'industries.*.multiplier' => 'required|numeric|min:0',
         ],
         'messages' => [
-            'button_text.required'             => 'Button text is required.',
-            'budget_coefficient.required'      => 'Budget coefficient is required.',
-            'traffic_coefficient.required'     => 'Traffic coefficient is required.',
-            'revenue_multiplier.required'      => 'Revenue multiplier is required.',
-            'industries.required'              => 'Add at least one industry.',
-            'industries.min'                   => 'Add at least one industry.',
-            'industries.max'                   => 'You can add up to 10 industries only.',
-            'industries.*.label.required'      => 'Industry :position — label is required.',
-            'industries.*.value.required'      => 'Industry :position — value key is required.',
-            'industries.*.multiplier.required' => 'Industry :position — multiplier is required.',
+            'button_text.required' => 'Button text is required.',
+            'budget_coefficient.required' => 'Budget coefficient is required.',
+            'traffic_coefficient.required' => 'Traffic coefficient is required.',
+            'revenue_multiplier.required' => 'Revenue multiplier is required.',
+            'industries.required' => 'Add at least one industry.',
+            'industries.min' => 'Add at least one industry.',
+            'industries.max' => 'You can add up to 10 industries only.',
+            'industries.*.label.required' => 'Industry :position - label is required.',
+            'industries.*.value.required' => 'Industry :position - value key is required.',
+            'industries.*.multiplier.required' => 'Industry :position - multiplier is required.',
         ],
     ],
 
@@ -272,7 +314,8 @@ return [
         'system' => false,
 
         'rules' => [
-            'heading' => 'required|string|max:255',
+            'heading' => 'nullable|string|max:255',
+            'heading_highlight' => 'nullable|string|max:150',
 
             'items' => 'required|array|min:1|max:6',
 
@@ -281,22 +324,21 @@ return [
         ],
 
         'messages' => [
-            'heading.required' => 'Section heading is required.',
 
             'items.required' => 'Add at least one stat item.',
             'items.min' => 'Add at least one stat item.',
             'items.max' => 'You can add up to 6 items only.',
 
-            'items.*.value.required' => 'Stat :position — value is required.',
-            'items.*.value.max' => 'Stat :position — value is too long.',
+            'items.*.value.required' => 'Stat :position - value is required.',
+            'items.*.value.max' => 'Stat :position - value is too long.',
 
-            'items.*.label.required' => 'Stat :position — label is required.',
-            'items.*.label.max' => 'Stat :position — label is too long.',
+            'items.*.label.required' => 'Stat :position - label is required.',
+            'items.*.label.max' => 'Stat :position - label is too long.',
         ],
     ],
 
     'custom' => [
-        'label'       => 'Custom Section',
+        'label' => 'Custom Section',
         'allowed_for' => ['parent', 'sub'],
         'system' => false,
 
@@ -309,14 +351,14 @@ return [
 
         'messages' => [
             'heading.required' => 'Heading is required.',
-            'heading.max'      => 'Heading cannot exceed 255 characters.',
+            'heading.max' => 'Heading cannot exceed 255 characters.',
 
             'paragraphs.required' => 'At least one paragraph is required.',
-            'paragraphs.min'      => 'Add at least one paragraph.',
-            'paragraphs.max'      => 'You can add up to 10 paragraphs only.',
+            'paragraphs.min' => 'Add at least one paragraph.',
+            'paragraphs.max' => 'You can add up to 10 paragraphs only.',
 
             'paragraphs.*.text.required' => 'Paragraph text is required.',
-            'paragraphs.*.text.max'      => 'Paragraph is too long.',
+            'paragraphs.*.text.max' => 'Paragraph is too long.',
         ],
     ],
 
@@ -329,7 +371,6 @@ return [
             'heading' => 'required|string|max:255',
             'highlight' => 'required|string|max:255',
 
-            // 👇 NEW
             'us_label' => 'required|string|max:100',
             'agency_label' => 'required|string|max:100',
             'diy_label' => 'required|string|max:100',
@@ -347,10 +388,10 @@ return [
             'agency_label.required' => 'Agency column label is required.',
             'diy_label.required' => 'DIY column label is required.',
 
-            'items.*.feature.required' => 'Row :position — feature is required.',
-            'items.*.us_text.required' => 'Row :position — your value is required.',
-            'items.*.agency_text.required' => 'Row :position — agency value is required.',
-            'items.*.diy_text.required' => 'Row :position — DIY value is required.',
+            'items.*.feature.required' => 'Row :position - feature is required.',
+            'items.*.us_text.required' => 'Row :position - your value is required.',
+            'items.*.agency_text.required' => 'Row :position - agency value is required.',
+            'items.*.diy_text.required' => 'Row :position - DIY value is required.',
         ],
     ],
 
@@ -435,33 +476,138 @@ return [
         'allowed_for' => ['parent', 'sub'],
         'system' => false,
         'rules' => [
-            'heading'              => 'required|string|max:500',
-            'heading_highlight'    => 'required|string|max:200',
-            'subheading'           => 'nullable|string|max:500',
+            'heading' => 'required|string|max:500',
+            'heading_highlight' => 'required|string|max:200',
+            'subheading' => 'nullable|string|max:500',
 
-            'items'                => 'required|array|min:1|max:9',
-            'items.*.title'        => 'required|string|max:100',
-            'items.*.link'         => 'nullable|string|max:255',
-            'items.*.points'       => 'required|array|min:1|max:6',
-            'items.*.points.*'     => 'required|string|max:255',
+            'items' => 'required|array|min:1|max:9',
+            'items.*.title' => 'required|string|max:100',
+            'items.*.link' => 'nullable|string|max:255',
+            'items.*.points' => 'required|array|min:1|max:6',
+            'items.*.points.*' => 'required|string|max:255',
 
-            'cta_heading'          => 'nullable|string|max:200',
-            'cta_subheading'       => 'nullable|string|max:300',
-            'cta_button_text'      => 'nullable|string|max:100',
-            'cta_button_link'      => 'nullable|string|max:255',
+            'cta_heading' => 'nullable|string|max:200',
+            'cta_subheading' => 'nullable|string|max:300',
+            'cta_button_text' => 'nullable|string|max:100',
+            'cta_button_link' => 'nullable|string|max:255',
         ],
         'messages' => [
-            'heading.required'           => 'Main heading is required.',
+            'heading.required' => 'Main heading is required.',
             'heading_highlight.required' => 'Highlighted heading text is required.',
-            'items.required'             => 'Add at least one industry.',
-            'items.min'                  => 'Add at least one industry.',
-            'items.max'                  => 'You can add up to 9 industries.',
-            'items.*.title.required'     => 'Item :position — title is required.',
-            'items.*.points.required'    => 'Item :position — add at least one bullet point.',
-            'items.*.points.min'         => 'Item :position — add at least one bullet point.',
-            'items.*.points.max'         => 'Item :position — max 6 bullet points.',
-            'items.*.points.*.required'  => 'Item :position — bullet point cannot be empty.',
+            'items.required' => 'Add at least one industry.',
+            'items.min' => 'Add at least one industry.',
+            'items.max' => 'You can add up to 9 industries.',
+            'items.*.title.required' => 'Item :position - title is required.',
+            'items.*.points.required' => 'Item :position - add at least one bullet point.',
+            'items.*.points.min' => 'Item :position - add at least one bullet point.',
+            'items.*.points.max' => 'Item :position - max 6 bullet points.',
+            'items.*.points.*.required' => 'Item :position - bullet point cannot be empty.',
+        ],
+    ],
+    'services' => [
+        'label' => 'Services Section',
+        'allowed_for' => ['parent', 'sub'],
+        'system' => false,
+
+        'rules' => [
+            'heading' => 'nullable|string|max:255',
+            'heading_highlight' => 'nullable|string|max:255',
+            'subheading' => 'nullable|string|max:500',
+
+            'items' => 'required|array|min:1',
+            'items.*.icon' => 'required|string|max:100',
+            'items.*.title' => 'required|string|max:150',
+            'items.*.desc' => 'required|string|max:400',
+        ],
+
+        'messages' => [
+            'items.required' => 'Add at least one service before saving.',
+            'items.min' => 'Add at least one service before saving.',
+
+            'items.*.icon.required' => 'Service :position - icon is required.',
+            'items.*.icon.max' => 'Service :position - icon name is too long.',
+
+            'items.*.title.required' => 'Service :position - title is required.',
+            'items.*.title.max' => 'Service :position - title cannot exceed 150 characters.',
+
+            'items.*.desc.required' => 'Service :position - description is required.',
+            'items.*.desc.max' => 'Service :position - description cannot exceed 400 characters.',
         ],
     ],
 
+    'pricing' => [
+        'label' => 'Pricing Section',
+        'allowed_for' => ['parent', 'sub'],
+        'system' => false,
+
+        'rules' => [
+            // Header
+            'heading' => 'required|string|max:255',
+            'highlight' => 'required|string|max:255',
+            'subheading' => 'nullable|string|max:500',
+
+            // Plans (fixed 3 columns)
+            'plans' => 'required|array|size:3',
+            'plans.*.name' => 'required|string|max:100',
+            'plans.*.price' => 'required|string|max:100',
+            'plans.*.highlighted' => 'nullable|boolean',
+            'plans.*.badge' => 'nullable|string|max:60',
+
+            // Rows (dynamic)
+            'rows' => 'required|array|min:1|max:20',
+            'rows.*.feature' => 'required|string|max:150',
+            'rows.*.value_1' => 'required|string|max:150',
+            'rows.*.value_2' => 'required|string|max:150',
+            'rows.*.value_3' => 'required|string|max:150',
+
+            // Footer
+            'footer_note' => 'nullable|string|max:300',
+            'ctas' => 'nullable|array|size:2',
+            'ctas.*.label' => 'required_with:ctas|string|max:100',
+            'ctas.*.url' => 'nullable|string|max:255',
+            'ctas.*.primary' => 'nullable|boolean',
+        ],
+
+        'messages' => [
+            'heading.required' => 'Section heading is required.',
+            'heading.max' => 'Heading cannot exceed 255 characters.',
+
+            'highlight.required' => 'Highlight text is required.',
+            'highlight.max' => 'Highlight text cannot exceed 255 characters.',
+
+            'subheading.max' => 'Subheading cannot exceed 500 characters.',
+
+            'plans.required' => 'All 3 plan columns are required.',
+            'plans.size' => 'Exactly 3 plan columns are required.',
+
+            'plans.*.name.required' => 'Plan :position - name is required.',
+            'plans.*.name.max' => 'Plan :position - name cannot exceed 100 characters.',
+
+            'plans.*.price.required' => 'Plan :position - price range is required.',
+            'plans.*.price.max' => 'Plan :position - price cannot exceed 100 characters.',
+
+            'plans.*.badge.max' => 'Plan :position - badge label cannot exceed 60 characters.',
+
+            'rows.required' => 'Add at least one pricing row before saving.',
+            'rows.min' => 'Add at least one pricing row before saving.',
+            'rows.max' => 'You can add up to 12 pricing rows only.',
+
+            'rows.*.feature.required' => 'Row :position - feature label is required.',
+            'rows.*.feature.max' => 'Row :position - feature label cannot exceed 150 characters.',
+
+            'rows.*.value_1.required' => 'Row :position - Plan 1 value is required.',
+            'rows.*.value_2.required' => 'Row :position - Plan 2 value is required.',
+            'rows.*.value_3.required' => 'Row :position - Plan 3 value is required.',
+
+            'rows.*.value_1.max' => 'Row :position - Plan 1 value cannot exceed 150 characters.',
+            'rows.*.value_2.max' => 'Row :position - Plan 2 value cannot exceed 150 characters.',
+            'rows.*.value_3.max' => 'Row :position - Plan 3 value cannot exceed 150 characters.',
+
+            'footer_note.max' => 'Footer note cannot exceed 300 characters.',
+
+            'ctas.*.label.required_with' => 'CTA Button :position - label is required.',
+            'ctas.*.label.max' => 'CTA Button :position - label cannot exceed 100 characters.',
+            'ctas.*.url.max' => 'CTA Button :position - URL cannot exceed 255 characters.',
+        ],
+    ],
 ];

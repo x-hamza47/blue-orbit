@@ -4,21 +4,21 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 sm:gap-14 gap-12 md:gap-16">
 
             <div class="lg:col-span-5">
-                <div class="sticky top-24">
+                <div class="sticky top-48">
                     <h2
                         class="font-black text-(--color-secondary) leading-tight mb-2 sm:mb-4 text-[clamp(1.875rem,5vw,3rem)]">
-                        {!! $section->data['heading'] ?? 'Everything You <span class="text-[#4373F6]">Need to Know</span>' !!}
+                        {{ $data['heading'] ??  "Everything You" }} <span class="text-[#4373F6]">{{ $data['heading_highlight'] ??  "Need to Know" }} </span>
                     </h2>
                     <p class="text-gray-500 text-base sm:text-lg leading-relaxed font-medium">
-                        {{ $section->data['subheading'] ?? "Transparent answers about our $service->title processes, ROI expectations, and how we
+                        {{ $data['subheading'] ?? "Transparent answers about our $service->title processes, ROI expectations, and how we
                         scale your brand." }}
                     </p>
                     <div
                         class="md:p-8 sm:p-7 p-6 bg-(--color-secondary) rounded-3xl md:rounded-4xl text-white mt-5 sm:mt-7">
-                        <h4 class="font-bold text-xl mb-2">{{ $section->data['support_title'] ?? 'Still have questions?' }}</h4>
-                        <p class="text-gray-400 sm:mb-6 mb-5 text-sm"> {{ $section->data['support_text'] ?? "Our strategy team is ready to help you navigate your
+                        <h4 class="font-bold text-xl mb-2">{{ $data['support_title'] ?? 'Still have questions?' }}</h4>
+                        <p class="text-gray-400 sm:mb-6 mb-5 text-sm"> {{ $data['support_text'] ?? "Our strategy team is ready to help you navigate your
                             growth journey." }}</p>
-                        <a href="mailto:grow@blueorbitdigitalagency.com"
+                        <a href="mailto:{{ $data['support_email'] ?? 'grow@blueorbitdigitalagency.com' }}"
                             class="text-(--color-primary) font-black uppercase tracking-widest text-xs border-b-2 border-(--color-primary) pb-1 hover:text-white hover:border-white transition-all">Contact
                             Support</a>
                     </div>
@@ -27,7 +27,7 @@
 
             <div class="lg:col-span-7 space-y-4">
 
-                @forelse ($section->data['faqs'] ?? [] as $faq)
+                @forelse ($data['faqs'] ?? [] as $faq)
                     <div
                         class="faq-item group bg-white border border-gray-100 rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-300">
                         <button

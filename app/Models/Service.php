@@ -14,6 +14,8 @@ class Service extends Model
         'slug',
         'color',
         'desc',
+        'meta_title',
+        'meta_description',
         'show_on_home',
         'home_order',
         'is_active',
@@ -42,6 +44,10 @@ class Service extends Model
     public function parent()
     {
         return $this->belongsTo(Service::class, 'parent_id');
+    }
+
+    public function posts(){
+        return $this->hasMany(Post::class);
     }
 
     public function getTypeAttribute()

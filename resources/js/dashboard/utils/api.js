@@ -11,7 +11,24 @@ const api = {
         container = document,
     }) {
         try {
-            const res = await axios({ method, url, data });
+            const isFormData = data instanceof FormData;
+
+            if (isFormData && ["put", "patch"].includes(method.toLowerCase())) {
+                data.append("_method", method.toUpperCase());
+                method = "post";
+            }
+            if (!isFormData && ["delete", "put", "patch"].includes(method.toLowerCase())) {
+                data = { ...data, _method: method.toUpperCase() };
+                method = "post";
+            }
+            const res = await axios({
+                method,
+                url,
+                data,
+                headers: isFormData
+                    ? { "Content-Type": "multipart/form-data" }
+                    : {},
+            });
 
             if (res.data?.status) {
                 showToast({

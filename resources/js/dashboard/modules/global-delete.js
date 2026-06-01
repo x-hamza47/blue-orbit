@@ -16,7 +16,7 @@ export function initGLobalDelete() {
                 confirmButtonColor: "#EF4444",
                 cancelButtonColor: "#6B7280",
                 customClass: {
-                    popup: "rounded-2xl p-6",
+                    popup: "rounded-2xl p-6", 
                 },
             });
 

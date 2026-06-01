@@ -1,24 +1,30 @@
 export function initCharCounter(container) {
-    const textarea = container.querySelector("[data-char-count]");
-    const current = container.querySelector("[data-char-current]");
+    const textareas = container.querySelectorAll("[data-char-count]");
 
-    if (!textarea || !current) return;
+    textareas.forEach((textarea) => {
+        const type = textarea.getAttribute("data-char-type");
+        const current = container.querySelector(
+            `[data-char-current][data-char-type="${type}"]`
+        );
 
-    const max = textarea.getAttribute("maxlength") || 120;
+        if (!current) return;
 
-    const update = () => {
-        const len = textarea.value.length;
-        current.textContent = len;
+        const max = textarea.getAttribute("maxlength") || 120;
 
-        if (len > max * 0.9) {
-            current.classList.replace("text-[--color-primary]", "text-red-500");
+        const update = () => {
+            const len = textarea.value.length;
+            current.textContent = len;
 
-        } else {
-            current.classList.replace("text-red-500", "text-[--color-primary]");
-        }
-    };
+            current.classList.remove("text-red-500", "text-[--color-primary]");
 
-    textarea.addEventListener("input", update);
+            if (len > max * 0.9) {
+                current.classList.add("text-red-500");
+            } else {
+                current.classList.add("text-[--color-primary]");
+            }
+        };
 
-    update();
+        textarea.addEventListener("input", update);
+        update();
+    });
 }

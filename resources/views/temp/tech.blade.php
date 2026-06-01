@@ -3,7 +3,7 @@
 
         <div class="text-center max-w-4xl mx-auto mb-8">
             <h2 class="text-[#010521] font-black mb-6 leading-tight text-[clamp(2.5rem,6vw,4.5rem)]">
-                {!! $data['heading'] ?? "Technologies <span class='text-(--color-primary)'>We Use</span>" !!}
+                {{ $data['heading'] ?? "Technologies"}} <br> <span class='text-(--color-primary)'>{{ $data['heading_highlight'] ?? 'We Use' }}</span>
             </h2>
             <p class="text-gray-500 leading-relaxed text-lg font-medium">
                 {{ $data['subheading'] ?? 'We leverage a world-class suite of 50+ tools to ensure your growth is backed by the most powerful

@@ -168,13 +168,13 @@ export const renderers = {
         const rows = (Array.isArray(value) && value.length ? value : [""])
             .map(
                 (v) => `
-        <div class="flex gap-2 nested-point-item">
-            <input type="text" name="${name}[]" value="${esc(v)}"   {{-- ← [] here --}}
-                placeholder="${esc(placeholder)}"
-                class="flex-1 p-2.5 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none text-sm">
-            <button type="button" data-remove-point
-                class="w-9 h-9 shrink-0 rounded-xl bg-red-50 text-red-400 hover:bg-red-500 hover:text-white transition flex items-center justify-center text-xs">✕</button>
-        </div>`,
+                <div class="flex gap-2 nested-point-item">
+                    <input type="text" name="${name}[]" value="${esc(v)}"   {{-- ← [] here --}}
+                        placeholder="${esc(placeholder)}"
+                        class="flex-1 p-2.5 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none text-sm">
+                    <button type="button" data-remove-point
+                        class="w-9 h-9 shrink-0 rounded-xl bg-red-50 text-red-400 hover:bg-red-500 hover:text-white transition flex items-center justify-center text-xs">✕</button>
+                </div>`,
             )
             .join("");
 

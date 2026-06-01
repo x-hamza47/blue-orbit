@@ -24,7 +24,7 @@ class ContactController extends Controller
 
     public function index()
     {
-        $contacts = Contact::with('service')->latest()->paginate(10); // Use paginate for the "Next/Prev" buttons
+        $contacts = Contact::with('service')->latest()->paginate(10); 
         $totalQueries = Contact::count();
         $todayLeads = Contact::whereDate('created_at', today())->count();
 

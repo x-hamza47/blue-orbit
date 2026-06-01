@@ -4,7 +4,7 @@
         <div class="mb-8">
             <h2 class="font-black text-(--color-secondary) leading-tight"
                 style="font-size: clamp(1.875rem, 5vw, 3rem);">
-                {{ $data['heading'] ?? '' }}
+                {{ $data['heading'] ?? 'Blue Orbit offshore ' }}<span class="text-[#4373F6]">{{ $data["heading_highlight"] ?? 'strength in numbers'  }}</span> 
             </h2>
         </div>
 

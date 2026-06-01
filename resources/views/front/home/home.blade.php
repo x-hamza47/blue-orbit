@@ -1,4 +1,26 @@
 @extends('front.main')
+@section('schema')
+    <script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Blue Orbit Digital Agency",
+  "url": "https://blueorbitdigitalagency.com",
+ "logo": "{{ asset('images/logo.jfif', true) }}"
+  "telephone": "+971567716432",
+  "email": "grow@blueorbitdigitalagency.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Business Center, Sharjah Publishing City Free Zone",
+    "addressLocality": "Sharjah",
+    "addressCountry": "AE"
+  },
+  "sameAs": [
+    "https://www.instagram.com/blue.orbit.digital"
+  ]
+}
+</script>
+@endsection
 
 @section('content')
     {{-- ! Hero Section --}}

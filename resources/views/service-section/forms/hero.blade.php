@@ -15,17 +15,17 @@ $hero = $existing ?? [];
             <!-- Heading -->
             <div>
                 <label class="text-xs font-semibold text-gray-500">Main Heading *</label>
-                <textarea name="heading" rows="3"
+                 <input type="text" name="heading"
+                    value="{{ $hero['heading'] ?? '' }}"
                     placeholder="Enter main hero heading..."
-                    class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none resize-none"
-                >{{ $hero['heading'] ?? '' }}</textarea>
+                    class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
 
                 <p class="text-xs text-red-500 mt-1 hidden" id="error-heading"></p>
             </div>
 
             <!-- Sub Heading -->
             <div>
-                <label class="text-xs font-semibold text-gray-500">Sub Heading</label>
+                <label class="text-xs font-semibold text-gray-500">Sub Heading *</label>
                 <input type="text" name="subheading"
                     value="{{ $hero['subheading'] ?? '' }}"
                     placeholder="Enter supporting subtitle..."
@@ -46,9 +46,9 @@ $hero = $existing ?? [];
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <div>
-                <label class="text-xs font-semibold text-gray-500">Button Text *</label>
+                <label class="text-xs font-semibold text-gray-500">Button Text</label>
                 <input type="text" name="button_text"
-                    value="{{ $hero['button_text'] ?? '' }}"
+                    value="{{ $hero['button_text'] ?? 'Get My Free Proposal' }}"
                     placeholder="e.g. Get Started"
                     class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
 
@@ -70,7 +70,7 @@ $hero = $existing ?? [];
         <div class="mt-4">
             <label class="text-xs font-semibold text-gray-500">Input Placeholder</label>
             <input type="text" name="input_placeholder"
-                value="{{ $hero['input_placeholder'] ?? '' }}"
+                value="{{ $hero['input_placeholder'] ?? 'Enter Website Address' }}"
                 placeholder="e.g. Enter website URL"
                 class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
         </div>

@@ -18,7 +18,7 @@ $data = $section['data'] ?? [];
         <div class="space-y-8">
 
             @foreach($data['paragraphs'] ?? [] as $para)
-                <p class="text-gray-500 text-[clamp(1.1rem,2vw,1.35rem)] leading-relaxed font-medium">
+                <p class="text-gray-500 md:text-base text-sm leading-relaxed font-medium">
                     {{ $para['text'] }}
                 </p>
             @endforeach

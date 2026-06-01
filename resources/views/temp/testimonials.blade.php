@@ -14,7 +14,7 @@
         <div class="mb-12">
 
             <div class="swiper clientTestimonialSwiper pb-16">
-                <div class="swiper-wrapper justify-center! pb-24!">
+                <div class="swiper-wrapper pb-24!">
 
                     @foreach ($data['items'] ?? [] as $item)
                         <div class="swiper-slide">

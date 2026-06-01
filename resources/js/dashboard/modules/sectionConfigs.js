@@ -1,6 +1,6 @@
 export const CONFIGS = {
     benefit: {
-        max: 6,
+        max: 9,
         layout: [2, "full"],
         fields: [
             {
@@ -120,7 +120,7 @@ export const CONFIGS = {
         ],
     },
     process: {
-        max: 4,
+        max: 6,
         arrayKey: "items",
         layout: [1],
         fields: [
@@ -340,6 +340,112 @@ export const CONFIGS = {
                 label: "Bullet Point",
                 placeholder: "Enter bullet point...",
                 max: 6,
+            },
+        ],
+    },
+    services_detail: {
+        max: null,
+        arrayKey: "services",
+        layout: ["full", 2],
+        fields: [
+            {
+                key: "title",
+                type: "text",
+                label: "Service Title *",
+                placeholder: "e.g. SEARCH ENGINE OPTIMIZATION (SEO)",
+            },
+            {
+                key: "intro",
+                type: "textarea",
+                label: "Intro / Left Description *",
+                rows: 4,
+                placeholder: "Short summary shown on the left sticky column...",
+            },
+            {
+                key: "what_title",
+                type: "text",
+                label: "Card 1: Heading",
+                placeholder: "What [Service] Involves",
+            },
+            {
+                key: "what_desc",
+                type: "textarea",
+                label: "Card 1: Body *",
+                rows: 4,
+                placeholder: "Describe what this service involves...",
+            },
+            {
+                key: "why_title",
+                type: "text",
+                label: "Card 2: Heading",
+                placeholder: "Why [Service] is a Great Investment",
+            },
+            {
+                key: "why_desc",
+                type: "textarea",
+                label: "Card 2: Body *",
+                rows: 4,
+                placeholder:
+                    "Describe why this service is worth investing in...",
+            },
+        ],
+    },
+    services: {
+        max: null,
+        arrayKey: "items",
+        layout: [2, "full"],
+        fields: [
+            {
+                key: "icon",
+                type: "icon",
+                label: "Lucide Icon",
+                placeholder: "e.g. search",
+                iconType: "lucide",
+                previewDefault: "zap",
+            },
+            {
+                key: "title",
+                type: "text",
+                label: "Title",
+                placeholder: "e.g. SEO (Search Engine Optimization)",
+            },
+            {
+                key: "desc",
+                type: "textarea",
+                label: "Description",
+                rows: 3,
+            },
+        ],
+    },
+
+    pricing_rows: {
+        max: 20,
+        arrayKey: "rows",
+        layout: ["full", 3],
+        fields: [
+            {
+                key: "feature",
+                type: "text",
+                label: "Feature Label *",
+                placeholder: "e.g. Keyword Research",
+            },
+            {
+                key: "value_1",
+                type: "text",
+                label: "Plan 1 Value *",
+                placeholder: "e.g. Up to 20 keywords",
+            },
+            {
+                key: "value_2",
+                type: "text",
+                label: "Plan 2 Value *",
+                placeholder: "e.g. Up to 60 keywords",
+            },
+            {
+                key: "value_3",
+                type: "text",
+                label: "Plan 3 Value *",
+                placeholder: "e.g. Unlimited",
             },
         ],
     },

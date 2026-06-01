@@ -85,7 +85,7 @@
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
-                    <thead class="bg-gray-50/50">
+                    <thead class="bg-gray-50/50"> 
                         <tr>
                             <th class="px-8 py-4 text-[10px] font-black uppercase text-gray-400">Service</th>
                             <th class="px-8 py-4 text-[10px] font-black uppercase text-gray-400">Sub Services</th>

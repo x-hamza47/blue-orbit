@@ -12,7 +12,7 @@ class SectionResolver
 
             'relatedservices' => $this->relatedServices($service),
 
-            'services' => $this->services(),
+            // 'services' => $this->services(),
 
             default => $section->data,
         };
@@ -31,8 +31,8 @@ class SectionResolver
             ->get();
     }
 
-    private function services()
-    {
-        return Service::active()->get();
-    }
+    // private function services()
+    // {
+    //     return Service::active()->get();
+    // }
 }

@@ -156,10 +156,10 @@
         {{-- Info: Section Modal --}}
         <div id="sectionModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
 
-            <div class="bg-white w-3/5 min-w-[460px] max-h-[90vh]  rounded-2xl flex flex-col">
+            <div class="bg-white w-4/5 min-w-[460px] max-h-[95vh] overflow-hidden rounded-2xl flex flex-col">
 
                 <!-- Header -->
-                <div class="flex justify-between items-center p-6 border-b">
+                <div class="flex justify-between items-center p-6 border-b custom-swal-header">
                     <h2 class="font-bold text-lg" id="modalTitle">Add Section</h2>
                     <button onclick="closeModal()">✕</button>
                 </div>
@@ -168,7 +168,7 @@
                 <div class="p-6 overflow-y-auto flex-1">
 
                     {{-- TAB SWITCHER --}}
-                    <div class="flex gap-1 bg-gray-100 p-1 rounded-xl mb-5">
+                    <div class="flex gap-1 bg-gray-300 p-1 rounded-xl mb-5">
                         <button type="button" id="tabContent" onclick="switchTab('content')"
                             class="flex-1 py-2 text-[11px] font-black uppercase rounded-lg bg-white text-[#4373F6] shadow-sm transition">
                             Content Sections
@@ -200,7 +200,7 @@
                             <div id="formContainer"></div>
 
                             <button type="submit"
-                                class="mt-4 bg-[#4373F6] text-white px-4 py-2.5 rounded-xl w-full text-[11px] font-black uppercase hidden"
+                                class="mt-4 swal2-confirm  bg-[#4373F6] text-white px-4 py-2.5 rounded-xl w-full text-[11px] font-black uppercase hidden"
                                 id="submitBtn">
                                 Save Section
                             </button>

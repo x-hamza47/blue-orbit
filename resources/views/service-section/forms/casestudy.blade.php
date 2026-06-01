@@ -6,7 +6,7 @@
         </h3>
 
         <div>
-            <label class="text-xs font-semibold text-gray-500">Heading Left</label>
+            <label class="text-xs font-semibold text-gray-500">Heading</label>
             <input type="text" name="heading_main"
                 value="{{ $existing['heading_main'] ?? '' }}"
                 class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none"

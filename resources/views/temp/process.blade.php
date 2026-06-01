@@ -4,7 +4,7 @@
         {{-- HEADER --}}
         <div class="text-center mb-12">
             <h2 class="font-extrabold leading-tight text-[clamp(2.5rem,6vw,4.5rem)]">
-                Process <span class="text-[#4373F6]">How We Work</span>
+               {{ $data['heading'] ?? "Process" }} <span class="text-[#4373F6]">{{ $data['heading_highlight'] ?? "How We Work" }}</span>
             </h2>
 
             <p class="text-gray-700">
@@ -16,11 +16,11 @@
 
         @php $items = $data['items'] ?? []; @endphp
 
-        {{-- <div class="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"> --}}
-        <div class="relative flex flex-wrap justify-center gap-8">
+        <div class="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {{-- <div class="relative flex flex-wrap justify-center gap-8"> --}}
 
             @if (count($items) === 4)
-                <div class="hidden lg:block absolute top-10 left-[8%] right-[8%] h-0.5 bg-[#4373F6] z-0"></div>
+                <div class="hidden lg:block absolute top-10 left-[10%] right-[8%] h-0.5 bg-[#4373F6] z-0"></div>
             @endif
 
             @foreach ($items as $item)

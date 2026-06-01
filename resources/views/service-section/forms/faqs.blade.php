@@ -7,11 +7,18 @@
         </h3>
         <div class="space-y-4">
             <div>
-                <label class="text-xs font-semibold text-gray-500">Heading *</label>
+                <label class="text-xs font-semibold text-gray-500">Heading </label>
                 <input type="text" name="heading"
                     value="{{ $existing['heading'] ?? '' }}"
                     class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
                 <small id="error-heading" class="text-red-500 text-xs hidden"></small>
+            </div>
+            <div>
+                <label class="text-xs font-semibold text-gray-500">Heading Highlight</label>
+                <input type="text" name="heading_highlight"
+                    value="{{ $existing['heading_highlight'] ?? '' }}"
+                    class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
+                <small id="error-heading_highlight" class="text-red-500 text-xs hidden"></small>
             </div>
             <div>
                 <label class="text-xs font-semibold text-gray-500">Description</label>

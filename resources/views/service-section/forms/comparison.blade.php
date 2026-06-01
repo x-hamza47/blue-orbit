@@ -11,7 +11,7 @@
 
             <!-- Heading -->
             <div>
-                <label class="text-xs font-semibold text-gray-500">Heading *</label>
+                <label class="text-xs font-semibold text-gray-500">Heading</label>
                 <input type="text" name="heading" value="{{ $existing['heading'] ?? '' }}"
                     class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
 
@@ -20,7 +20,7 @@
 
             <!-- Highlight (Why Choose Us) -->
             <div>
-                <label class="text-xs font-semibold text-gray-500">Highlight Text *</label>
+                <label class="text-xs font-semibold text-gray-500">Highlight Text</label>
                 <input type="text" name="highlight" value="{{ $existing['highlight'] ?? '' }}"
                     class="w-full mt-2 p-3 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none">
 

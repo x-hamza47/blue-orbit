@@ -73,7 +73,7 @@ function renderCard(config, index, data = {}) {
     });
 
     return `
-    <div class="js-dynamic-item bg-gray-50 border border-gray-100 rounded-xl p-4 relative">
+    <div class="js-dynamic-item bg-gray-300 border border-gray-100 rounded-xl p-4 relative">
 
         <button type="button" data-remove
             class="absolute top-3 right-3 text-gray-400 hover:text-red-500">
@@ -155,10 +155,10 @@ function initWrapper(wrapper) {
         initIconPreview(newCard);
 
         syncBtn(addBtn, container, config.max);
-         newCard.scrollIntoView({
-             behavior: "smooth",
-             block: "center",
-         });
+        newCard.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+        });
     });
 
     const arrayKey = config.arrayKey ?? "items";
@@ -172,33 +172,32 @@ function initWrapper(wrapper) {
         }
 
         // add nested point
-   if (e.target.matches("[data-add-point]")) {
-       const repeater = e.target.previousElementSibling;
-       const max = parseInt(repeater.dataset.max);
-       const name = repeater.dataset.nestedKey; // e.g. items[0][points]
+        if (e.target.matches("[data-add-point]")) {
+            const repeater = e.target.previousElementSibling;
+            const max = parseInt(repeater.dataset.max);
+            const name = repeater.dataset.nestedKey; 
 
-       if (repeater.children.length >= max) return;
+            if (repeater.children.length >= max) return;
 
-       repeater.insertAdjacentHTML(
-           "beforeend",
-           `
-        <div class="flex gap-2 nested-point-item">
-            <input type="text" name="${name}[]"   {{-- ← [] here too --}}
-                placeholder=""
-                class="flex-1 p-2.5 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none text-sm">
-            <button type="button" data-remove-point
-                class="w-9 h-9 shrink-0 rounded-xl bg-red-50 text-red-400 hover:bg-red-500 hover:text-white transition flex items-center justify-center text-xs">✕</button>
-        </div>
-    `,
-       );
-       return;
-   }
+            repeater.insertAdjacentHTML(
+                "beforeend",
+                `
+                    <div class="flex gap-2 nested-point-item">
+                        <input type="text" name="${name}[]"   {{-- ← [] here too --}}
+                            placeholder=""
+                            class="flex-1 p-2.5 rounded-xl border border-gray-200 focus:border-[#4373F6] outline-none text-sm">
+                        <button type="button" data-remove-point
+                            class="w-9 h-9 shrink-0 rounded-xl bg-red-50 text-red-400 hover:bg-red-500 hover:text-white transition flex items-center justify-center text-xs">✕</button>
+                    </div>
+                `,
+            );
+            return;
+        }
 
-    // remove nested point
-    if (e.target.closest("[data-remove-point]")) {
-        e.target.closest(".nested-point-item").remove();
-        return;
-    }
+        if (e.target.closest("[data-remove-point]")) {
+            e.target.closest(".nested-point-item").remove();
+            return;
+        }
     });
 }
 

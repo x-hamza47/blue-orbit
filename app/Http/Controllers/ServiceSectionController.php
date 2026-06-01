@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
-use App\Models\ServiceSection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ServiceSectionController extends Controller
 {
-
     public function index(Service $service)
     {
         $sections = $service->sections;
@@ -19,9 +16,8 @@ class ServiceSectionController extends Controller
 
         $all = collect(config('sections'))
             ->filter(
-                fn($section, $key) =>
-                in_array($serviceType, $section['allowed_for']) &&
-                    !in_array($key, $existingSections)
+                fn ($section, $key) => in_array($serviceType, $section['allowed_for']) &&
+                    ! in_array($key, $existingSections)
             );
 
         $availableSections = $all->where('system', false);
@@ -39,10 +35,10 @@ class ServiceSectionController extends Controller
     {
         $type = $request->type;
 
-        if (!array_key_exists($type, config('sections'))) {
+        if (! array_key_exists($type, config('sections'))) {
             return response()->json([
                 'status' => false,
-                'message' => 'Invalid section type'
+                'message' => 'Invalid section type',
             ], 400);
         }
 
@@ -53,7 +49,7 @@ class ServiceSectionController extends Controller
         if ($exists) {
             return response()->json([
                 'status' => false,
-                'message' => 'Section already exists'
+                'message' => 'Section already exists',
             ], 409);
         }
 
@@ -71,23 +67,23 @@ class ServiceSectionController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'status' => false,
-                    'errors' => $validator->errors()
+                    'errors' => $validator->errors(),
                 ], 422);
             }
 
-            $data = $validator->validated();
+            $data = $this->transformForStorage($type, $validator->validated());
         }
 
         $section = $service->sections()->create([
-            'type'  => $type,
-            'data'  => $data,
+            'type' => $type,
+            'data' => $data,
             'order' => $service->sections()->count() + 1,
         ]);
 
         return response()->json([
-            'status'  => true,
+            'status' => true,
             'message' => 'Section created successfully',
-            'section' => $section
+            'section' => $section,
         ]);
     }
 
@@ -97,13 +93,13 @@ class ServiceSectionController extends Controller
         $sectionConfig = config('sections')[$section->type];
 
         return response()->json([
-            'status'  => true,
+            'status' => true,
             'section' => [
-                'id'     => $section->id,
-                'type'   => $section->type,
+                'id' => $section->id,
+                'type' => $section->type,
                 'system' => $sectionConfig['system'] ?? false,
-                'data'   => $section->data,
-            ]
+                'data' => $section->data,
+            ],
         ]);
     }
 
@@ -115,10 +111,9 @@ class ServiceSectionController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Section deleted successfully'
+            'message' => 'Section deleted successfully',
         ]);
     }
-
 
     public function update(Request $request, Service $service, $sectionId)
     {
@@ -127,33 +122,38 @@ class ServiceSectionController extends Controller
 
         if ($sectionConfig['system'] ?? false) {
             return response()->json([
-                'status'  => false,
-                'message' => 'System sections cannot be edited'
+                'status' => false,
+                'message' => 'System sections cannot be edited',
             ], 403);
         }
 
         $this->cleanNestedPoints($request);
+
         $validator = Validator::make(
             $request->all(),
-            $sectionConfig['rules']    ?? [],
+            $sectionConfig['rules'] ?? [],
             $sectionConfig['messages'] ?? []
         );
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ], 422);
         }
+        // dd([
+        //     'before' => $request->all(),
+        //     'after' => $this->transformForStorage($section->type, $validator->validated()),
+        // ]);
 
         $section->update([
-            'data' => $validator->validated(),
+            'data' => $this->transformForStorage($section->type, $validator->validated()),
         ]);
 
         return response()->json([
-            'status'  => true,
+            'status' => true,
             'message' => 'Section updated successfully',
-            'section' => $section
+            'section' => $section,
         ]);
     }
 
@@ -161,7 +161,7 @@ class ServiceSectionController extends Controller
     {
         $sectionConfig = config('sections')[$type] ?? null;
 
-        if (!$sectionConfig) {
+        if (! $sectionConfig) {
             return response('Invalid section type', 400);
         }
 
@@ -171,13 +171,15 @@ class ServiceSectionController extends Controller
 
         $viewPath = "service-section.forms.$type";
 
-        if (!view()->exists($viewPath)) {
+        if (! view()->exists($viewPath)) {
             return response('Form not found', 404);
         }
 
         $existing = $request->existing
             ? json_decode($request->existing, true)
             : null;
+
+        $existing = $this->transformForEditor($type, $existing);
 
         return view($viewPath, compact('existing'));
     }
@@ -192,15 +194,16 @@ class ServiceSectionController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Order updated successfully'
+            'message' => 'Order updated successfully',
         ]);
     }
+
     public function toggle(Service $service, int $sectionId)
     {
         $section = $service->sections()->findOrFail($sectionId);
 
         $section->update([
-            'is_active' => !$section->is_active
+            'is_active' => ! $section->is_active,
         ]);
 
         return response()->json([
@@ -209,16 +212,66 @@ class ServiceSectionController extends Controller
         ]);
     }
 
+    // =========================================================================
+    //  TRANSFORMS
+    //  Add a new case per section type that needs data reshaping.
+    //  Everything else falls through untouched via default.
+    // =========================================================================
+
+    /**
+     * After validation → before saving to DB.
+     * Converts form field names into the shape the frontend blade expects.
+     */
+    private function transformForStorage(string $type, array $data): array
+    {
+        return match ($type) {
+
+            'pricing' => array_merge($data, [
+                'rows' => collect($data['rows'] ?? [])->map(fn ($r) => [
+                    'feature' => $r['feature'],
+                    'values' => [$r['value_1'], $r['value_2'], $r['value_3']],
+                ])->all(),
+            ]),
+
+            default => $data,
+        };
+    }
+
+    private function transformForEditor(string $type, ?array $data): ?array
+    {
+        if ($data === null) {
+            return null;
+        }
+
+        return match ($type) {
+
+            'pricing' => array_merge($data, [
+                'rows' => collect($data['rows'] ?? [])->map(fn ($r) => [
+                    'feature' => $r['feature'] ?? '',
+                    'value_1' => $r['values'][0] ?? '',
+                    'value_2' => $r['values'][1] ?? '',
+                    'value_3' => $r['values'][2] ?? '',
+                ])->all(),
+            ]),
+
+            default => $data,
+        };
+    }
+
+    // =========================================================================
+
     private function cleanNestedPoints(Request $request): void
     {
-        if (!$request->has('items')) return;
+        if (! $request->has('items')) {
+            return;
+        }
 
         $items = $request->input('items');
 
         foreach ($items as &$item) {
             if (isset($item['points']) && is_array($item['points'])) {
                 $item['points'] = array_values(
-                    array_filter($item['points'], fn($p) => trim($p) !== '')
+                    array_filter($item['points'], fn ($p) => trim($p) !== '')
                 );
             }
         }

@@ -2,7 +2,7 @@ import api from "../utils/api";
 import { serviceForm } from "../utils/forms/serviceForm";
 import { initServiceUI } from "../utils/service-ui-init";
 
-export function openServiceForm({
+export function openServiceForm({ 
     service = null,
     url,
     method = "post",

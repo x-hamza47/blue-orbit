@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('service_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('author_id')->nullable()->constrained()->nullOnDelete();
 
             $table->string('title');
             $table->string('slug')->unique();
@@ -22,9 +23,6 @@ return new class extends Migration
             $table->text('excerpt')->nullable(); 
 
             $table->string('thumbnail')->nullable();
-
-            $table->string('author_name')->nullable();
-            $table->string('author_image')->nullable();
 
             $table->timestamp('published_at')->nullable();
 

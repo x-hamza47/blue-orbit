@@ -83,7 +83,8 @@
                 <!-- Dropdown -->
                 <div class="menu-dropdown">
 
-                    <div class="menu-grid xl:overflow-y-auto flex xl:justify-center [&>div]:min-w-3xs xl:[&>div]:flex-1  xl:max-h-[calc(100dvh-200px)] flex-wrap gap-x-4 gap-y-2 ">
+                    {{-- <div class="menu-grid xl:overflow-y-auto flex xl:justify-center [&>div]:min-w-3xs xl:[&>div]:flex-1  xl:max-h-[calc(100dvh-200px)] flex-wrap gap-x-4 gap-y-2 "> --}}
+                    <div class="menu-grid xl:overflow-y-auto flex xl:justify-center [&>div]:min-w-3xs xl:[&>div]:flex-1  xl:max-h-[calc(100dvh-200px)] flex-col flex-wrap gap-x-4 gap-y-2 ">
 
                         @foreach ($navServices as $service)
 
@@ -120,7 +121,7 @@
                 </div>
             </div>
 
-            <a href="{{ route('blogs') }}" class="nav-link flex items-center gap-2 ">
+            <a href="{{ route('blog.index') }}" class="nav-link flex items-center gap-2 ">
                 <i data-lucide="file-text" class="w-5 h-5 nav-icon"></i>
                 <span>Blogs</span>
             </a>

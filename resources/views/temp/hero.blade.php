@@ -5,8 +5,8 @@
                 <div>
                     <h1
                         class="text-(--color-secondary) [&>span]:text-[clamp(2.5rem,6vw,4.5rem)] [&>span]:uppercase [&>span]:italic [&>span]:leading-none font-black uppercase tracking-wider text-lg md:text-xl mb-2 ">
-                        {{ $data['subheading'] ?? 'Digital Marketing services built to drive' }}
-                        <span class="text-(--color-primary)"> {{ $data['heading'] ?? 'Grow' }}</span>
+                        {{ $data['heading'] ?? 'Digital Marketing services built to drive' }}
+                        <span class="text-(--color-primary)"> {{ $data['subheading'] ?? 'Grow' }}</span>
                         <br />
                         {{-- <span class="text-(--color-secondary)">and </span>
                         <span class="text-(--color-primary)">Results</span>  --}}

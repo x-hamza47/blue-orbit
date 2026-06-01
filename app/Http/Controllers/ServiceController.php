@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Services\SectionResolver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+
 // use Illuminate\Support\Facades\File;
 
 class ServiceController extends Controller
@@ -17,9 +18,9 @@ class ServiceController extends Controller
     // }
     public function service(string $parentSlug, ?string $childSlug = null)
     {
-        $resolver = new SectionResolver();
+        $resolver = new SectionResolver;
 
-        if (!$childSlug) {
+        if (! $childSlug) {
 
             $service = Service::where('slug', $parentSlug)
                 ->whereNull('parent_id')
@@ -37,8 +38,8 @@ class ServiceController extends Controller
 
         $service->load(['sections' => function ($query) {
             $query->where('is_active', true)->orderBy('order');
-        }]);
-
+        }, 'parent']);
+        
         foreach ($service->sections as $section) {
             $section->resolved_data = $resolver->resolve($section, $service);
         }
@@ -54,15 +55,14 @@ class ServiceController extends Controller
             $query->where('show_on_home', 1);
         }
 
-
         $services = $query
             ->orderBy('home_order')
             ->get();
 
-        $totalServices   = Service::count();
-        $homeServices    = Service::showOnHome()->count();
-        $activeServices  = Service::active()->count();
-        $parentServices  = Service::parents()->count();
+        $totalServices = Service::count();
+        $homeServices = Service::showOnHome()->count();
+        $activeServices = Service::active()->count();
+        $parentServices = Service::parents()->count();
         // $childServices   = Service::subServices()->count();
 
         return view('dashboard.services.list', compact(
@@ -82,37 +82,42 @@ class ServiceController extends Controller
                     ->where('parent_id', $parentId)
                     ->update(['home_order' => $item['order']]);
             }
+
             return response()->json(['status' => true, 'message' => 'Order updated successfully'], 200);
         } catch (\Exception $e) {
-            return response()->json(['status' => false, 'message' =>  'Failed to update order'], 500);
+            return response()->json(['status' => false, 'message' => 'Failed to update order'], 500);
         }
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title'       => 'required|string|max:255',
-            'slug'        => 'required|string|max:255|unique:services,slug',
-            'icon'        => 'nullable|string|max:50',
-            'color'       => 'nullable|string|max:20',
-            'desc'        => 'required|string|max:90',
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:services,slug',
+            'icon' => 'nullable|string|max:50',
+            'color' => 'nullable|string|max:20',
+            'desc' => 'required|string|max:90',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string',
         ]);
 
         $service = Service::create([
-            'title'       => $validated['title'],
-            'slug'        => $validated['slug'],
-            'icon'        => $validated['icon'] ?? null,
-            'color'       => $validated['color'] ?? null,
-            'desc'        => $validated['desc'] ?? null,
-            'is_active'   => true,
+            'title' => $validated['title'],
+            'slug' => $validated['slug'],
+            'icon' => $validated['icon'] ?? null,
+            'color' => $validated['color'] ?? null,
+            'desc' => $validated['desc'] ?? null,
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
+            'is_active' => true,
             'show_on_home' => false,
-            'home_order'  => 0,
+            'home_order' => 0,
         ]);
 
         return response()->json([
             'status' => true,
             'message' => 'Service created successfully',
-            'data' => $service
+            'data' => $service,
         ]);
     }
 
@@ -122,13 +127,25 @@ class ServiceController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'slug'  => 'required|string|max:255|unique:services,slug,' . $id,
-            'icon'  => 'nullable|string|max:50',
+            'slug' => 'required|string|max:255|unique:services,slug,'.$id,
+            'icon' => 'nullable|string|max:50',
             'color' => 'nullable|string|max:20',
-            'desc'  => 'nullable|string|max:120',
+            'desc' => 'nullable|string|max:120',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string',
         ]);
 
-        $service->update($validated);
+        $service->update([
+            'title' => $validated['title'],
+            'slug' => $validated['slug'],
+            'icon' => $validated['icon'] ?? null,
+            'color' => $validated['color'] ?? null,
+            'desc' => $validated['desc'] ?? null,
+
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
+        ]);
+        Cache::forget('nav_services');
 
         return response()->json([
             'status' => true,
@@ -144,15 +161,16 @@ class ServiceController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Service deleted successfully'
+            'message' => 'Service deleted successfully',
         ]);
     }
+
     public function toggle(Request $request, $id)
     {
         $service = Service::findOrFail($id);
 
         $service->update([
-            'show_on_home' => $request->show_on_home
+            'show_on_home' => $request->show_on_home,
         ]);
         Cache::forget('nav_services');
 
@@ -185,28 +203,28 @@ class ServiceController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'slug'  => 'required|string|max:255|unique:services,slug',
-            'icon'  => 'nullable|string|max:50',
+            'slug' => 'required|string|max:255|unique:services,slug',
+            'icon' => 'nullable|string|max:50',
             'color' => 'nullable|string|max:20',
-            'desc'  => 'nullable|string|max:90',
+            'desc' => 'nullable|string|max:90',
         ]);
 
         $subService = Service::create([
-            'parent_id'    => $id,
-            'title'        => $validated['title'],
-            'slug'         => $validated['slug'],
-            'icon'         => $validated['icon'] ?? null,
-            'color'        => $validated['color'] ?? null,
-            'desc'         => $validated['desc'] ?? null,
-            'is_active'    => true,
+            'parent_id' => $id,
+            'title' => $validated['title'],
+            'slug' => $validated['slug'],
+            'icon' => $validated['icon'] ?? null,
+            'color' => $validated['color'] ?? null,
+            'desc' => $validated['desc'] ?? null,
+            'is_active' => true,
             'show_on_home' => false,
-            'home_order'   => 0,
+            'home_order' => 0,
         ]);
 
         return response()->json([
-            'status'  => 'success',
+            'status' => 'success',
             'message' => 'Sub service created successfully',
-            'data'    => $subService
+            'data' => $subService,
         ]);
     }
 
@@ -220,7 +238,7 @@ class ServiceController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Sub service deleted successfully'
+            'message' => 'Sub service deleted successfully',
         ]);
     }
 
@@ -233,18 +251,19 @@ class ServiceController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'slug'  => 'required|string|max:255|unique:services,slug,' . $id,
-            'icon'  => 'nullable|string|max:50',
+            'slug' => 'required|string|max:255|unique:services,slug,'.$id,
+            'icon' => 'nullable|string|max:50',
             'color' => 'nullable|string|max:20',
-            'desc'  => 'nullable|string|max:120',
+            'desc' => 'nullable|string|max:120',
         ]);
 
         $service->update($validated);
+        Cache::forget('nav_services');
 
         return response()->json([
             'status' => true,
             'message' => 'Sub service updated successfully',
-            'data' => $service
+            'data' => $service,
         ]);
     }
 }

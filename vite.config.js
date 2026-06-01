@@ -11,10 +11,12 @@ export default defineConfig({
                 "resources/js/app.js",
                 "resources/js/swiper.js",
                 "resources/css/testimonialSwiper.css",
+                "resources/css/editor.css",
                 "resources/js/faqs.js",
                 "resources/js/dashboard/app.js",
                 "resources/js/dashboard/pages/services.js",
                 "resources/js/dashboard/pages/sections.js",
+                "resources/js/dashboard/pages/author.js",
 
             ],
             refresh: true,
