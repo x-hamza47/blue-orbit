@@ -157,7 +157,7 @@
             </div>
 
             {{-- ── NEW: Case Studies ── --}}
-            <a href=""
+            <a href="#case-studies"
                 class="nav-link flex items-center gap-2">
                 <i data-lucide="bar-chart-2" class="w-5 h-5 nav-icon"></i>
                 <span>Case Studies</span>

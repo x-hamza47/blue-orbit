@@ -102,11 +102,19 @@ document.addEventListener("click", (e) => {
     }
 });
 
-const canvas = document.getElementById("particles");
-if (canvas) {
+["particles", "particles-contact"].forEach((id) => {
+    const canvas = document.getElementById(id);
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    let rafId = null;
+
+    function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+
+    resize();
+
     const dots = Array.from({ length: 80 }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -114,6 +122,7 @@ if (canvas) {
         dx: (Math.random() - 0.5) * 0.4,
         dy: (Math.random() - 0.5) * 0.4,
     }));
+
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         dots.forEach((d) => {
@@ -126,13 +135,28 @@ if (canvas) {
             if (d.x < 0 || d.x > canvas.width) d.dx *= -1;
             if (d.y < 0 || d.y > canvas.height) d.dy *= -1;
         });
-        requestAnimationFrame(draw);
+        rafId = requestAnimationFrame(draw);
     }
+
     draw();
-}
-function resizeCanvas() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+
+    // Pause when tab is hidden, resume when visible
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+            cancelAnimationFrame(rafId);
+        } else {
+            draw();
+        }
+    });
+
+    // Debounced resize — cancel old loop, resize, restart once
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        cancelAnimationFrame(rafId);
+        resizeTimer = setTimeout(() => {
+            resize();
+            draw();
+        }, 150);
+    });
+});

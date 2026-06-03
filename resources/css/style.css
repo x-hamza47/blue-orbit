@@ -267,4 +267,16 @@ header .navbar .menu-dropdown.active {
     @apply max-w-[389px] min-w-[295px];
 }
 
+.step-number {
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
 
+.step-number--animated {
+    animation: bubblePop 0.6s ease-out forwards;
+}
+
+@keyframes bubblePop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.8); }
+    100% { transform: scale(1); }
+}
