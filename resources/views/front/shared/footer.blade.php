@@ -97,11 +97,11 @@
             <div>
                 <h4 class="text-base font-bold mb-6">Services</h4>
                 <ul class="space-y-3 text-sm text-gray-400">
-                    @foreach($nav as $service)
+                    @foreach($navServices as $service)
                         <li>
-                            <a href="/services" class="hover:text-(--color-primary) transition flex items-center gap-2 group">
+                            <a href="{{ route('service', ['parentSlug' => $service->slug]) }}" class="hover:text-(--color-primary) transition flex items-center gap-2 group">
                                 <span class="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-(--color-primary) transition shrink-0"></span>
-                                {{ $service }}
+                                {{ $service->title }}
                             </a>
                         </li>
                     @endforeach

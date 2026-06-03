@@ -24,10 +24,10 @@
         }
         $size = str_contains($sizeClass, 'h-12') ? '68' : '40';
         return <<<SVG
-        <svg width="{$size}" height="{$size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="grayscale group-hover:grayscale-0 transition duration-300">
-            <path d="M24 4L6 11V24C6 33.4 14 41.7 24 44C34 41.7 42 33.4 42 24V11L24 4Z" fill="{$color}" opacity="0.15"/>
-            <path d="M24 4L6 11V24C6 33.4 14 41.7 24 44C34 41.7 42 33.4 42 24V11L24 4Z" stroke="{$color}" stroke-width="2" fill="none"/>
-            <text x="24" y="29" text-anchor="middle" font-size="13" font-weight="700" font-family="sans-serif" fill="{$color}">{$abbr}</text>
+        <svg width="{$size}" height="{$size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition duration-300">
+            <path d="M24 4L6 11V24C6 33.4 14 41.7 24 44C34 41.7 42 33.4 42 24V11L24 4Z" fill="#4373f6" opacity="0.15"/>
+            <path d="M24 4L6 11V24C6 33.4 14 41.7 24 44C34 41.7 42 33.4 42 24V11L24 4Z" stroke="#4373f6" stroke-width="2" fill="none"/>
+            <text x="24" y="29" text-anchor="middle" font-size="13" font-weight="700" font-family="sans-serif" fill="#4373f6">{$abbr}</text>
         </svg>
         SVG;
     }
@@ -43,7 +43,7 @@
             </span>
 
             <h2 class="mt-6 text-3xl md:text-4xl font-bold text-gray-900">
-                Industry Certifications & Partner Recognition
+                Industry Certifications & <span class="text-(--color-primary)">Partner Recognition</span>
             </h2>
         </div>
 

@@ -1,5 +1,5 @@
 {{-- SECTION 04: Results Counter Bar --}}
-<section id="results" class="w-full py-16 px-4 md:px-12 relative overflow-hidden" style="background: var(--color-secondary);">
+<section id="results" class="w-full py-16 px-4 md:px-12 relative overflow-hidden bg-(--color-primary)">
 
     {{-- Background texture / subtle grid --}}
     <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 28px 28px;"></div>

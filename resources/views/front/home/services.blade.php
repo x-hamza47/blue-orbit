@@ -92,13 +92,17 @@
                           hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
 
                     {{-- Colored top border --}}
-                    <div class="absolute top-0 left-0 right-0 h-[3px] rounded-t-[28px] transition-all duration-300 group-hover:h-[5px]"
-                         style="background: {{ $svc['color'] }};"></div>
+                    <div class="absolute top-0 left-0 right-0 h-[3px] rounded-t-[28px] transition-all duration-300 group-hover:h-[5px] bg-(--color-primary)"
+                         {{-- style="background: {{ $svc['color'] }};" --}}
+                         ></div>
 
                     {{-- Icon --}}
-                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-lg transition-transform duration-300 group-hover:scale-110"
-                         style="background: {{ $svc['color'] }}1a;">
-                        <i data-lucide="{{ $svc['icon'] }}" class="w-7 h-7" style="color: {{ $svc['color'] }};"></i>
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-lg transition-transform duration-300 group-hover:scale-110 bg-(--color-primary)"
+                         {{-- style="background: {{ $svc['color'] }}1a;" --}}
+                         >
+                        <i data-lucide="{{ $svc['icon'] }}" class="w-7 h-7 text-white" 
+                        {{-- style="color: {{ $svc['color'] }};" --}}
+                        ></i>
                     </div>
 
                     {{-- Title --}}
@@ -108,8 +112,11 @@
                     </h3>
 
                     {{-- Micro-stat pill --}}
-                    <span class="text-xs font-semibold px-3 py-1 rounded-full w-fit mb-4 tracking-wide"
-                          style="color: {{ $svc['color'] }}; background: {{ $svc['color'] }}18;">
+                    <span class="text-xs font-semibold px-3 py-1 rounded-full w-fit mb-4 tracking-wide bg-gray-900/10 text-(--color-primary)"
+
+                          {{-- style="
+                          color: {{ $svc['color'] }};
+                           background: {{ $svc['color'] }}18;" --}}>
                         {{ $svc['stat'] }}
                     </span>
 
@@ -119,8 +126,9 @@
                     </p>
 
                     {{-- Learn More --}}
-                    <div class="mt-6 flex items-center gap-1.5 text-sm font-bold transition-all duration-300 group-hover:gap-3"
-                         style="color: {{ $svc['color'] }};">
+                    <div class="mt-6 flex items-center gap-1.5 text-sm font-bold transition-all duration-300 group-hover:gap-3 text-(--color-primary)"
+                         {{-- style="color: {{ $svc['color'] }};" --}}
+                         >
                         Learn More
                         <i data-lucide="arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"></i>
                     </div>
@@ -129,7 +137,7 @@
 
             {{-- CTA Card --}}
             <div class="relative flex flex-col justify-between rounded-[28px] px-7 py-8 overflow-hidden sm:col-span-2 lg:col-span-1"
-                 style="background: var(--color-secondary);">
+                 style="background: var(--color-primary);">
 
                 {{-- Dot texture --}}
                 <div class="absolute inset-0 opacity-[0.04]"

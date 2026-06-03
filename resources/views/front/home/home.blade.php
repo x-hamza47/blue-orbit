@@ -207,4 +207,22 @@
 
 @push('styles')
     @vite('resources/css/testimonialSwiper.css')
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+.script-text {
+    font-family: 'Great Vibes', cursive;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 0.85;
+    vertical-align: middle;
+    display: inline-block;
+    transform: rotate(-4deg) scale(1.28);
+    transition: transform 0.3s ease;
+}
+
+.script-text:hover {
+    transform: rotate(-4deg) scale(1.15);
+}
+    </style>
 @endpush

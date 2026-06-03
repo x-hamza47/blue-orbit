@@ -81,7 +81,7 @@
 
                 <div class="flex flex-col rounded-3xl p-8 transition-all duration-300
                     {{ $plan['featured']
-                        ? 'bg-(--color-secondary) text-white shadow-2xl shadow-(--color-secondary)/20 scale-105'
+                        ? 'bg-(--color-primary) text-white shadow-2xl shadow-(--color-secondary)/20 scale-105'
                         : 'bg-white border border-gray-300 hover:shadow-lg hover:border-(--color-primary)/20' }}">
 
                     {{-- Most Popular Badge --}}
