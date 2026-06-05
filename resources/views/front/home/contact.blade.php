@@ -293,7 +293,7 @@
                     {{-- Submit --}}
                     <button type="submit"
                         class="flex items-center justify-center gap-3 w-full
-                               bg-(--color-gold) text-white font-bold rounded-full
+                               bg-(--color-primary) text-white font-bold rounded-full
                                py-4 px-8 hover:brightness-110 hover:scale-[1.02]
                                transition-all transform text-sm md:text-base mt-1">
                         <i data-lucide="rocket" class="w-5 h-5"></i>

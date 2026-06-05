@@ -1,29 +1,21 @@
 <section id="home"
     class="w-full relative overflow-hidden flex items-center bg-cover bg-center md:px-12 sm:px-6 px-4 min-h-[90vh]"
-    >
-   {{-- Replace overlay with solid + canvas for particles --}}
-<div class="absolute inset-0 bg-(--color-primary) z-0"></div>
-<canvas id="particles" class="absolute inset-0 z-1 opacity-50 w-full h-full"></canvas>
+    style="background-image: url('./images/background.png');">
+
+    {{-- <div class="absolute inset-0 z-0"></div> --}}
+    {{-- <canvas id="particles" class="absolute inset-0 z-1 opacity-50 w-full h-full"></canvas> --}}
 
     <div class="max-w-7xl mx-auto w-full relative z-10 flex flex-col md:flex-row items-center gap-8 pb-12 pt-6 md:pt-4">
 
         <div class="max-[840px]:w-full w-1/2 text-white flex flex-col items-start gap-5">
 
-            {{-- <h1
-                class="montserrat font-extrabold leading-[1.1] tracking-tight uppercase lg:text-5xl md:text-4xl sm:text-3xl text-2xl">
-                UAE's #1 Performance-Driven<br>
-                <span class="text-(--color-gold)">Digital Marketing Agency</span>
-            </h1> --}}
-  {{-- <h1 class="montserrat font-extrabold leading-[1.1] tracking-tight uppercase lg:text-5xl md:text-4xl sm:text-3xl text-2xl">
-    UAE's #1
-    <span class="script-text script-performance text-cyan-400 lg:text-7xl md:text-6xl sm:text-5xl text-4xl">Performance</span>-<span class="script-text script-driven text-(--color-gold) lg:text-7xl md:text-6xl sm:text-5xl text-4xl">Driven</span><br>
-    <span class="text-(--color-gold)">Digital Marketing Agency</span>
-</h1> --}}
-<h1 class="montserrat font-extrabold leading-[1.1] tracking-tight uppercase lg:text-5xl md:text-4xl sm:text-3xl text-2xl">
-    UAE's #1
-    <span class="script-text text-(--color-secondary) lg:text-7xl md:text-6xl sm:text-5xl text-4xl">Performance</span>Driven<br>
-    <span class="text-(--color-gold)">Digital Marketing Agency</span>
-</h1>
+            <h1
+                class="montserrat font-extrabold leading-[1.1] tracking-tight uppercase lg:text-5xl md:text-4xl sm:text-3xl text-2xl relative">
+                UAE's #1 <br>
+               <img class="-mb-10 w-2/3 absolute -top-13 sm:-right-2 right-4" src="{{ asset('images/caligraphy-2.webp') }}">
+                Driven
+                <span class="text-[#00d9ff]">Digital Marketing Agency</span>
+            </h1>
 
             <h2
                 class="text-gray-300 max-w-xl leading-relaxed text-base md:text-lg font-normal normal-case tracking-normal">
@@ -34,14 +26,14 @@
             <div class="flex flex-wrap items-center gap-x-6 gap-y-3 mt-1">
 
                 <div class="flex items-center gap-2 text-sm font-semibold">
-                    <span class="text-[#0A1628]">
+                    <span class="text-(--color-primary)">
                         <i data-lucide="badge-check" class="w-5 h-5"></i>
                     </span>
                     <span class="text-gray-200">Google Certified Agency</span>
                 </div>
 
                 <div class="flex items-center gap-2 text-sm font-semibold">
-                    <span class="text-[#0A1628] font-bold text-base">2,000+</span>
+                    <span class="text-(--color-primary) font-bold text-base">2,000+</span>
                     <span class="text-gray-200">Clients Served</span>
                 </div>
 
@@ -51,7 +43,7 @@
                 </div>
 
                 <div class="flex items-center gap-2 text-sm font-semibold">
-                    <span class="text-[#0A1628] font-bold text-base">150+</span>
+                    <span class="text-(--color-primary) font-bold text-base">150+</span>
                     <span class="text-gray-200">Team Members</span>
                 </div>
 
@@ -61,10 +53,10 @@
 
                 {{-- Primary CTA: Gold, opens audit form/Calendly --}}
                 <a href="#contact"
-                    class="flex items-center gap-3 bg-(--color-gold) text-white font-bold rounded-full
-                           py-3 px-7 hover:brightness-110 hover:scale-105 transition-all transform text-sm md:text-base">
+                    class="flex items-center gap-3 bg-white text-black font-bold rounded-full
+                           py-3 px-7 hover:brightness-110 hover:scale-105 capitalize transition-all transform text-sm md:text-base">
                     <i data-lucide="search" class="w-5 h-5"></i>
-                    Get Your FREE Website Audit
+                    Get your free business growth audit
                 </a>
 
                 {{-- Secondary CTA: WhatsApp green --}}
@@ -91,4 +83,3 @@
 
     </div>
 </section>
-

@@ -28,7 +28,7 @@ export default defineConfig({
         //     ignored: ["**/storage/framework/views/**"],
         // },
 
-        host: "192.168.100.3", // your local IP true if all interfaces
-        port: 5174, // default Vite port
+        // host: "192.168.100.3", // your local IP true if all interfaces
+        // port: 5174, // default Vite port
     },
 });

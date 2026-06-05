@@ -217,7 +217,7 @@
     line-height: 0.85;
     vertical-align: middle;
     display: inline-block;
-    transform: rotate(-4deg) scale(1.28);
+    transform: rotate(-4deg) scale(1.58);
     transition: transform 0.3s ease;
 }
 

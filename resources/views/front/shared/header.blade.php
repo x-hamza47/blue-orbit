@@ -177,7 +177,7 @@
             </a>
 
             <a href="{{ request()->is('/') ? '#contact' : url('/') . '#contact' }}"
-                class="hidden sm:flex items-center gap-2 bg-(--color-gold) text-white px-6 py-2.5 rounded-full font-bold hover:brightness-110 hover:scale-105 transition-all transform lg:ml-auto text-nowrap border-2 border-(--color-gold) free-audit-btn">
+                class="hidden sm:flex items-center gap-2 bg-(--color-primary) text-white px-6 py-2.5 rounded-full font-bold hover:brightness-110 hover:scale-105 transition-all transform lg:ml-auto text-nowrap border-2 border-(--color-primary) free-audit-btn">
                 <i data-lucide="search" class="w-4 h-4"></i>
                 Free Audit →
             </a>
